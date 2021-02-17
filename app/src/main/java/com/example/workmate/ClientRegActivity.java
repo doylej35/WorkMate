@@ -1,5 +1,6 @@
 package com.example.workmate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ClientRegActivity extends AppCompatActivity {
 
@@ -27,6 +34,8 @@ public class ClientRegActivity extends AppCompatActivity {
         EditText Phone = (EditText) findViewById(R.id.etPhone);
         EditText Pass1 = (EditText) findViewById(R.id.etPassword1);
         EditText Pass2 = (EditText) findViewById(R.id.etPassword2);
+
+
 
 
         Button button = (Button) findViewById(R.id.button);
@@ -68,7 +77,24 @@ public class ClientRegActivity extends AppCompatActivity {
                 else if (!Cons.isChecked()){
                     Cons.setError("Click yes");
                 }    
-                else    openAct();
+                else {
+                    FirebaseAuth fAuth = FirebaseAuth.getInstance();
+                    String email = Email1.getText().toString().trim();
+                    String password = Pass1.getText().toString().trim();
+
+                    fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        }else {
+                            Toast.makeText(ClientRegActivity.this, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    });
+                    openAct();
+                }
 
             }
         });
