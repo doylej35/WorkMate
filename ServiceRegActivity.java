@@ -60,7 +60,6 @@ public class ServiceRegActivity extends AppCompatActivity {
                     Phone.setError("Please enter Phone number");
                 }
                 else if (Prof.length() == 0){
-                    //|| Pass1 != Pass2
                     Prof.setError("Please enter Proffesion");
                 }
                 else if (!Cons.isChecked()) {
@@ -74,19 +73,16 @@ public class ServiceRegActivity extends AppCompatActivity {
                     Pass1.setError("Please enter Password");
                 }
                 else if (Pass2.length() == 0){
-                    //|| Pass1 != Pass2
                     Pass2.setError("Please enter Password");
                 }
                 else if (!Pass1.getText().toString().equals(Pass2.getText().toString())){
-                    //|| Pass1 != Pass2
                     Pass2.setError("Please enter Password");
                 }
                 else if (!Cons.isChecked()){
                     Cons.setError("Click yes");
-                }
-                //if (Fname.length() && Lname.length() && Email1.length() && Email2.length() && Addr1.length() && Phone.length() && Pass1.length() !=0 && Pass2.length() != 0) {
+                } 
                 else    openAct();
-                //}
+
             }
         });
 
