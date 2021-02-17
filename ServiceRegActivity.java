@@ -50,7 +50,7 @@ public class ServiceRegActivity extends AppCompatActivity {
                     //|| Email2 != Email1
                     Email2.setError("Please enter Email");
                 }
-                else if (Email2.equals(Email1)){
+                else if (!Email1.getText().toString().equals(Email2.getText().toString())) {
                     Email2.setError("Please enter Email");
                 }
                 else if (Addr1.length() == 0){
@@ -77,7 +77,7 @@ public class ServiceRegActivity extends AppCompatActivity {
                     //|| Pass1 != Pass2
                     Pass2.setError("Please enter Password");
                 }
-                else if (Pass2.equals(Pass1)){
+                else if (!Pass1.getText().toString().equals(Pass2.getText().toString())){
                     //|| Pass1 != Pass2
                     Pass2.setError("Please enter Password");
                 }
