@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void service_reg(View V){
         //open service provider registration
-        Intent intent_s = new Intent(this, ServiceRegActivity.class);
-        startActivity(intent_s);
+        Intent intent = new Intent(this, ServiceRegActivity.class);
+        startActivity(intent);
     }
 
 }
