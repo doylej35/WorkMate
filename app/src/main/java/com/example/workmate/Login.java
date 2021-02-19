@@ -22,20 +22,19 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
     EditText mEmail, mPassword;
-    Button mLoginBtn;
     FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);    //problem here ... how is activity_login declared ?
+        setContentView(R.layout.activity_login);
 
-        mEmail = findViewById(R.id.etEmail1);
-        mPassword = findViewById(R.id.etPassword1);
+        mEmail = findViewById(R.id.etUsername);
+        mPassword = findViewById(R.id.imgPassword);
         fAuth = FirebaseAuth.getInstance();
-        mLoginBtn = findViewById(R.id.button);
+        Button button = (Button) findViewById(R.id.btnLogin);
 
-        mLoginBtn.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v){
@@ -47,6 +46,7 @@ public class Login extends AppCompatActivity {
                 FirebaseUser currentUser = fAuth.getCurrentUser();
                 if(currentUser != null) {
                     //reload();    load their previous session
+                    //Toast.makeText(Login.this, "Already Logged in", Toast.LENGTH_SHORT).show();
                 } else {
 
                 if(TextUtils.isEmpty(email)){
@@ -64,6 +64,8 @@ public class Login extends AppCompatActivity {
                             Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = fAuth.getCurrentUser();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                            openAct();
                         }else {
                             Toast.makeText(Login.this, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -73,6 +75,22 @@ public class Login extends AppCompatActivity {
             }
         });
 
+    }
+    public void openAct(){
+        Intent intent = new Intent( this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void client_reg(View V){
+        //open client registration
+        Intent intent = new Intent(this, ClientRegActivity.class);
+        startActivity(intent);
+    }
+
+    public void service_reg(View V){
+        //open service provider registration
+        Intent intent = new Intent(this, ServiceRegActivity.class);
+        startActivity(intent);
     }
 
 }

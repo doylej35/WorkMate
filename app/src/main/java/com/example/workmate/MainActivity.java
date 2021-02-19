@@ -17,22 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
-    private void login(View V){
-        Button login = (Button)findViewById(R.id.btnLogin);
-        //insert code
+    public void loginPage(View v){
+        Intent i = new Intent(this, Login.class);
+        startActivity(i);
     }
-
-    public void client_reg(View V){
-        //open client registration
-        Intent intent = new Intent(this, ClientRegActivity.class);
-        startActivity(intent);
-    }
-
-    public void service_reg(View V){
-        //open service provider registration
-        Intent intent = new Intent(this, ServiceRegActivity.class);
-        startActivity(intent);
-    }
-
 }
