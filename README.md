@@ -1,4 +1,5 @@
 # WorkMate
+Application connecting users and service provider for a seamless experience 
 
 ## Formating
 ### For variables in XML files please follow the following format...
