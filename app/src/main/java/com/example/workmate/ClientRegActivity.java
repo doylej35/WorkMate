@@ -24,20 +24,20 @@ public class ClientRegActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_reg);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        EditText Fname = (EditText) findViewById(R.id.etFirstName);
-        EditText Lname = (EditText) findViewById(R.id.etLastName);
-        EditText Email1 = (EditText) findViewById(R.id.etEmail1);
-        EditText Email2 = (EditText) findViewById(R.id.etEmail2);
-        EditText Addr1 = (EditText) findViewById(R.id.etAddress1);
-        EditText Phone = (EditText) findViewById(R.id.etPhone);
-        EditText Pass1 = (EditText) findViewById(R.id.etPassword1);
-        EditText Pass2 = (EditText) findViewById(R.id.etPassword2);
+        final EditText Fname = (EditText) findViewById(R.id.etFirstName);
+        final EditText Lname = (EditText) findViewById(R.id.etLastName);
+        final EditText Email1 = (EditText) findViewById(R.id.etEmail1);
+        final EditText Email2 = (EditText) findViewById(R.id.etEmail2);
+        final EditText Addr1 = (EditText) findViewById(R.id.etAddress1);
+        final EditText Phone = (EditText) findViewById(R.id.etPhone);
+        final EditText Pass1 = (EditText) findViewById(R.id.etPassword1);
+        final EditText Pass2 = (EditText) findViewById(R.id.etPassword2);
 
 
 
 
         Button button = (Button) findViewById(R.id.button);
-        CheckBox Cons = (CheckBox) findViewById(R.id.cbTermsOfServices);
+        final CheckBox Cons = (CheckBox) findViewById(R.id.cbTermsOfServices);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

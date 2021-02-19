@@ -20,13 +20,13 @@
             android:value="true" />
 
         <activity android:name=".ServiceRegActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".Login"/>
 
         <activity android:name=".ClientRegActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".Login" />
 
         <activity android:name=".Login"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>

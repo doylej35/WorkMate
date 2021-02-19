@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">WorkMate</string>
+    <string name="open">Open</string>
+    <string name="close">close</string>
 
     <!-- Login Page -->
     <string name="logo">Logo</string>
@@ -30,10 +32,6 @@
     <string name="toc">Agree to terms of services</string>
     <string name="reg_serv_title">Register as service provider</string>
     <string name="reg_client_title">Register as service user</string>
-
-
-
-
 
 
 </resources>
