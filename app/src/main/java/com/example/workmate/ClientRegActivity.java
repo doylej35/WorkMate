@@ -84,14 +84,18 @@ public class ClientRegActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
+                            //sign up was succesful print a message
                             Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                            openAct();
                         }else {
+                            //sign up failed!! print error message
                             Toast.makeText(ClientRegActivity.this, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                     });
-                    openAct();
+
                 }
 
             }
