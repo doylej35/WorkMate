@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,10 +16,16 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
 
+    private androidx.appcompat.widget.Toolbar mToolbar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mToolbar = (Toolbar) findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);

@@ -8,13 +8,20 @@
     tools:context=".MainActivity"
     android:id="@+id/drawerLayout">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/nav_action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="147dp"
             android:layout_marginTop="281dp"
@@ -26,15 +33,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/navigation_menu"
-        android:layout_gravity="start">
+        app:menu="@menu/nav_menu"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_drawer_header">
+
     </com.google.android.material.navigation.NavigationView>
 
 

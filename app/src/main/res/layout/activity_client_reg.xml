@@ -21,6 +21,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/reg_client_title"
             android:textAlignment="center"
+            android:textColor="@color/main_blue"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
