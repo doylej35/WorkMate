@@ -109,7 +109,7 @@ public class ServiceRegActivity extends AppCompatActivity {
                 String email = Email1.getText().toString().trim();
                 String password = Pass1.getText().toString().trim();
 
-                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task ->{
                     if(task.isSuccessful()) {
                         Toast.makeText(ServiceRegActivity.this, "Worker Created",
                                 Toast.LENGTH_SHORT).show();
