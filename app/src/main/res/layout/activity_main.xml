@@ -8,7 +8,7 @@
     android:background="@color/cardview_dark_background"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,30 +16,23 @@
         <include
             layout="@layout/nav_action_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="147dp"
-            android:layout_marginTop="281dp"
-            android:layout_marginEnd="171dp"
-            android:layout_marginBottom="402dp"
-            android:onClick="loginPage"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="732dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_drawer_header"
+        android:id="@+id/nav_view"
         app:menu="@menu/nav_menu">
 
     </com.google.android.material.navigation.NavigationView>

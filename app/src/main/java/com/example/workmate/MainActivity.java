@@ -9,13 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ActionBarDrawerToggle mToggle;
+    private DrawerLayout mDrawer;
 
 
     @Override
@@ -26,27 +30,69 @@ public class MainActivity extends AppCompatActivity {
         Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-        DrawerLayout mDrawerLayout = findViewById(R.id.drawerLayout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mDrawer = findViewById(R.id.drawerLayout);
+        mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
 
-        mDrawerLayout.addDrawerListener(mToggle);
+        mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                    new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_home);
+        }
 
     }
 
     @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.nav_home:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                        new HomeFragment()).commit();
+                break;
+
+            case R.id.nav_account:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                        new ProfileFragment()).commit();
+                break;
+
+            case R.id.nav_messages:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                        new MessagesFragment()).commit();
+                break;
+
+            case R.id.nav_settings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                        new SettingsFragment()).commit();
+                break;
+
+            case R.id.nav_login:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                        new LoginFragment()).commit();
+                break;
+        }
+
+        mDrawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(mToggle.onOptionsItemSelected(item)){
+        if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void loginPage(View v){
+    public void loginPage(View v) {
         Intent i = new Intent(this, Login.class);
         startActivity(i);
     }
-
 }

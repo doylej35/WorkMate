@@ -8,9 +8,9 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@drawable/workmate"
+        android:icon="@drawable/workmate_logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/workmate"
+        android:roundIcon="@drawable/workmate_logo_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkMate">
 
