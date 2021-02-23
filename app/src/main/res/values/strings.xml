@@ -1,21 +1,10 @@
-<?xml version="1.0"?>
 <resources>
-
-    <!-- Main Page -->
     <string name="app_name">WorkMate</string>
-    <string name="logo">Logo</string>
     <string name="open">Open</string>
     <string name="close">close</string>
 
-    <!-- Drawer Titles -->
-    <string name="drawer_home">Home</string>
-    <string name="drawer_messages">Messages</string>
-    <string name="drawer_profile">My Profile</string>
-    <string name="drawer_settings">Settings</string>
-    <string name="drawer_logout">Log Out</string>
-    <string name="drawer_login">Log In/Register</string>
-
     <!-- Login Page -->
+    <string name="logo">Logo</string>
     <string name="welcome">Welcome</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
@@ -43,6 +32,6 @@
     <string name="toc">Agree to terms of services</string>
     <string name="reg_serv_title">Register as service provider</string>
     <string name="reg_client_title">Register as service user</string>
-    <string name="logout">Logout</string>
+
 
 </resources>

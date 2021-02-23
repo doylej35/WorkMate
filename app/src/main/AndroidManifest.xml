@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.workmate">
 
@@ -7,38 +6,31 @@
 
     <application
         android:allowBackup="true"
-        android:fullBackupContent="true"
-        android:icon="@drawable/workmate_logo"
+        android:icon="@drawable/workmate"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/workmate_logo_circle"
+        android:roundIcon="@drawable/workmate"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WorkMate">
+        android:theme="@style/Theme.WorkMate"
+        android:fullBackupContent="true">
 
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <activity
-            android:name=".ServiceRegActivity"
+        <activity android:name=".ServiceRegActivity"
+            android:parentActivityName=".Login"/>
+
+        <activity android:name=".ClientRegActivity"
             android:parentActivityName=".Login" />
 
-        <activity
-            android:name=".ClientRegActivity"
-            android:parentActivityName=".Login" />
-
-        <activity
-            android:name=".Login"
-            android:parentActivityName=".MainActivity" />
+        <activity android:name=".Login"
+            android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
-
         </activity>
 
     </application>
