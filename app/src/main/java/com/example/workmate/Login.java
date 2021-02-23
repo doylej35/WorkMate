@@ -50,6 +50,8 @@ public class Login extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         Button button = (Button) findViewById(R.id.btnLogin);
 
+        Button logout = (Button) findViewById(R.id.button3);
+
         button.setOnClickListener(v -> {
 
             String email = mEmail.getText().toString().trim();
@@ -59,7 +61,7 @@ public class Login extends AppCompatActivity {
             FirebaseUser currentUser = fAuth.getCurrentUser();
             if(currentUser != null) {
                 //reload();    load their previous session
-                //Toast.makeText(Login.this, "Already Logged in", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "Already Logged in", Toast.LENGTH_SHORT).show();
             } else {
 
                 if(TextUtils.isEmpty(email)){
@@ -74,7 +76,7 @@ public class Login extends AppCompatActivity {
                     if(task.isSuccessful()) {
                         Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                         FirebaseUser user = fAuth.getCurrentUser();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        //startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         openAct();
                     }else {
@@ -82,6 +84,12 @@ public class Login extends AppCompatActivity {
                     }
                 });
             }
+        });
+
+        logout.setOnClickListener(log -> {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(Login.this , "Logout Successful", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
         });
 
     }
