@@ -15,10 +15,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-
-    private androidx.appcompat.widget.Toolbar mToolbar;
 
 
     @Override
@@ -26,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.nav_action);
+        Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        DrawerLayout mDrawerLayout = findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);

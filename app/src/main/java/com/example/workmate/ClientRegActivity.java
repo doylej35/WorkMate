@@ -20,20 +20,17 @@ import java.util.Objects;
 
 public class ClientRegActivity extends AppCompatActivity {
 
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-
-    private androidx.appcompat.widget.Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_reg);
 
-        mToolbar = (Toolbar) findViewById(R.id.nav_action);
+        Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        DrawerLayout mDrawerLayout = findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
@@ -41,18 +38,18 @@ public class ClientRegActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        final EditText Fname = (EditText) findViewById(R.id.etFirstName);
-        final EditText Lname = (EditText) findViewById(R.id.etLastName);
-        final EditText Email1 = (EditText) findViewById(R.id.etEmail1);
-        final EditText Email2 = (EditText) findViewById(R.id.etEmail2);
-        final EditText Addr1 = (EditText) findViewById(R.id.etAddress1);
-        final EditText Phone = (EditText) findViewById(R.id.etPhone);
-        final EditText Pass1 = (EditText) findViewById(R.id.etPassword1);
-        final EditText Pass2 = (EditText) findViewById(R.id.etPassword2);
+        final EditText Fname = findViewById(R.id.etFirstName);
+        final EditText Lname = findViewById(R.id.etLastName);
+        final EditText Email1 = findViewById(R.id.etEmail1);
+        final EditText Email2 = findViewById(R.id.etEmail2);
+        final EditText Addr1 = findViewById(R.id.etAddress1);
+        final EditText Phone =  findViewById(R.id.etPhone);
+        final EditText Pass1 = findViewById(R.id.etPassword1);
+        final EditText Pass2 = findViewById(R.id.etPassword2);
 
 
-        Button button = (Button) findViewById(R.id.button);
-        final CheckBox Cons = (CheckBox) findViewById(R.id.cbTermsOfServices);
+        Button button =  findViewById(R.id.button);
+        final CheckBox Cons =  findViewById(R.id.cbTermsOfServices);
 
         button.setOnClickListener(v -> {
             if (Fname.length() == 0  ){
@@ -89,19 +86,21 @@ public class ClientRegActivity extends AppCompatActivity {
                 Cons.setError("Click yes");
             }
             else {
+                //if all the fields are filled correctly begin firebase functionality
                 FirebaseAuth fAuth = FirebaseAuth.getInstance();
+                //convert variables to correct types
                 String email = Email1.getText().toString().trim();
                 String password = Pass1.getText().toString().trim();
 
+                //attempt to create a new user
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                    //sign up failed!! print error message
                     if(task.isSuccessful()) {
-                        //sign up was succesful print a message
+                        //sign up was succesful print a message and go to main page
                         Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         openAct();
                     }else
+                        //sign up failed!! print error message
                         Toast.makeText(ClientRegActivity.this, "Error" + Objects.requireNonNull(task.getException())
                                 .getMessage(), Toast.LENGTH_SHORT).show();
                 });
