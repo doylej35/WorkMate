@@ -10,6 +10,19 @@
     </option>
     <option name="cloneParentDir" value="$USER_HOME$/Downloads" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="Vcs.Log.App.Settings">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="1" />
+        <option value="2" />
+        <option value="3" />
+      </list>
+    </option>
+  </component>
+>>>>>>> 9abe55a9b3b6c0f3307e5d19314d84fbef63dc21
   <component name="VcsApplicationSettings">
     <option name="COMMIT_FROM_LOCAL_CHANGES" value="true" />
   </component>
