@@ -1,37 +1,69 @@
+<?xml version="1.0"?>
 <resources>
+
     <string name="app_name">WorkMate</string>
+
     <string name="open">Open</string>
+
     <string name="close">close</string>
 
     <!-- Login Page -->
+
+
     <string name="logo">Logo</string>
+
     <string name="welcome">Welcome</string>
+
     <string name="login">Login</string>
+
     <string name="email">Email</string>
+
     <string name="password">Password</string>
+
     <string name="new_user">New user?</string>
+
     <string name="register_client">Register - User</string>
+
     <string name="register_service">Register - Service</string>
+
     <string name="title_activity_register">Register</string>
+
     <string name="register_prompt">Register as a user or a service provider</string>
 
     <!-- Register -->
-    <string name="reg_first_name">First name</string>
-    <string name="reg_last_name">Last name</string>
-    <string name="reg_email">Email</string>
-    <string name="reg_email2">Re-enter email</string>
-    <string name="reg_phone">Phone</string>
-    <string name="address1">Address line 1</string>
-    <string name="address2">Address line 2</string>
-    <string name="postcode">Postcode</string>
-    <string name="profession">Profession</string>
-    <string name="proof">Tick box if you have proof of your profession</string>
-    <string name="distance">How far you will travel for work (km)</string>
-    <string name="password1">Password</string>
-    <string name="password2">Re-enter password</string>
-    <string name="toc">Agree to terms of services</string>
-    <string name="reg_serv_title">Register as service provider</string>
-    <string name="reg_client_title">Register as service user</string>
 
+
+    <string name="reg_first_name">First name</string>
+
+    <string name="reg_last_name">Last name</string>
+
+    <string name="reg_email">Email</string>
+
+    <string name="reg_email2">Re-enter email</string>
+
+    <string name="reg_phone">Phone</string>
+
+    <string name="address1">Address line 1</string>
+
+    <string name="address2">Address line 2</string>
+
+    <string name="postcode">Postcode</string>
+
+    <string name="profession">Profession</string>
+
+    <string name="proof">Tick box if you have proof of your profession</string>
+
+    <string name="distance">How far you will travel for work (km)</string>
+
+    <string name="password1">Password</string>
+
+    <string name="password2">Re-enter password</string>
+
+    <string name="toc">Agree to terms of services</string>
+
+    <string name="reg_serv_title">Register as service provider</string>
+
+    <string name="reg_client_title">Register as service user</string>
+    <string name="logout">Logout</string>
 
 </resources>
