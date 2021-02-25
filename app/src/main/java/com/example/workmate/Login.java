@@ -24,26 +24,14 @@ public class Login extends AppCompatActivity {
     EditText mEmail, mPassword;
     FirebaseAuth fAuth;
 
-<<<<<<< HEAD
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
 
-    private androidx.appcompat.widget.Toolbar mToolbar;
-
-=======
-    private ActionBarDrawerToggle mToggle;
-
->>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-<<<<<<< HEAD
-        mToolbar = (Toolbar) findViewById(R.id.nav_action);
-=======
         Toolbar mToolbar = findViewById(R.id.nav_action);
->>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
         setSupportActionBar(mToolbar);
 
         DrawerLayout mDrawerLayout = findViewById(R.id.drawerLayout);
@@ -57,16 +45,10 @@ public class Login extends AppCompatActivity {
         mEmail = findViewById(R.id.etUsername);
         mPassword = findViewById(R.id.imgPassword);
         fAuth = FirebaseAuth.getInstance();
-<<<<<<< HEAD
-        Button button = (Button) findViewById(R.id.btnLogin);
-
-        Button logout = (Button) findViewById(R.id.button3);
-=======
         FirebaseUser currentUser = fAuth.getCurrentUser();
         Button button = findViewById(R.id.btnLogin);
 
         Button logout = findViewById(R.id.btnLogout);  //this is the new logout button
->>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
 
         button.setOnClickListener(v -> {
 
@@ -79,11 +61,7 @@ public class Login extends AppCompatActivity {
                 //reload();    load their previous session ->link to their account page
                 Toast.makeText(Login.this, "Already Logged in", Toast.LENGTH_SHORT).show();
             } else {
-<<<<<<< HEAD
-
-=======
                 //if they are not logged in read in their credentials
->>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
                 if(TextUtils.isEmpty(email)){
                     mEmail.setError("Email is required.");
                     return;
@@ -91,11 +69,7 @@ public class Login extends AppCompatActivity {
                 if(TextUtils.isEmpty(password)){
                     mEmail.setError("Password is required.");
                 }
-<<<<<<< HEAD
-
-=======
                 //run the firebase login functions
->>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
                         //login was succesful, links to main activity page via openact() function

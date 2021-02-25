@@ -16,26 +16,6 @@
         <include
             layout="@layout/nav_action_bar"
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="147dp"
-            android:layout_marginTop="281dp"
-            android:layout_marginEnd="171dp"
-            android:layout_marginBottom="402dp"
-            android:onClick="loginPage"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-=======
             android:layout_height="wrap_content"/>
 
         <FrameLayout
@@ -46,7 +26,6 @@
         </FrameLayout>
 
     </LinearLayout>
->>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"

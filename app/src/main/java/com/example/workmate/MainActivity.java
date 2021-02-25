@@ -11,11 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-<<<<<<< HEAD
-=======
 
 import com.google.android.material.navigation.NavigationView;
->>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
 
 import java.util.Objects;
 
@@ -39,9 +36,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
 
-<<<<<<< HEAD
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-=======
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -52,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
->>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
 
     }
 

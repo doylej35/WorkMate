@@ -3,12 +3,9 @@
 
     <!-- Main Page -->
     <string name="app_name">WorkMate</string>
-<<<<<<< HEAD
-=======
     <string name="logo">Logo</string>
     <string name="open">Open</string>
     <string name="close">close</string>
->>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
 
     <!-- Drawer Titles -->
     <string name="drawer_home">Home</string>
@@ -42,10 +39,6 @@
     <string name="proof">Tick box if you have proof of your profession</string>
     <string name="distance">How far you will travel for work (km)</string>
     <string name="password1">Password</string>
-<<<<<<< HEAD
-
-=======
->>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
     <string name="password2">Re-enter password</string>
     <string name="toc">Agree to terms of services</string>
     <string name="reg_serv_title">Register as service provider</string>
