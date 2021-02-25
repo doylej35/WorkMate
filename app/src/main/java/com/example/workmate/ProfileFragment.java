@@ -23,13 +23,23 @@ public class ProfileFragment extends Fragment {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_profile, null);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){
-            String name = user.getDisplayName();
+            String name1 = user.getDisplayName();
+            String name2 = user.getDisplayName();
+            String email = user.getEmail();
+            //String pword = user.get
 
             String uid = user.getUid();
 
             TextView textView;
-            textView = (TextView) root.findViewById(R.id.textView3);
-            textView.setText(name);
+            textView = (TextView) root.findViewById(R.id.email);
+            textView.setText(email);
+
+            textView = (TextView) root.findViewById(R.id.fname);
+            textView.setText(name1);
+
+            textView = (TextView) root.findViewById(R.id.lname);
+            textView.setText(name2);
+
         }else{
            Toast.makeText(getActivity(), "not logged in", Toast.LENGTH_SHORT).show();
         }
