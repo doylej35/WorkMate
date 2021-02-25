@@ -24,20 +24,29 @@ public class Login extends AppCompatActivity {
     EditText mEmail, mPassword;
     FirebaseAuth fAuth;
 
+<<<<<<< HEAD
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
 
     private androidx.appcompat.widget.Toolbar mToolbar;
 
+=======
+    private ActionBarDrawerToggle mToggle;
+
+>>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+<<<<<<< HEAD
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
+=======
+        Toolbar mToolbar = findViewById(R.id.nav_action);
+>>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
         setSupportActionBar(mToolbar);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        DrawerLayout mDrawerLayout = findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
@@ -48,9 +57,16 @@ public class Login extends AppCompatActivity {
         mEmail = findViewById(R.id.etUsername);
         mPassword = findViewById(R.id.imgPassword);
         fAuth = FirebaseAuth.getInstance();
+<<<<<<< HEAD
         Button button = (Button) findViewById(R.id.btnLogin);
 
         Button logout = (Button) findViewById(R.id.button3);
+=======
+        FirebaseUser currentUser = fAuth.getCurrentUser();
+        Button button = findViewById(R.id.btnLogin);
+
+        Button logout = findViewById(R.id.btnLogout);  //this is the new logout button
+>>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
 
         button.setOnClickListener(v -> {
 
@@ -58,12 +74,16 @@ public class Login extends AppCompatActivity {
             String password = mPassword.getText().toString().trim();
 
             //check if already logged in
-            FirebaseUser currentUser = fAuth.getCurrentUser();
+            //if current user is not null they are already logged in, print error message
             if(currentUser != null) {
-                //reload();    load their previous session
+                //reload();    load their previous session ->link to their account page
                 Toast.makeText(Login.this, "Already Logged in", Toast.LENGTH_SHORT).show();
             } else {
+<<<<<<< HEAD
 
+=======
+                //if they are not logged in read in their credentials
+>>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
                 if(TextUtils.isEmpty(email)){
                     mEmail.setError("Email is required.");
                     return;
@@ -71,25 +91,40 @@ public class Login extends AppCompatActivity {
                 if(TextUtils.isEmpty(password)){
                     mEmail.setError("Password is required.");
                 }
+<<<<<<< HEAD
 
+=======
+                //run the firebase login functions
+>>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
+                        //login was succesful, links to main activity page via openact() function
                         Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                        FirebaseUser user = fAuth.getCurrentUser();
-                        //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                      //  FirebaseUser user = fAuth.getCurrentUser();  //creates a warning but is necessary so that
+                                                                        //the user stays logged in
 
                         openAct();
                     }else {
+                        //login not succesful, prints reason
+                        //example: login credentials are not registered
                         Toast.makeText(Login.this, "Error" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
 
+        //this sets up the logout functionality for the button
+        //could insert an if statement to check it worked?
         logout.setOnClickListener(log -> {
-            FirebaseAuth.getInstance().signOut();
-            Toast.makeText(Login.this , "Logout Successful", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
+            //logs out the current user then returns to main activity
+            if(currentUser!=null) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(Login.this, "Logout Successful", Toast.LENGTH_SHORT).show();
+                openAct();
+            }
+            else {
+                Toast.makeText(Login.this, "Not signed in!", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }

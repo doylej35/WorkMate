@@ -20,20 +20,21 @@ import java.util.Objects;
 
 public class ServiceRegActivity extends AppCompatActivity {
 
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-
-    private androidx.appcompat.widget.Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_reg);
 
+<<<<<<< HEAD
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
+=======
+        Toolbar mToolbar = findViewById(R.id.nav_action);
+>>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
         setSupportActionBar(mToolbar);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        DrawerLayout mDrawerLayout = findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
@@ -42,6 +43,7 @@ public class ServiceRegActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
+<<<<<<< HEAD
         final EditText Fname = (EditText) findViewById(R.id.etFirstName);
         final EditText Lname = (EditText) findViewById(R.id.etLastName);
         final EditText Email1 = (EditText) findViewById(R.id.etEmail1);
@@ -58,6 +60,27 @@ public class ServiceRegActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.button);
         final CheckBox Cons = (CheckBox) findViewById(R.id.cbTermsOfServices);
         CheckBox Cons1 = (CheckBox) findViewById(R.id.cbTermsOfServices);
+=======
+        final EditText Fname = findViewById(R.id.etFirstName);
+        final EditText Lname =  findViewById(R.id.etLastName);
+        final EditText Email1 = findViewById(R.id.etEmail1);
+        final EditText Email2 =  findViewById(R.id.etEmail2);
+        final EditText Addr1 =  findViewById(R.id.etAddress1);
+        final EditText Phone =  findViewById(R.id.etPhone);
+        final EditText Pass1 = findViewById(R.id.etPassword1);
+        final EditText Pass2 =  findViewById(R.id.etPassword2);
+
+        final EditText Prof = findViewById(R.id.etProfession);
+        final EditText Dist = findViewById(R.id.etDistance);
+
+
+        Button button = findViewById(R.id.button);
+
+        //why is this repeated?? are there two boxes?? the terms of service box is cbTermsOfServices2
+        //but it looks like there is another box on the xml layout page.....
+        final CheckBox Cons =  findViewById(R.id.cbTermsOfServices);
+        CheckBox Cons1 = findViewById(R.id.cbTermsOfServices);
+>>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
 
         button.setOnClickListener(v -> {
             if (Fname.length() == 0  ){

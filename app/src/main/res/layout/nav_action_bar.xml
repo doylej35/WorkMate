@@ -9,9 +9,17 @@
 
     <ImageView
         android:id="@+id/logo"
+<<<<<<< HEAD
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:contentDescription="@string/logo"
         android:src="@drawable/workmate" />
+=======
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:foregroundGravity="center"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/workmate_logo_crop" />
+>>>>>>> af7f96c639965113ec889ffedcc2af9ba6807c05
 
 </androidx.appcompat.widget.Toolbar>
