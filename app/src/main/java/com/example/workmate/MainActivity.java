@@ -10,6 +10,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+<<<<<<< HEAD
+=======
+
+import java.util.Objects;
+>>>>>>> design_josh
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
+<<<<<<< HEAD
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+=======
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+>>>>>>> design_josh
 
     }
 
