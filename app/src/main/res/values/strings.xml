@@ -44,5 +44,6 @@
     <string name="reg_serv_title">Register as service provider</string>
     <string name="reg_client_title">Register as service user</string>
     <string name="logout">Logout</string>
+    <string name="forgot_password">Forgot Password</string>
 
 </resources>

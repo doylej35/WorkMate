@@ -25,7 +25,7 @@ public class ClientRegActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_reg);
+        setContentView(R.layout.activity_client_reg);       //refers to activity_client_reg.xml file
 
         Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
@@ -38,7 +38,7 @@ public class ClientRegActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        final EditText Fname = findViewById(R.id.etFirstName);
+        final EditText Fname = findViewById(R.id.etFirstName);  //User input on registration page
         final EditText Lname = findViewById(R.id.etLastName);
         final EditText Email1 = findViewById(R.id.etEmail1);
         final EditText Email2 = findViewById(R.id.etEmail2);
@@ -48,11 +48,11 @@ public class ClientRegActivity extends AppCompatActivity {
         final EditText Pass2 = findViewById(R.id.etPassword2);
 
 
-        Button button =  findViewById(R.id.button);
+        Button button =  findViewById(R.id.button);                     //register button
         final CheckBox Cons =  findViewById(R.id.cbTermsOfServices);
 
-        button.setOnClickListener(v -> {
-            if (Fname.length() == 0  ){
+        button.setOnClickListener(v -> {        //if register button pressed
+            if (Fname.length() == 0  ){         //if nothing input ...
                 Fname.setError("Please enter Name");
             }
             else if (Lname.length() == 0){
