@@ -2,6 +2,7 @@ package com.example.workmate;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -18,8 +19,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CLIENT_ADDR = "CLIENT_ADDR";
     public static final String COLUMN_CLIENT_ID = "ID";
 
-    public static final String COLUMN_SUPPLIER_FNAME = "SUPPLIER_FNAME";
     public static final String SUPPLIER_TABLE = "SUPPLIER_TABLE";
+    public static final String COLUMN_SUPPLIER_FNAME = "SUPPLIER_FNAME";
     public static final String COLUMN_SUPPLIER_LNAME = "SUPPLIER_LNAME";
     public static final String COLUMN_SUPPLIER_PHONE = "SUPPLIER_PHONE";
     public static final String COLUMN_SUPPLIER_EMAIL = "SUPPLIER_EMAIL";
@@ -38,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_SUPPLIER_PHONE + " TEXT, " + COLUMN_SUPPLIER_EMAIL + " TEXT, " + COLUMN_SUPPLIER_SERVICE + " TEXT, " + COLUMN_SUPPLIER_ADDR + " TEXT)";
 
 
-    //this is called the first time a database is acessed. Should be code to create a anew database
+    //this is called the first time a database is accessed. Should be code to create a anew database
     //also called when new data added
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -49,8 +50,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //this is called if the database version number changes. Prevents users from breaking database if making changes
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //need code here to remove stuff thats already there/hasnt been updated
-        //onCreate(db);
+        /*db.execSQL("DROP TABLE IF EXISTS " + CLIENT_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + SUPPLIER_TABLE);
+        //need code here to remove stuff that's already there/hasn't been updated
+        onCreate(db);*/
+
+        //might cause problems initially, will uncomment later ...
     }
 
     public boolean addClient(ClientModel clientModel) {
@@ -89,5 +94,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }else {
             return true;
         }
+    }
+
+    //used to show all of the suppliers in the db
+    //search will be implemented later to narrow down the list
+    public java.util.ArrayList<SupplierModel> readSuppliers(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorSuppliers = db.rawQuery("SELECT * FROM " + SUPPLIER_TABLE, null);
+        java.util.ArrayList<SupplierModel> supplierModelArrayList = new java.util.ArrayList<>();
+
+        //shows all of the stored data about the suppliers (I hope) will be edited later
+        if(cursorSuppliers.moveToFirst()){
+            do {
+                supplierModelArrayList.add(new SupplierModel(cursorSuppliers.getInt(0),
+                                                             cursorSuppliers.getString(1),
+                                                             cursorSuppliers.getString(2),
+                                                             cursorSuppliers.getString(3),
+                                                             cursorSuppliers.getString(4),
+                                                             cursorSuppliers.getString(5),
+                                                             cursorSuppliers.getString(6)));
+            }while(cursorSuppliers.moveToNext());
+        }
+
+        cursorSuppliers.close();
+        return supplierModelArrayList;
     }
 }

@@ -45,5 +45,8 @@
     <string name="reg_client_title">Register as service user</string>
     <string name="logout">Logout</string>
     <string name="forgot_password">Forgot Password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="view_suppliers">View Suppliers</string>
 
 </resources>

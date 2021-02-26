@@ -22,8 +22,8 @@ public class SupplierModel {
         SupplierAddr = supplierAddr;
     }
 
-    public SupplierModel() {
-    }
+    //public SupplierModel() {
+    //}
 
     //toString for printing data
     @Override

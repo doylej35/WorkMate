@@ -113,7 +113,7 @@ public class ServiceRegActivity extends AppCompatActivity {
                     if(task.isSuccessful()) {
                         Toast.makeText(ServiceRegActivity.this, "Worker Created",
                                 Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        //startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         //add the person to the supplier table of the database
                         SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
