@@ -13,6 +13,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private ActionBarDrawerToggle mToggle;
     private DrawerLayout mDrawer;
+    FirebaseAuth fAuth;
 
 
     @Override
@@ -35,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
+
+        fAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = fAuth.getCurrentUser();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -91,8 +97,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    public void loginPage(View v) {
-        Intent i = new Intent(this, Login.class);
-        startActivity(i);
+    public void client_reg(View V){
+        //open client registration
+        Intent intent = new Intent(this, ClientRegActivity.class);
+        startActivity(intent);
     }
+
+    public void service_reg(View V){
+        //open service provider registration
+        Intent intent = new Intent(this, ServiceRegActivity.class);
+        startActivity(intent);
+    }
+
 }

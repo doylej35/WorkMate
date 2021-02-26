@@ -2,25 +2,19 @@ package com.example.workmate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
 public class ClientRegActivity extends AppCompatActivity {
-
-    private ActionBarDrawerToggle mToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +24,7 @@ public class ClientRegActivity extends AppCompatActivity {
         Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-        DrawerLayout mDrawerLayout = findViewById(R.id.drawerLayout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final EditText Fname = findViewById(R.id.etFirstName);
         final EditText Lname = findViewById(R.id.etLastName);
@@ -109,14 +97,6 @@ public class ClientRegActivity extends AppCompatActivity {
 
         });
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(mToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     //add in registration functions details
