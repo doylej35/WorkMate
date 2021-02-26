@@ -50,6 +50,8 @@ public class Login extends AppCompatActivity {
 
         Button logout = findViewById(R.id.btnLogout);  //this is the new logout button
 
+        Button reset_password = findViewById(R.id.button3);
+
         button.setOnClickListener(v -> {
 
             String email = mEmail.getText().toString().trim();
@@ -101,6 +103,17 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        reset_password.setOnClickListener(pass -> {
+            String email = mEmail.getText().toString().trim();
+            if(email.equals("")){
+                Toast.makeText(Login.this, "Please Enter Email Above to Reset Password", Toast.LENGTH_LONG).show();
+            }
+            else {
+                fAuth.sendPasswordResetEmail(email);
+                Toast.makeText(Login.this, "Recovery Email Sent", Toast.LENGTH_LONG).show();
+                openAct();
+            }
+        });
     }
 
     @Override
