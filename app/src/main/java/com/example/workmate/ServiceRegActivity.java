@@ -105,32 +105,33 @@ public class ServiceRegActivity extends AppCompatActivity {
                 Cons.setError("Click yes");
             }
             else{
-                FirebaseAuth fAuth = FirebaseAuth.getInstance();
+                //if all the data is entered correctly move to firebase functionality
+            //    FirebaseAuth fAuth = FirebaseAuth.getInstance();
                 String email = Email1.getText().toString().trim();
                 String password = Pass1.getText().toString().trim();
 
-                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task ->{
-                    if(task.isSuccessful()) {
-                        Toast.makeText(ServiceRegActivity.this, "Worker Created",
-                                Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+             //   fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task ->{
+             //       if(task.isSuccessful()) {
+             //           Toast.makeText(ServiceRegActivity.this, "Worker Created",
+             //                   Toast.LENGTH_SHORT).show();
+             //           startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         //add the person to the supplier table of the database
                         SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                Email1.getText().toString(), Phone.getText().toString(),  Prof.getText().toString(), Addr1.getText().toString());
+                                Phone.getText().toString(), email,  Addr1.getText().toString(), Prof.getText().toString());
 
-                        DatabaseHelper dataBaseHelper = new DatabaseHelper(ServiceRegActivity.this);
+                        DatabaseHelper databaseHelper = new DatabaseHelper(ServiceRegActivity.this);
 
                         //not working ??
-                        boolean success = dataBaseHelper.addSupplier(supplierModel);
+                        boolean success = databaseHelper.addSupplier(supplierModel);
                         Toast.makeText(ServiceRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
 
                         openAct();
-                    }else
-                        Toast.makeText(ServiceRegActivity.this, "Error" + Objects.
-                                requireNonNull(task.getException()).getMessage(), Toast
-                                .LENGTH_SHORT).show();
-                });
+                  //  }else
+                  //      Toast.makeText(ServiceRegActivity.this, "Error" + Objects.
+                 //               requireNonNull(task.getException()).getMessage(), Toast
+                 //               .LENGTH_SHORT).show();
+              //  });
 
             }
 

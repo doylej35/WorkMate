@@ -1,5 +1,9 @@
 package com.example.workmate;
 
+
+//this class defines the data type client, lists its data, and provides constructors, a print function, and getters and setters
+//most warnings are cause the functions arent used
+//**need to fix the override warning**
 public class ClientModel {
 
     private int ClientId;
