@@ -106,11 +106,11 @@ public class Login extends AppCompatActivity {
         reset_password.setOnClickListener(pass -> {
             String email = mEmail.getText().toString().trim();
             if(email.equals("")){
-                Toast.makeText(Login.this, "Please Enter Email Above to Reset Password", Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "Please Enter Email Above to Reset Password", Toast.LENGTH_SHORT).show();
             }
             else {
                 fAuth.sendPasswordResetEmail(email);
-                Toast.makeText(Login.this, "Recovery Email Sent", Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "Recovery Email Sent", Toast.LENGTH_SHORT).show();
                 openAct();
             }
         });
