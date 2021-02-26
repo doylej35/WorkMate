@@ -1,6 +1,7 @@
 package com.example.workmate;
 
-import org.junit.Test;
+import org.testng.annotations.AfterTest;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
@@ -13,5 +14,8 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
+    }
+
+    private void assertEquals(int i, int i1) {
     }
 }
