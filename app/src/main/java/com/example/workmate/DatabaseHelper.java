@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.function.Supplier;
+
 import androidx.annotation.Nullable;
 
 //this class implements the sqlite openhelper functionality to create our data base functions that will be used
@@ -129,10 +132,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //used to show all of the suppliers in the db
     //search will be implemented later to narrow down the list
-    public java.util.ArrayList<SupplierModel> readSuppliers(){
+    public ArrayList<SupplierModel> readSuppliers(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursorSuppliers = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER, null);
-        java.util.ArrayList<SupplierModel> supplierModelArrayList = new java.util.ArrayList<>();
+        ArrayList<SupplierModel> supplierModelArrayList = new ArrayList<>();
 
         //shows all of the stored data about the suppliers (I hope) will be edited later
         if(cursorSuppliers.moveToFirst()){
@@ -149,5 +152,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cursorSuppliers.close();
         return supplierModelArrayList;
+    }
+
+    //sorts the data by service
+    public ArrayList<SupplierModel> search(String input){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor search = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_SERVICE + " LIKE " + input, null);
+
+        ArrayList<SupplierModel> services = new ArrayList<>();
+
+        if(search.moveToFirst()){
+            do {
+                services.add(new SupplierModel(search.getInt(0),
+                        search.getString(1),
+                        search.getString(2),
+                        search.getString(3),
+                        search.getString(4),
+                        search.getString(5),
+                        search.getString(6)));
+            }while(search.moveToNext());
+        }
+        search.close();
+        return services;
     }
 }

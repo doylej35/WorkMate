@@ -87,16 +87,16 @@ public class ClientRegActivity extends AppCompatActivity {
             }
             else {
                 //if all the fields are filled correctly begin firebase functionality
-             //   FirebaseAuth fAuth = FirebaseAuth.getInstance();
+                FirebaseAuth fAuth = FirebaseAuth.getInstance();
                 //convert variables to correct types
                 String email = Email1.getText().toString().trim();
                 String password = Pass1.getText().toString().trim();
 
                 //attempt to create a new user
-            //    fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-            //        if(task.isSuccessful()) {
+                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
                         //sign up was succesful print a message and go to main page
-              //          Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
 
                         //add the person to the client table of the database
                         ClientModel clientModel = new ClientModel(-1, Fname.getText().toString(), Lname.getText().toString(),
@@ -111,11 +111,11 @@ public class ClientRegActivity extends AppCompatActivity {
 
                         openAct();
 
-             //       }else
+                    }else
                         //sign up failed!! print error message
-             //           Toast.makeText(ClientRegActivity.this, "Error" + Objects.requireNonNull(task.getException())
-             //                   .getMessage(), Toast.LENGTH_SHORT).show();
-             //   });
+                        Toast.makeText(ClientRegActivity.this, "Error" + Objects.requireNonNull(task.getException())
+                                .getMessage(), Toast.LENGTH_SHORT).show();
+                });
 
             }
 
