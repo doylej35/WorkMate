@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawer;
     FirebaseAuth fAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,40 +55,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    //function to launch to fragments from navigation drawer
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
 
-            case R.id.nav_home:
+            case R.id.nav_home: //launch home
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                         new HomeFragment()).commit();
                 break;
 
-            case R.id.nav_account:
+            case R.id.nav_search: //launch search
+                SearchFragment fragment = SearchFragment.newInstance("You are searching for: General");
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                        fragment).commit();
+                break;
+
+            case R.id.nav_account: //launch account
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                         new ProfileFragment()).commit();
                 break;
 
-            case R.id.nav_messages:
+            case R.id.nav_messages: //launch messages
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                         new MessagesFragment()).commit();
                 break;
 
-            case R.id.nav_settings:
+            case R.id.nav_settings: //launch settings
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                         new SettingsFragment()).commit();
                 break;
 
-            case R.id.nav_login:
+            case R.id.nav_login: //launch login
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                         new LoginFragment()).commit();
                 break;
         }
 
-        mDrawer.closeDrawer(GravityCompat.START);
+        mDrawer.closeDrawer(GravityCompat.START); //close drawer
         return true;
     }
 
-    @Override
+    @Override //open navigation drawer
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (mToggle.onOptionsItemSelected(item)) {
             return true;
@@ -107,6 +113,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //open service provider registration
         Intent intent = new Intent(this, ServiceRegActivity.class);
         startActivity(intent);
+    }
+
+
+    //function to open search page
+    public void openSearch(View view){
+        String text;
+        switch(view.getId()){
+            case(R.id.SearchElec):
+                text = "You are searching for: Electricians";
+                break;
+            case(R.id.SearchMech):
+                text = "You are searching for: Mechanics";
+                break;
+            case(R.id.SearchPlum):
+                text = "You are searching for: Plumbers";
+                break;
+            case(R.id.SearchGard):
+                text = "You are searching for: Gardeners";
+                break;
+            default:
+                text = "You are searching for: General";
+                break;
+        }
+        SearchFragment fragment = SearchFragment.newInstance(text);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                fragment).commit();
     }
 
 }
