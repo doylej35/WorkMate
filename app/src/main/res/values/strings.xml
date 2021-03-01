@@ -61,5 +61,8 @@
     <string name="forgotten_password">Forgotten your password?</string>
     <string name="drawer_search">Search</string>
     <string name="forgot_password">forgot_password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="view_suppliers">View Suppliers</string>
 
 </resources>

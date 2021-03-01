@@ -19,14 +19,14 @@ public class ClientRegActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_reg);
+        setContentView(R.layout.activity_client_reg);       //refers to activity_client_reg.xml file
 
         Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final EditText Fname = findViewById(R.id.etFirstName);
+        final EditText Fname = findViewById(R.id.etFirstName);  //User input on registration page
         final EditText Lname = findViewById(R.id.etLastName);
         final EditText Email1 = findViewById(R.id.etEmail1);
         final EditText Email2 = findViewById(R.id.etEmail2);
@@ -36,11 +36,11 @@ public class ClientRegActivity extends AppCompatActivity {
         final EditText Pass2 = findViewById(R.id.etPassword2);
 
 
-        Button button =  findViewById(R.id.button);
+        Button button =  findViewById(R.id.button);                     //register button
         final CheckBox Cons =  findViewById(R.id.cbTermsOfServices);
 
-        button.setOnClickListener(v -> {
-            if (Fname.length() == 0  ){
+        button.setOnClickListener(v -> {        //if register button pressed
+            if (Fname.length() == 0  ){         //if nothing input ...
                 Fname.setError("Please enter Name");
             }
             else if (Lname.length() == 0){
@@ -88,15 +88,17 @@ public class ClientRegActivity extends AppCompatActivity {
 
                         //add the person to the client table of the database
                         ClientModel clientModel = new ClientModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                Phone.getText().toString(), Email1.getText().toString(), Addr1.getText().toString());
+                                Phone.getText().toString(), email, Addr1.getText().toString());
 
-                        DatabaseHelper dataBaseHelper = new DatabaseHelper(ClientRegActivity.this);
+                        DatabaseHelper databaseHelper = new DatabaseHelper(ClientRegActivity.this);
 
-                        boolean success = dataBaseHelper.addClient(clientModel);
+                        //print a pop up saying whether this succeeded or not
+                        boolean success = databaseHelper.addClient(clientModel);
                         Toast.makeText(ClientRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
 
 
                         openAct();
+
                     }else
                         //sign up failed!! print error message
                         Toast.makeText(ClientRegActivity.this, "Error" + Objects.requireNonNull(task.getException())
