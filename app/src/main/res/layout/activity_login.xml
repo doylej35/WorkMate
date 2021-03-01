@@ -73,22 +73,9 @@
             android:text="@string/login"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.594"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgPassword" />
-
-        <Button
-            android:id="@+id/btnRegisterUser"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="192dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:onClick="client_reg"
-            android:text="@string/register_client"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrompt2"
-            tools:ignore="OnClick" />
 
         <ImageView
             android:id="@+id/imgUsername"
@@ -112,16 +99,62 @@
             app:layout_constraintTop_toTopOf="@+id/imgPassword"
             app:srcCompat="@drawable/ic_action_lock" />
 
+        <Button
+            android:id="@+id/btnRegisterService"
+            android:layout_width="192dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:onClick="service_reg"
+            android:text="@string/register_service"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnRegisterUser"
+            tools:ignore="OnClick" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="51dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="63dp"
+            android:text="@string/logout"
+            app:layout_constraintBottom_toTopOf="@+id/tvPrompt2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/btnLogin"
+            app:layout_constraintTop_toBottomOf="@+id/imgPassword"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/btnRegisterUser"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="192dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="client_reg"
+            android:text="@string/register_client"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrompt2"
+            tools:ignore="OnClick" />
+
         <TextView
             android:id="@+id/tvNewUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             android:text="@string/new_user"
             android:textColor="@color/main_blue"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
@@ -129,25 +162,14 @@
             android:id="@+id/tvPrompt2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/register_prompt"
             android:textColor="@color/main_blue"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNewUser" />
-
-        <Button
-            android:id="@+id/btnRegisterService"
-            android:layout_width="192dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:onClick="service_reg"
-            android:text="@string/register_service"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnRegisterUser"
-            tools:ignore="OnClick" />
 
         <ImageView
             android:id="@+id/imgLogo"
@@ -162,18 +184,19 @@
             app:srcCompat="@drawable/workmate_logo" />
 
         <Button
-            android:id="@+id/btnLogout"
+            android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="51dp"
-            android:layout_marginTop="17dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginBottom="63dp"
-            android:text="@string/logout"
-            app:layout_constraintBottom_toTopOf="@+id/tvPrompt2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnLogin"
-            app:layout_constraintTop_toBottomOf="@+id/imgPassword" />
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="41dp"
+            android:text="@string/forgot_password"
+            app:layout_constraintBottom_toTopOf="@+id/tvNewUser"
+            app:layout_constraintEnd_toStartOf="@+id/btnLogin"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgPassword"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

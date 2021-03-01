@@ -101,12 +101,24 @@ public class ServiceRegActivity extends AppCompatActivity {
                         Toast.makeText(ServiceRegActivity.this, "Worker Created",
                                 Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                        //add the person to the supplier table of the database
+                        SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
+                                Email1.getText().toString(), Phone.getText().toString(),  Prof.getText().toString(), Addr1.getText().toString());
+
+                        DatabaseHelper dataBaseHelper = new DatabaseHelper(ServiceRegActivity.this);
+
+                        //not working ??
+                        boolean success = dataBaseHelper.addSupplier(supplierModel);
+                        Toast.makeText(ServiceRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
+
+                        openAct();
                     }else
                         Toast.makeText(ServiceRegActivity.this, "Error" + Objects.
                                 requireNonNull(task.getException()).getMessage(), Toast
                                 .LENGTH_SHORT).show();
                 });
-                openAct();
+
             }
 
         });

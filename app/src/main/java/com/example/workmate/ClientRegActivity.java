@@ -86,6 +86,16 @@ public class ClientRegActivity extends AppCompatActivity {
                         //sign up was succesful print a message and go to main page
                         Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
 
+                        //add the person to the client table of the database
+                        ClientModel clientModel = new ClientModel(-1, Fname.getText().toString(), Lname.getText().toString(),
+                                Phone.getText().toString(), Email1.getText().toString(), Addr1.getText().toString());
+
+                        DatabaseHelper dataBaseHelper = new DatabaseHelper(ClientRegActivity.this);
+
+                        boolean success = dataBaseHelper.addClient(clientModel);
+                        Toast.makeText(ClientRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
+
+
                         openAct();
                     }else
                         //sign up failed!! print error message
@@ -101,6 +111,7 @@ public class ClientRegActivity extends AppCompatActivity {
 
     //add in registration functions details
     public void openAct(){
+
         Intent intent = new Intent( this, MainActivity.class);
         startActivity(intent);
     }
