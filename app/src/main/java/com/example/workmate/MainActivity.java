@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private ActionBarDrawerToggle mToggle;
     private DrawerLayout mDrawer;
+    FirebaseAuth fAuth;
 
 
     @Override
