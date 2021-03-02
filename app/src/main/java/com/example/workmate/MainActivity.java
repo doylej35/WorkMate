@@ -159,5 +159,5 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                 fragment).commit();
     }
-    //Database Branch
+    //Design Branch
 }
