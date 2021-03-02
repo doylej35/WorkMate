@@ -132,23 +132,27 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                 text = "You are searching for: Electricians";
                 //Log.d("CREATION","BEFORE DISPLAY");
                 services = databaseHelper.search("electrician");
-                Log.d("CREATION",String.valueOf(services.get(0)));
+                Log.d("CREATION",String.valueOf(services.get(0)));      //prints to console, first electrician in services list
                 break;
             case(R.id.SearchMech):
                 text = "You are searching for: Mechanics";
                 services = databaseHelper.search("mechanic");
+                Log.d("CREATION",String.valueOf(services.get(0)));
                 break;
             case(R.id.SearchPlum):
                 text = "You are searching for: Plumbers";
                 services = databaseHelper.search("plumber");
+                Log.d("CREATION",String.valueOf(services.get(0)));
                 break;
             case(R.id.SearchGard):
                 text = "You are searching for: Gardeners";
                 services = databaseHelper.search("gardener");
+                Log.d("CREATION",String.valueOf(services.get(0)));
                 break;
             default:
                 text = "You are searching for: General";
                 supplierModelArrayList = databaseHelper.readSuppliers();
+                Log.d("CREATION",String.valueOf(supplierModelArrayList.get(0)));
                 break;
         }
         SearchFragment fragment = SearchFragment.newInstance(text);
