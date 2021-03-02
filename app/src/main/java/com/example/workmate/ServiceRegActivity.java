@@ -93,23 +93,14 @@ public class ServiceRegActivity extends AppCompatActivity {
             }
             else{
                 //if all the data is entered correctly move to firebase functionality
-            //    FirebaseAuth fAuth = FirebaseAuth.getInstance();
+                FirebaseAuth fAuth = FirebaseAuth.getInstance();
                 String email = Email1.getText().toString().trim();
                 String password = Pass1.getText().toString().trim();
 
-<<<<<<< HEAD
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task ->{
                     if(task.isSuccessful()) {
                         Toast.makeText(ServiceRegActivity.this, "Worker Created",
                                 Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-=======
-             //   fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task ->{
-             //       if(task.isSuccessful()) {
-             //           Toast.makeText(ServiceRegActivity.this, "Worker Created",
-             //                   Toast.LENGTH_SHORT).show();
-             //           startActivity(new Intent(getApplicationContext(), MainActivity.class));
->>>>>>> 01b6e2242680536a619e5ac21ba1d0b7ebfb3edc
 
                         //add the person to the supplier table of the database
                         SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
@@ -122,19 +113,15 @@ public class ServiceRegActivity extends AppCompatActivity {
                         Toast.makeText(ServiceRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
 
                         openAct();
-                  //  }else
-                  //      Toast.makeText(ServiceRegActivity.this, "Error" + Objects.
-                 //               requireNonNull(task.getException()).getMessage(), Toast
-                 //               .LENGTH_SHORT).show();
-              //  });
-
+                    }else
+                        Toast.makeText(ServiceRegActivity.this, "Error" + Objects.
+                               requireNonNull(task.getException()).getMessage(), Toast
+                                .LENGTH_SHORT).show();
+                });
             }
-
         });
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-
     }
 
     //add in registration functions details
@@ -143,5 +130,3 @@ public class ServiceRegActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
-
-//Git Testing :)

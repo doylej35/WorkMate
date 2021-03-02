@@ -115,9 +115,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    /*Button mech = v.findViewById(R.id.SearchMech);
+        mech.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(context);
+                databaseHelper.search("mechanic");
+                //Toast.makeText(HomeFragment.this, "Redirecting ...", Toast.LENGTH_LONG).show();
+            }
+        });*/
+
 
     //function to open search page
     public void openSearch(View view){
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
         String text;
         switch(view.getId()){
             case(R.id.SearchElec):
