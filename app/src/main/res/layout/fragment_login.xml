@@ -91,7 +91,6 @@
         android:id="@+id/btnLogin1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-=======
         android:layout_marginTop="8dp"
         android:text="@string/login"
         android:textColor="@color/black"
@@ -148,9 +147,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnRegisterUser"
         tools:ignore="OnClick" />
-<<<<<<< HEAD
->>>>>>> a7f1c6e5b7b743a0546a70d28905858426bbed6d
-=======
->>>>>>> b1b3ef904060bae08adb353a6b8aa2c86ab15785
 
 </androidx.constraintlayout.widget.ConstraintLayout>

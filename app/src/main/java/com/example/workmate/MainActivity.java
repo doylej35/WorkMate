@@ -2,8 +2,13 @@ package com.example.workmate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,11 +23,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity<stringTextView> extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ActionBarDrawerToggle mToggle;
     private DrawerLayout mDrawer;
     FirebaseAuth fAuth;
+    private ArrayList<SupplierModel> supplierModelArrayList;
+    private DatabaseHelper dbHelper;
 
 
     @Override
@@ -115,36 +122,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
-    /*Button mech = v.findViewById(R.id.SearchMech);
-        mech.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatabaseHelper databaseHelper = new DatabaseHelper(context);
-                databaseHelper.search("mechanic");
-                //Toast.makeText(HomeFragment.this, "Redirecting ...", Toast.LENGTH_LONG).show();
-            }
-        });*/
-
-
     //function to open search page
     public void openSearch(View view){
-        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this);
+        ArrayList<SupplierModel> services = new ArrayList<>();
         String text;
         switch(view.getId()){
             case(R.id.SearchElec):
                 text = "You are searching for: Electricians";
+                //Log.d("CREATION","BEFORE DISPLAY");
+                services = databaseHelper.search("electrician");
+                Log.d("CREATION",String.valueOf(services.get(0)));
                 break;
             case(R.id.SearchMech):
                 text = "You are searching for: Mechanics";
+                services = databaseHelper.search("mechanic");
                 break;
             case(R.id.SearchPlum):
                 text = "You are searching for: Plumbers";
+                services = databaseHelper.search("plumber");
                 break;
             case(R.id.SearchGard):
                 text = "You are searching for: Gardeners";
+                services = databaseHelper.search("gardener");
                 break;
             default:
                 text = "You are searching for: General";
+                supplierModelArrayList = databaseHelper.readSuppliers();
                 break;
         }
         SearchFragment fragment = SearchFragment.newInstance(text);

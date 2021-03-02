@@ -158,7 +158,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<SupplierModel> search(String input){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor search = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_SERVICE + " LIKE " + input, null);
+        Cursor search = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_SERVICE + " LIKE " + "'" + input + "'", null);
 
         ArrayList<SupplierModel> services = new ArrayList<>();
 

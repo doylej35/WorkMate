@@ -57,7 +57,7 @@
     <string name="reg_client_title">Register as service user</string>
     <string name="logout">Logout</string>
 
-    <string name="forgot_password">Forgot Password</string>
+    <!--<string name="forgot_password">Forgot Password</string>-->
     <string name="Avatar">Avatar</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="forgotten_password">Forgotten your password?</string>
