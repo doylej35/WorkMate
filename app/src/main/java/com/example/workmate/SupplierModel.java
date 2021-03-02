@@ -1,5 +1,9 @@
 package com.example.workmate;
 
+//this defines a supplier class with its data, construtors, a print function, and getters and setters
+//most of the warnings are about functions not being used.
+//*****need to figure out + fix the override warning*****
+
 public class SupplierModel {
 
     private int SupplierId;
@@ -12,7 +16,7 @@ public class SupplierModel {
 
     //constructors
     public SupplierModel(int supplierId, String supplierFname,
-                         String supplierLname, String supplierEmail, String supplierPhone, String supplierService, String supplierAddr) {
+                         String supplierLname,  String supplierPhone, String supplierEmail,  String supplierAddr,String supplierService) {
         SupplierId = supplierId;
         SupplierFname = supplierFname;
         SupplierLname = supplierLname;
@@ -22,8 +26,8 @@ public class SupplierModel {
         SupplierAddr = supplierAddr;
     }
 
-    public SupplierModel() {
-    }
+    //public SupplierModel() {
+    //}
 
     //toString for printing data
     @Override

@@ -56,13 +56,15 @@
     <string name="reg_serv_title">Register as service provider</string>
     <string name="reg_client_title">Register as service user</string>
     <string name="logout">Logout</string>
-<<<<<<< HEAD
+
     <string name="forgot_password">Forgot Password</string>
-=======
     <string name="Avatar">Avatar</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="forgotten_password">Forgotten your password?</string>
     <string name="drawer_search">Search</string>
->>>>>>> a7f1c6e5b7b743a0546a70d28905858426bbed6d
+    <string name="forgot_password">forgot_password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="view_suppliers">View Suppliers</string>
 
 </resources>

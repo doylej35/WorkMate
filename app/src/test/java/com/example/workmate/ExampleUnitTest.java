@@ -1,9 +1,6 @@
 package com.example.workmate;
 
-import org.testng.annotations.AfterTest;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
