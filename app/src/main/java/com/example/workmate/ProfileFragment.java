@@ -4,13 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,13 +19,23 @@ public class ProfileFragment extends Fragment {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_profile, null);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){
-            String name = user.getDisplayName();
+            String name1 = user.getDisplayName();
+            String name2 = user.getDisplayName();
+            String email = user.getEmail();
+            //String pword = user.get
 
             String uid = user.getUid();
 
             TextView textView;
-            textView = (TextView) root.findViewById(R.id.textView3);
-            textView.setText(name);
+            textView = root.findViewById(R.id.tvEmail);
+            textView.setText(email);
+
+            textView = root.findViewById(R.id.tvFName);
+            textView.setText(name1);
+
+            textView = root.findViewById(R.id.tvLName);
+            textView.setText(name2);
+
         }else{
            Toast.makeText(getActivity(), "not logged in", Toast.LENGTH_SHORT).show();
         }

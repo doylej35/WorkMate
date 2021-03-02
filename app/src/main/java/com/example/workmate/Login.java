@@ -76,8 +76,8 @@ public class Login extends AppCompatActivity {
                     if(task.isSuccessful()) {
                         //login was succesful, links to main activity page via openact() function
                         Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                      //  FirebaseUser user = fAuth.getCurrentUser();  //creates a warning but is necessary so that
-                                                                        //the user stays logged in
+                        //  FirebaseUser user = fAuth.getCurrentUser();  //creates a warning but is necessary so that
+                        //the user stays logged in
 
                         openAct();
                     }else {

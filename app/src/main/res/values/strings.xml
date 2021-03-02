@@ -7,6 +7,18 @@
     <string name="open">Open</string>
     <string name="close">close</string>
 
+    <!-- Home Page -->
+    <string name="home_welcome">Welcome</string>
+    <string name="home_prompt">What service do you need?</string>
+
+    <!-- Search Page -->
+    <string name="search_prompt">You are searching for:</string>
+    <string name="search_elec">Electrician</string>
+    <string name="search_mech">Mechanic</string>
+    <string name="search_plum">Plumber</string>
+    <string name="search_gard">Gardener</string>
+    <string name="search_gen">General</string>
+
     <!-- Drawer Titles -->
     <string name="drawer_home">Home</string>
     <string name="drawer_messages">Messages</string>
@@ -44,6 +56,13 @@
     <string name="reg_serv_title">Register as service provider</string>
     <string name="reg_client_title">Register as service user</string>
     <string name="logout">Logout</string>
+<<<<<<< HEAD
     <string name="forgot_password">Forgot Password</string>
+=======
+    <string name="Avatar">Avatar</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="forgotten_password">Forgotten your password?</string>
+    <string name="drawer_search">Search</string>
+>>>>>>> a7f1c6e5b7b743a0546a70d28905858426bbed6d
 
 </resources>
