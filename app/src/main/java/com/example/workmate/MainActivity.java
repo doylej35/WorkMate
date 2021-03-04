@@ -5,10 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,14 +15,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainActivity<stringTextView> extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ActionBarDrawerToggle mToggle;
     private DrawerLayout mDrawer;
+
     FirebaseAuth fAuth;
     private ArrayList<SupplierModel> supplierModelArrayList;
     private DatabaseHelper dbHelper;
@@ -47,7 +44,6 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         mToggle.syncState();
 
         fAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = fAuth.getCurrentUser();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -93,21 +89,13 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                 break;
 
             case R.id.nav_login: //launch login
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
-                        new LoginFragment()).commit();
+                Intent intent = new Intent(this, Login.class);
+                startActivity(intent);
                 break;
         }
 
         mDrawer.closeDrawer(GravityCompat.START); //close drawer
         return true;
-    }
-
-    @Override //open navigation drawer
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void client_reg(View V){
@@ -122,6 +110,14 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         startActivity(intent);
     }
 
+    @Override //open navigation drawer
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (mToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     //function to open search page
     public void openSearch(View view){
         DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this);
@@ -130,7 +126,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         switch(view.getId()){
             case(R.id.SearchElec):
                 text = "You are searching for: Electricians";
-                //Log.d("CREATION","BEFORE DISPLAY");
+                Log.d("CREATION","BEFORE DISPLAY");
                 services = databaseHelper.search("electrician");
                 Log.d("CREATION",String.valueOf(services.get(0)));      //prints to console, first electrician in services list
                 break;

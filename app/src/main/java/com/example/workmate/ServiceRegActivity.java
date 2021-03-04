@@ -121,7 +121,6 @@ public class ServiceRegActivity extends AppCompatActivity {
             }
         });
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     //add in registration functions details

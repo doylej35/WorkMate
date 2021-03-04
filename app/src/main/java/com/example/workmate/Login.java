@@ -3,17 +3,14 @@ package com.example.workmate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,33 +21,23 @@ public class Login extends AppCompatActivity {
     EditText mEmail, mPassword;
     FirebaseAuth fAuth;
 
-    private ActionBarDrawerToggle mToggle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);                        //refers to activity_login.xml file
+        setContentView(R.layout.activity_login);
 
-        Toolbar mToolbar = findViewById(R.id.nav_action);               //navigation bar on the side
+        Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        DrawerLayout mDrawerLayout = findViewById(R.id.drawerLayout);       //more layout type actions
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        mEmail = findViewById(R.id.etUsername);                         //entered email
-        mPassword = findViewById(R.id.imgPassword);                     //entered password
+        mEmail = findViewById(R.id.loginUsername);                         //entered email
+        mPassword = findViewById(R.id.loginPassword);                     //entered password
         fAuth = FirebaseAuth.getInstance();                             //used to access firebase utilities
         FirebaseUser currentUser = fAuth.getCurrentUser();              //loads in current users session
+
         Button button = findViewById(R.id.btnLogin);                    //login button
-
         Button logout = findViewById(R.id.btnLogout);                   //this is the new logout button
-
-        Button reset_password = findViewById(R.id.button3);             //forgot password button on login page
+        TextView passRest = findViewById(R.id.loginForgotPass);
 
         button.setOnClickListener(v -> {
 
@@ -81,7 +68,7 @@ public class Login extends AppCompatActivity {
 
                         openAct();
                     }else {
-                        //login not succesful, prints reason
+                        //login not successful, prints reason
                         //example: login credentials are not registered
                         Toast.makeText(Login.this, "Error" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -103,7 +90,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        reset_password.setOnClickListener(pass -> {     //button for 'Forgot Password' on login screen
+        passRest.setOnClickListener(pass -> {     //button for 'Forgot Password' on login screen
             String email = mEmail.getText().toString().trim();      //email entered on login screen text box
             if(email.equals("")){       //better than using '=='
                 Toast.makeText(Login.this, "Please Enter Email Above to Reset Password", Toast.LENGTH_SHORT).show();
@@ -114,14 +101,6 @@ public class Login extends AppCompatActivity {
                 openAct();  //returns to main screen
             }
         });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(mToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void openAct(){

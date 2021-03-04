@@ -113,7 +113,6 @@ public class ClientRegActivity extends AppCompatActivity {
 
     //add in registration functions details
     public void openAct(){
-
         Intent intent = new Intent( this, MainActivity.class);
         startActivity(intent);
     }

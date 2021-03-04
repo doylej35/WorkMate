@@ -20,11 +20,11 @@
 
         <activity
             android:name=".ServiceRegActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".Login" />
 
         <activity
             android:name=".ClientRegActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".Login" />
 
         <activity
             android:name=".Login"

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardview_dark_background"
-    tools:context=".Login">
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/nav_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/nav_action_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-black"
             android:shadowColor="#00000000"
             android:text="@string/app_name"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/etUsername"
+            android:id="@+id/loginUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="148dp"
@@ -50,10 +50,10 @@
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
         <EditText
-            android:id="@+id/imgPassword"
+            android:id="@+id/loginPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/password"
             android:importantForAutofill="no"
@@ -62,20 +62,20 @@
             android:textColorHint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+            app:layout_constraintTop_toBottomOf="@+id/loginUsername" />
 
         <Button
             android:id="@+id/btnLogin"
-            style="@style/Widget.AppCompat.Button.Colored"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/login"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.594"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/loginForgotPass" />
 
         <ImageView
             android:id="@+id/imgUsername"
@@ -83,27 +83,27 @@
             android:layout_height="30dp"
             android:layout_marginEnd="218dp"
             android:contentDescription="@string/email"
-            app:layout_constraintBottom_toBottomOf="@+id/etUsername"
-            app:layout_constraintEnd_toEndOf="@+id/etUsername"
-            app:layout_constraintTop_toTopOf="@+id/etUsername"
+            app:layout_constraintBottom_toBottomOf="@+id/loginUsername"
+            app:layout_constraintEnd_toEndOf="@+id/loginUsername"
+            app:layout_constraintTop_toTopOf="@+id/loginUsername"
             app:srcCompat="@drawable/ic_action_name" />
 
         <ImageView
-            android:id="@+id/etPassword"
+            android:id="@+id/imgPassword1"
             android:layout_width="35dp"
             android:layout_height="30dp"
             android:layout_marginEnd="218dp"
             android:contentDescription="@string/password"
-            app:layout_constraintBottom_toBottomOf="@+id/imgPassword"
-            app:layout_constraintEnd_toEndOf="@+id/imgPassword"
-            app:layout_constraintTop_toTopOf="@+id/imgPassword"
+            app:layout_constraintBottom_toBottomOf="@+id/loginPassword"
+            app:layout_constraintEnd_toEndOf="@+id/loginPassword"
+            app:layout_constraintTop_toTopOf="@+id/loginPassword"
             app:srcCompat="@drawable/ic_action_lock" />
 
         <Button
             android:id="@+id/btnRegisterService"
             android:layout_width="192dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:onClick="service_reg"
             android:text="@string/register_service"
             android:textColor="@color/black"
@@ -117,24 +117,18 @@
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="51dp"
-            android:layout_marginTop="17dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginBottom="63dp"
             android:text="@string/logout"
-            app:layout_constraintBottom_toTopOf="@+id/tvPrompt2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/btnLogin"
-            app:layout_constraintTop_toBottomOf="@+id/imgPassword"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
         <Button
             android:id="@+id/btnRegisterUser"
-            style="@style/Widget.AppCompat.Button.Colored"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="192dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:onClick="client_reg"
             android:text="@string/register_client"
             android:textColor="@color/black"
@@ -148,21 +142,19 @@
             android:id="@+id/tvNewUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="24dp"
             android:text="@string/new_user"
             android:textColor="@color/main_blue"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+            app:layout_constraintTop_toBottomOf="@+id/btnLogout" />
 
         <TextView
             android:id="@+id/tvPrompt2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="@string/register_prompt"
             android:textColor="@color/main_blue"
             android:textSize="18sp"
@@ -175,7 +167,7 @@
             android:id="@+id/imgLogo"
             android:layout_width="134dp"
             android:layout_height="221dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -183,30 +175,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/workmate_logo" />
 
-        <Button
-            android:id="@+id/button3"
+        <TextView
+            android:id="@+id/loginForgotPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="37dp"
-            android:layout_marginBottom="41dp"
-            android:text="@string/forgot_password"
-            app:layout_constraintBottom_toTopOf="@+id/tvNewUser"
-            app:layout_constraintEnd_toStartOf="@+id/btnLogin"
-            app:layout_constraintHorizontal_bias="1.0"
+            android:clickable="true"
+            android:text="@string/forgotten_password"
+            android:textColor="@color/main_blue"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgPassword"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/nav_drawer_header"
-        app:menu="@menu/nav_menu">
-
-    </com.google.android.material.navigation.NavigationView>
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</LinearLayout>
