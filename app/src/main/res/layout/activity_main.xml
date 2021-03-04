@@ -21,9 +21,7 @@
         <FrameLayout
             android:id="@+id/frame_container"
             android:layout_width="match_parent"
-            android:layout_height="732dp">
-
-        </FrameLayout>
+            android:layout_height="732dp"/>
 
     </LinearLayout>
 

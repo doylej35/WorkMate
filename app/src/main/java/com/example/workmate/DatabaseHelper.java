@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //name of the database is defined here
-    public static String DATABASE_NAME = "workmate_database.db";
+    public static String DATABASE_NAME = "workmate_db.db";
     //declarations of the client table columns(ie data points)
     public static final String TABLE_CLIENT = "CLIENT_TABLE";
     public static final String COLUMN_CLIENT_FNAME = "CLIENT_FNAME";
@@ -154,15 +154,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return supplierModelArrayList;
     }
 
+
     //sorts the data by service
     public ArrayList<SupplierModel> search(String input){
 
         SQLiteDatabase db = this.getReadableDatabase();
+
         Cursor search = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_SERVICE + " LIKE " + "'" + input + "'", null);
 
         ArrayList<SupplierModel> services = new ArrayList<>();
 
-        if(search.moveToFirst()){
+        if(search.moveToFirst()) {
             do {
                 services.add(new SupplierModel(search.getInt(0),
                         search.getString(1),
@@ -171,9 +173,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         search.getString(4),
                         search.getString(5),
                         search.getString(6)));
-            }while(search.moveToNext());
+            } while (search.moveToNext());
+        }else {
+            Log.d("CREATION", "NO DATA TO LOOK AT IN SEARCH FUNCTION");
         }
         search.close();
         return services;
     }
+
 }
