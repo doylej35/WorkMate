@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity<stringTextView> extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,6 +61,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                     new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
+
 
     }
 
@@ -130,34 +133,40 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         switch(view.getId()){
             case(R.id.SearchElec):
                 text = "You are searching for: Electricians";
-                //Log.d("CREATION","BEFORE DISPLAY");
                 services = databaseHelper.search("electrician");
-                Log.d("CREATION",String.valueOf(services.get(0)));      //prints to console, first electrician in services list
                 break;
             case(R.id.SearchMech):
                 text = "You are searching for: Mechanics";
                 services = databaseHelper.search("mechanic");
-                Log.d("CREATION",String.valueOf(services.get(0)));
                 break;
             case(R.id.SearchPlum):
                 text = "You are searching for: Plumbers";
                 services = databaseHelper.search("plumber");
-                Log.d("CREATION",String.valueOf(services.get(0)));
                 break;
             case(R.id.SearchGard):
                 text = "You are searching for: Gardeners";
                 services = databaseHelper.search("gardener");
-                Log.d("CREATION",String.valueOf(services.get(0)));
                 break;
             default:
                 text = "You are searching for: General";
                 supplierModelArrayList = databaseHelper.readSuppliers();
-                Log.d("CREATION",String.valueOf(supplierModelArrayList.get(0)));
+
                 break;
         }
+        if(services.size()>0) {
+            Log.d("CREATION",String.valueOf(supplierModelArrayList.get(0)));
+        }else {
+            Log.d("CREATION", "NO SUPPLIERS OF THIS TYPE");
+            Toast.makeText(MainActivity.this, "No suppliers of this type", Toast.LENGTH_SHORT).show();
+        }
+
+
         SearchFragment fragment = SearchFragment.newInstance(text);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                 fragment).commit();
+
+
     }
+
 
 }
