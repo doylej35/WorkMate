@@ -1,10 +1,17 @@
 package com.example.workmate;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +19,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class ServiceRegActivity extends AppCompatActivity {
+
+    String Prof;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,62 +46,98 @@ public class ServiceRegActivity extends AppCompatActivity {
         final EditText Phone =  findViewById(R.id.etPhone);
         final EditText Pass1 = findViewById(R.id.etPassword1);
         final EditText Pass2 =  findViewById(R.id.etPassword2);
+        final CheckBox Cons =  findViewById(R.id.cbTermsOfServices);
 
-        final EditText Prof = findViewById(R.id.etProfession);
-        final EditText Dist = findViewById(R.id.etDistance);
+        final Spinner spinner = (Spinner) findViewById(R.id.professions);
+        String[] services = new String[]{
+                "Select an service...",
+                "Mechanic",
+                "Plumber",
+                "Electrician",
+                "Gardener"
+        };
 
+        final List<String> serviceList = new ArrayList<>(Arrays.asList(services));
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.item_spinner,serviceList){
+            @Override
+            public boolean isEnabled(int position){
+                return position != 0;
+            }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
+        spinner.setAdapter(spinnerArrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Prof = (String) parent.getItemAtPosition(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(ServiceRegActivity.this,
+                        "Enter Service", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Button button = findViewById(R.id.button);
 
-        //why is this repeated?? are there two boxes?? the terms of service box is cbTermsOfServices2
-        //but it looks like there is another box on the xml layout page.....
-        final CheckBox Cons =  findViewById(R.id.cbTermsOfServices);
-        CheckBox Cons1 = findViewById(R.id.cbTermsOfServices);
-
         button.setOnClickListener(v -> {
             if (Fname.length() == 0  ){
+                //no first name
                 Fname.setError("Please enter Name");
             }
             else if (Lname.length() == 0){
+                //if no last name
                 Lname.setError("Please enter Name");
             }
             else if (Email1.length() == 0){
+                //if no email1
                 Email1.setError("Please enter Email");
             }
             else if (Email2.length() == 0 ){
-                //|| Email2 != Email1
+                //if no email2
                 Email2.setError("Please enter Email");
             }
             else if (!Email1.getText().toString().equals(Email2.getText().toString())) {
-                Email2.setError("Please enter Email");
+                //if email1 and 2 not equal
+                Email2.setError("Emails don't match");
             }
             else if (Addr1.length() == 0){
+                //empty address
                 Addr1.setError("Please enter Address");
             }
             else if (Phone.length() == 0){
+                //empty phone
                 Phone.setError("Please enter Phone number");
             }
-            else if (Prof.length() == 0){
-                Prof.setError("Please enter Proffesion");
-            }
             else if (!Cons.isChecked()) {
-                Cons.setError("Click yes");
-            }
-            else if (Dist.length() == 0){
-                //|| Pass1 != Pass2
-                Dist.setError("Please enter Distance");
+                //if cond box not checked
+                Cons.setError("Must agree to terms");
             }
             else if (Pass1.length() == 0){
+                //no pass1
                 Pass1.setError("Please enter Password");
             }
             else if (Pass2.length() == 0){
+                //no pas2
                 Pass2.setError("Please enter Password");
             }
-            else if (!Pass1.getText().toString().equals(Pass2.getText().toString())){
-                Pass2.setError("Please enter Password");
-            }
-            else if (!Cons.isChecked()){
-                Cons.setError("Click yes");
+            else if (!Pass1.getText().toString().equals(Pass2.getText().toString())) {
+                //pass words don't match
+                Pass2.setError("Passwords don't match");
             }
             else{
                 //if all the data is entered correctly move to firebase functionality
@@ -104,7 +152,7 @@ public class ServiceRegActivity extends AppCompatActivity {
 
                         //add the person to the supplier table of the database
                         SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                Phone.getText().toString(), email,  Addr1.getText().toString(), Prof.getText().toString());
+                                Phone.getText().toString(), email,  Addr1.getText().toString(), Prof);
 
                         DatabaseHelper databaseHelper = new DatabaseHelper(ServiceRegActivity.this);
 
@@ -128,4 +176,5 @@ public class ServiceRegActivity extends AppCompatActivity {
         Intent intent = new Intent( this, MainActivity.class);
         startActivity(intent);
     }
+
 }

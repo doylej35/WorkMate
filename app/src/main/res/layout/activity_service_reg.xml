@@ -71,6 +71,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
 
+            <Spinner
+                android:id="@+id/professions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/main_blue"
+                android:layout_gravity="center_horizontal"/>
+
             <EditText
                 android:id="@+id/etEmail1"
                 android:layout_width="match_parent"
@@ -166,39 +174,6 @@
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etPostcode" />
-
-            <EditText
-                android:id="@+id/etProfession"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/profession"
-                android:inputType="textPersonName"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etPostcode" />
-
-            <CheckBox
-                android:id="@+id/cbTermsOfServices2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/proof"
-                android:textColor="@color/white" />
-
-            <EditText
-                android:id="@+id/etDistance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/distance"
-                android:inputType="number"
-                android:textColorHint="@color/white" />
 
             <EditText
                 android:id="@+id/etPassword1"
