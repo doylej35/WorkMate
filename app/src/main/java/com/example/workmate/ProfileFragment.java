@@ -17,12 +17,17 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState){
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_profile, null);
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){
-            String name1 = user.getDisplayName();
-            String name2 = user.getDisplayName();
             String email = user.getEmail();
-            //String pword = user.get
+
+            SupplierModel supplier = databaseHelper.searchSupplier(email);
+            String address1 = supplier.getSupplierAddr();
+            String phone = supplier.getSupplierPhone();
+            String service = supplier.getSupplierService();
+            String fname = supplier.getSupplierFname();
+            String lname = supplier.getSupplierLname();
 
             String uid = user.getUid();
 
@@ -31,10 +36,19 @@ public class ProfileFragment extends Fragment {
             textView.setText(email);
 
             textView = root.findViewById(R.id.tvFName);
-            textView.setText(name1);
+            textView.setText(fname);
 
             textView = root.findViewById(R.id.tvLName);
-            textView.setText(name2);
+            textView.setText(lname);
+
+            textView = root.findViewById(R.id.tvAddress1);
+            textView.setText(address1);
+
+            textView = root.findViewById(R.id.tvPhone);
+            textView.setText(phone);
+
+            textView = root.findViewById(R.id.tvService);
+            textView.setText(service);
 
         }else{
            Toast.makeText(getActivity(), "not logged in", Toast.LENGTH_SHORT).show();

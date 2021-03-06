@@ -133,19 +133,19 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         switch(view.getId()){
             case(R.id.SearchElec):
                 text = "You are searching for: Electricians";
-                services = databaseHelper.search("electrician");
+                services = databaseHelper.searchService("electrician");
                 break;
             case(R.id.SearchMech):
                 text = "You are searching for: Mechanics";
-                services = databaseHelper.search("mechanic");
+                services = databaseHelper.searchService("mechanic");
                 break;
             case(R.id.SearchPlum):
                 text = "You are searching for: Plumbers";
-                services = databaseHelper.search("plumber");
+                services = databaseHelper.searchService("plumber");
                 break;
             case(R.id.SearchGard):
                 text = "You are searching for: Gardeners";
-                services = databaseHelper.search("gardener");
+                services = databaseHelper.searchService("gardener");
                 break;
             default:
                 text = "You are searching for: General";
@@ -154,7 +154,10 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                 break;
         }
         if(services.size()>0) {
-            Log.d("CREATION",String.valueOf(supplierModelArrayList.get(0)));
+            StringBuffer sb = new StringBuffer();
+         //   sb.append(supplierModelArrayList.get(0));
+            String name = sb.toString();
+            Log.d("CREATION", name);
         }else {
             Log.d("CREATION", "NO SUPPLIERS OF THIS TYPE");
             Toast.makeText(MainActivity.this, "No suppliers of this type", Toast.LENGTH_SHORT).show();

@@ -41,7 +41,7 @@ public class SearchFragment extends Fragment {
 
         //creating a list of suppliers using the search function
         DatabaseHelper databaseHelper= new DatabaseHelper(getActivity());
-        List<SupplierModel> suppliers = databaseHelper.search(searchInput.toString());
+        List<SupplierModel> suppliers = databaseHelper.searchService(searchInput.toString());
         if(suppliers.size()>0) {
             //showing search results in a toast
             Toast.makeText(getActivity(), suppliers.toString(), Toast.LENGTH_SHORT).show();
