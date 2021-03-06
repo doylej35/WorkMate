@@ -5,7 +5,6 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_dark_background"
     android:orientation="vertical">
 
     <include
@@ -16,7 +15,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/cardview_dark_background"
         tools:context=".ClientRegActivity">
 
         <LinearLayout
@@ -33,25 +31,28 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/reg_serv_title"
                 android:textAlignment="center"
-                android:textColor="@color/main_blue"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Spinner
+                android:id="@+id/professions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp" />
+
             <EditText
                 android:id="@+id/etFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/reg_first_name"
                 android:importantForAutofill="yes"
                 android:inputType="textPersonName"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -65,31 +66,18 @@
                 android:ems="10"
                 android:hint="@string/reg_last_name"
                 android:inputType="textPersonName"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
-
-            <Spinner
-                android:id="@+id/professions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@color/main_blue"
-                android:layout_gravity="center_horizontal"/>
 
             <EditText
                 android:id="@+id/etEmail1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/reg_email"
                 android:inputType="textPersonName"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,8 +92,6 @@
                 android:ems="10"
                 android:hint="@string/reg_email2"
                 android:inputType="textPersonName"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
@@ -120,8 +106,6 @@
                 android:ems="10"
                 android:hint="@string/address1"
                 android:inputType="textPersonName"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,8 +120,6 @@
                 android:ems="10"
                 android:hint="@string/address2"
                 android:inputType="textPersonName"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -152,8 +134,6 @@
                 android:ems="10"
                 android:hint="@string/postcode"
                 android:inputType="textPersonName"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -168,8 +148,6 @@
                 android:ems="10"
                 android:hint="@string/reg_phone"
                 android:inputType="phone"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -184,8 +162,6 @@
                 android:ems="10"
                 android:hint="@string/password1"
                 android:inputType="textPassword"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName11" />
@@ -199,8 +175,6 @@
                 android:ems="10"
                 android:hint="@string/password2"
                 android:inputType="textPassword"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -210,8 +184,7 @@
                 android:id="@+id/cbTermsOfServices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/toc"
-                android:textColor="@color/white" />
+                android:text="@string/toc" />
 
             <Button
                 android:id="@+id/button"

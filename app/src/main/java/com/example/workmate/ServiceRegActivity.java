@@ -48,9 +48,9 @@ public class ServiceRegActivity extends AppCompatActivity {
         final EditText Pass2 =  findViewById(R.id.etPassword2);
         final CheckBox Cons =  findViewById(R.id.cbTermsOfServices);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.professions);
+        final Spinner spinner = findViewById(R.id.professions);
         String[] services = new String[]{
-                "Select an service...",
+                "Select a service...",
                 "Mechanic",
                 "Plumber",
                 "Electrician",

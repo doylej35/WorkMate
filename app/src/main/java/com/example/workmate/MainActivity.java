@@ -5,11 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,7 +18,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity<stringTextView> extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,7 +52,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                     new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
@@ -96,8 +92,9 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                 break;
 
             case R.id.nav_login: //launch login
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
-                        new LoginFragment()).commit();
+                //open service provider registration
+                Intent intent = new Intent(this, Login.class);
+                startActivity(intent);
                 break;
         }
 
@@ -113,37 +110,37 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         return super.onOptionsItemSelected(item);
     }
 
-    public void client_reg(View V){
+    public void client_reg(View V) {
         //open client registration
         Intent intent = new Intent(this, ClientRegActivity.class);
         startActivity(intent);
     }
 
-    public void service_reg(View V){
+    public void service_reg(View V) {
         //open service provider registration
         Intent intent = new Intent(this, ServiceRegActivity.class);
         startActivity(intent);
     }
 
     //function to open search page
-    public void openSearch(View view){
+    public void openSearch(View view) {
         DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this);
         ArrayList<SupplierModel> services = new ArrayList<>();
         String text;
-        switch(view.getId()){
-            case(R.id.SearchElec):
+        switch (view.getId()) {
+            case (R.id.SearchElec):
                 text = "You are searching for: Electricians";
                 services = databaseHelper.search("electrician");
                 break;
-            case(R.id.SearchMech):
+            case (R.id.SearchMech):
                 text = "You are searching for: Mechanics";
                 services = databaseHelper.search("mechanic");
                 break;
-            case(R.id.SearchPlum):
+            case (R.id.SearchPlum):
                 text = "You are searching for: Plumbers";
                 services = databaseHelper.search("plumber");
                 break;
-            case(R.id.SearchGard):
+            case (R.id.SearchGard):
                 text = "You are searching for: Gardeners";
                 services = databaseHelper.search("gardener");
                 break;
@@ -153,9 +150,9 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
 
                 break;
         }
-        if(services.size()>0) {
-            Log.d("CREATION",String.valueOf(supplierModelArrayList.get(0)));
-        }else {
+        if (services.size() > 0) {
+            Log.d("CREATION", String.valueOf(supplierModelArrayList.get(0)));
+        } else {
             Log.d("CREATION", "NO SUPPLIERS OF THIS TYPE");
             Toast.makeText(MainActivity.this, "No suppliers of this type", Toast.LENGTH_SHORT).show();
         }
