@@ -108,7 +108,6 @@ public class ServiceRegActivity extends AppCompatActivity {
 
                         DatabaseHelper databaseHelper = new DatabaseHelper(ServiceRegActivity.this);
 
-                        //not working ??
                         boolean success = databaseHelper.addSupplier(supplierModel);
                         Toast.makeText(ServiceRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
 
@@ -121,7 +120,7 @@ public class ServiceRegActivity extends AppCompatActivity {
             }
         });
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     //add in registration functions details
