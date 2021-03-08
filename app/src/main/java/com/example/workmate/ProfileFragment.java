@@ -1,5 +1,6 @@
 package com.example.workmate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,10 @@ public class ProfileFragment extends Fragment {
             textView.setText(name2);
 
         }else{
-           Toast.makeText(getActivity(), "not logged in", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent( getActivity(), Login.class);
+            startActivity(intent);  //changes page to main activity
+           //Toast.makeText(getActivity(), "not logged in", Toast.LENGTH_SHORT).show();
         }
         /*firebaseDatabase = firebaseDatabase.getInstance();
 
