@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.function.Supplier;
 
 import androidx.annotation.Nullable;
 
@@ -156,7 +155,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //sorts the data by service
-    public ArrayList<SupplierModel> search(String input){
+    public ArrayList<SupplierModel> searchService(String input){
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -181,4 +180,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return services;
     }
 
+
+
+    //sorts the data by service
+    public SupplierModel searchSupplier(String input){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //search based on their email
+        Cursor search = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_EMAIL + " LIKE " + "'" + input + "'", null);
+
+        SupplierModel supplier;
+
+        if(search.moveToFirst()) {
+            do {
+                supplier = new SupplierModel(search.getInt(0), search.getString(1), search.getString(2),
+                        search.getString(3), search.getString(4), search.getString(5), search.getString(6));
+            } while (search.moveToNext());
+        }else {
+            Log.d("CREATION", "Person not found");
+            supplier = null;
+        }
+
+        search.close();
+        return supplier;
+    }
 }
