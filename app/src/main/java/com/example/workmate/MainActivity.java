@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -32,7 +35,9 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
     FirebaseAuth fAuth;
     private ArrayList<SupplierModel> supplierModelArrayList;
     private DatabaseHelper dbHelper;
-
+    private RVAdapter rvAdapter;
+    private RecyclerView suppliersRV;
+    int option = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +66,6 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                     new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
-
-
     }
 
     @Override
@@ -128,48 +131,46 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
     //function to open search page
     public void openSearch(View view){
         DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this);
-        ArrayList<SupplierModel> services = new ArrayList<>();
+        //ArrayList<SupplierModel> services = new ArrayList<>();
         String text;
         switch(view.getId()){
             case(R.id.SearchElec):
                 text = "You are searching for: Electricians";
-                services = databaseHelper.searchService("electrician");
+                //supplierModelArrayList = databaseHelper.searchService("electrician");
+                option = 1;
                 break;
             case(R.id.SearchMech):
                 text = "You are searching for: Mechanics";
-                services = databaseHelper.searchService("mechanic");
+                //supplierModelArrayList = databaseHelper.searchService("mechanic");
+                option = 2;
                 break;
             case(R.id.SearchPlum):
                 text = "You are searching for: Plumbers";
-                services = databaseHelper.searchService("plumber");
+                //supplierModelArrayList = databaseHelper.searchService("plumber");
+                option = 3;
                 break;
             case(R.id.SearchGard):
                 text = "You are searching for: Gardeners";
-                services = databaseHelper.searchService("gardener");
+                //supplierModelArrayList = databaseHelper.searchService("gardener");
+                option = 4;
                 break;
             default:
                 text = "You are searching for: General";
-                supplierModelArrayList = databaseHelper.readSuppliers();
-
+                //supplierModelArrayList = databaseHelper.readSuppliers();
+                option = 0;
                 break;
         }
-        if(services.size()>0) {
-            StringBuffer sb = new StringBuffer();
-         //   sb.append(supplierModelArrayList.get(0));
-            String name = sb.toString();
-            Log.d("CREATION", name);
+        //Log.d("CREATION", String.valueOf(services.get(0)));
+        //setContentView(R.layout.fragment_search);
+        /*if(supplierModelArrayList.size()>0) {
+            Toast.makeText(MainActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
         }else {
             Log.d("CREATION", "NO SUPPLIERS OF THIS TYPE");
             Toast.makeText(MainActivity.this, "No suppliers of this type", Toast.LENGTH_SHORT).show();
-        }
-
+        }*/
 
         SearchFragment fragment = SearchFragment.newInstance(text);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                 fragment).commit();
-
-
     }
-
-
 }

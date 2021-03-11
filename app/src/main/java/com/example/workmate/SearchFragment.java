@@ -9,6 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -20,6 +24,11 @@ public class SearchFragment extends Fragment {
 
     private static final String ARG_TEXT = "argText";
     private String text;
+    private ArrayList<SupplierModel> supplierModelArrayList;
+    private RVAdapter rvAdapter;
+    private RecyclerView suppliersRV;
+    private DatabaseHelper dbHelper;
+    private MainActivity mainHelper;
 
     public static SearchFragment newInstance(String text){
          SearchFragment fragment = new SearchFragment();
@@ -33,7 +42,7 @@ public class SearchFragment extends Fragment {
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_search,  container, false);
-        TextView textView = v.findViewById(R.id.search_prompt);
+        /*TextView textView = v.findViewById(R.id.search_prompt);
 
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_search, null);
         EditText searchInput = root.findViewById(R.id.searchInput);
@@ -58,9 +67,33 @@ public class SearchFragment extends Fragment {
             text = getArguments().getString("ARG_TEXT");
         }
 
-        textView.setText(text);
+        textView.setText(text);*/
+        supplierModelArrayList = new ArrayList<>();
+        DatabaseHelper dbHelper = new DatabaseHelper(getActivity());
+
+        //supplierModelArrayList = dbHelper.searchService("electrician");
+        /*switch(mainHelper.option){
+            case(0):
+                supplierModelArrayList = dbHelper.readSuppliers();
+            case(1):
+                supplierModelArrayList = dbHelper.searchService("electrician");
+            case(2):
+                supplierModelArrayList = dbHelper.searchService("mechanic");
+            case(3):
+                supplierModelArrayList = dbHelper.searchService("plumber");
+            case(4):
+                supplierModelArrayList = dbHelper.searchService("gardener");
+        }*/
+        supplierModelArrayList = dbHelper.readSuppliers();
+
+        rvAdapter = new RVAdapter(supplierModelArrayList, getActivity());
+        suppliersRV = v.findViewById(R.id.idRVSuppliers);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        suppliersRV.setLayoutManager(linearLayoutManager);
+
+        suppliersRV.setAdapter(rvAdapter);
 
         return v;
-
     }
 }
