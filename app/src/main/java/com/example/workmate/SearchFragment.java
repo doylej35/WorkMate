@@ -71,17 +71,17 @@ public class SearchFragment extends Fragment {
         supplierModelArrayList = new ArrayList<>();
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity());
 
-        //supplierModelArrayList = dbHelper.searchService("electrician");
-        /*switch(mainHelper.option){
-            case(0):
+        /*
+        switch(text){
+            case("You are searching for: General"):
                 supplierModelArrayList = dbHelper.readSuppliers();
-            case(1):
+            case("You are searching for: Electricians"):
                 supplierModelArrayList = dbHelper.searchService("electrician");
-            case(2):
+            case("You are searching for: Mechanics"):
                 supplierModelArrayList = dbHelper.searchService("mechanic");
-            case(3):
+            case("You are searching for: Plumbers"):
                 supplierModelArrayList = dbHelper.searchService("plumber");
-            case(4):
+            case("You are searching for: Gardeners"):
                 supplierModelArrayList = dbHelper.searchService("gardener");
         }*/
         supplierModelArrayList = dbHelper.readSuppliers();
