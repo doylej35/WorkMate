@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,6 +39,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
     private DatabaseHelper dbHelper;
     private RVAdapter rvAdapter;
     private RecyclerView suppliersRV;
+    private Menu menu;
     int option = 0;
 
     @Override
@@ -47,7 +52,6 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
 
         mDrawer = findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
-
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
 
@@ -66,8 +70,28 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         }
     }
 
+    CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (menu != null){
+                updateMenu();
+            }
+        }
+    };
+
+    private void updateMenu(){
+        fAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = fAuth.getCurrentUser();
+        if (currentUser != null){
+            menu.findItem(R.id.nav_login).setVisible(true);
+        }else{
+            menu.findItem(R.id.nav_login).setVisible(false);
+        }
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //updateMenu();
         switch (item.getItemId()) {
 
             case R.id.nav_home: //launch home
