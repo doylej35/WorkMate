@@ -3,6 +3,7 @@ package com.example.workmate;
 //this defines a supplier class with its data, construtors, a print function, and getters and setters
 //most of the warnings are about functions not being used.
 //*****need to figure out + fix the override warning*****
+//**fix the constructor to accept null values
 
 public class SupplierModel {
 

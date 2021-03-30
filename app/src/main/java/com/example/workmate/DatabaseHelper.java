@@ -182,7 +182,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    //sorts the data by service
+    //finds a supplier by their email
     public SupplierModel searchSupplier(String input){
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -204,5 +204,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         search.close();
         return supplier;
+    }
+
+
+    //finds a client by their email
+    public ClientModel searchClient(String input){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //search based on their email
+        Cursor search = db.rawQuery("SELECT * FROM " + TABLE_CLIENT + " WHERE " + COLUMN_CLIENT_EMAIL + " LIKE " + "'" + input + "'", null);
+
+        ClientModel client;
+
+        if(search.moveToFirst()) {
+            do {
+                client = new ClientModel(search.getInt(0), search.getString(1), search.getString(2),
+                        search.getString(3), search.getString(4), search.getString(5));
+            } while (search.moveToNext());
+        }else {
+            Log.d("CREATION", "Person not found");
+            client = null;
+        }
+
+        search.close();
+        return client;
     }
 }

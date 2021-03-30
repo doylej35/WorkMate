@@ -22,13 +22,29 @@ public class ProfileFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){
             String email = user.getEmail();
+            String address1;
+            String phone;
+            String service;
+            String fname;
+            String lname;
+
 
             SupplierModel supplier = databaseHelper.searchSupplier(email);
-            String address1 = supplier.getSupplierAddr();
-            String phone = supplier.getSupplierPhone();
-            String service = supplier.getSupplierService();
-            String fname = supplier.getSupplierFname();
-            String lname = supplier.getSupplierLname();
+            if(supplier!=null) {
+                address1 = supplier.getSupplierAddr();
+                phone = supplier.getSupplierPhone();
+                service = supplier.getSupplierService();
+                fname = supplier.getSupplierFname();
+                lname = supplier.getSupplierLname();
+            }
+            else {
+                ClientModel client = databaseHelper.searchClient(email);
+                address1 = client.getClientAddr();
+                phone = client.getClientPhone();
+                service = "Regular User";
+                fname = client.getClientFname();
+                lname = client.getClientLname();
+            }
 
             String uid = user.getUid();
 
@@ -47,6 +63,7 @@ public class ProfileFragment extends Fragment {
 
             textView = root.findViewById(R.id.tvPhone);
             textView.setText(phone);
+
 
             textView = root.findViewById(R.id.tvService);
             textView.setText(service);
