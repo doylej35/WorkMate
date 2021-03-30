@@ -120,4 +120,5 @@ public class Login extends AppCompatActivity {
         startActivity(intent);  //changes page to service register activity
     }
 
+    /////
 }
