@@ -61,7 +61,15 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        menu = navigationView.getMenu();
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        if(currentUser != null){
+            menu.findItem(R.id.nav_login).setVisible(false);
+        }else{
+            menu.findItem(R.id.nav_login).setVisible(true);
+        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
