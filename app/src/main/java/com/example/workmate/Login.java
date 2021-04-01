@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -18,8 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
-    EditText mEmail, mPassword;
-    FirebaseAuth fAuth;
+     EditText mEmail, mPassword;
+     FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -46,34 +47,44 @@ public class Login extends AppCompatActivity {
 
             //check if already logged in
             //if current user is not null they are already logged in, print error message
-            if(currentUser != null) {
+            if (currentUser != null) {
                 //reload();    load their previous session ->link to their account page
                 Toast.makeText(Login.this, "Already Logged in", Toast.LENGTH_SHORT).show();
             } else {
                 //if they are not logged in read in their credentials
-                if(TextUtils.isEmpty(email)){               //is email empty?
+                if (TextUtils.isEmpty(email)) {               //is email empty?
                     mEmail.setError("Email is required.");
                     return;
                 }
-                if(TextUtils.isEmpty(password)){            //is password empty?
+                if (TextUtils.isEmpty(password)) {            //is password empty?
                     mEmail.setError("Password is required.");
                 }
-                //run the firebase login functions
-                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) {
-                        //login was successful, links to main activity page via openact() function
-                        Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                        FirebaseUser user = fAuth.getCurrentUser();  //creates a warning but is necessary so that
-                        //the user stays logged in
-
-                        openAct();
-                    }else {
-                        //login not successful, prints reason
-                        //example: login credentials are not registered
-                        Toast.makeText(Login.this, "Error" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
+            fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {   // email verification
+                        if (task.isSuccessful()) {
+                            //login was successful, links to main activity page via openact() function
+                            // Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            //  FirebaseUser user = fAuth.getCurrentUser();  //creates a warning but is necessary so that
+                            //the user stays logged in
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();    // ciara
+                            //  openAct();
+                            if (user.isEmailVerified()) {
+                                openAct();  //go to main page if email is verified
+                            } else {
+                                user.sendEmailVerification();       //else send email verification
+                                Toast.makeText(Login.this, "Check your email to verify you account.", Toast.LENGTH_LONG).show();
+
+                            }
+                        } else {
+                            //login not successful, prints reason
+                            //example: login credentials are not registered
+                          //  Toast.makeText(Login.this, "Error" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "Log in failed. Please check your credentials and try again.", Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+            );
+       // }
         });
 
         //this sets up the logout functionality for the button
