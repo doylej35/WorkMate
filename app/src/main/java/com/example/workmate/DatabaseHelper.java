@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //name of the database is defined here
-    public static String DATABASE_NAME = "workmate_db.db";
+    public static String DATABASE_NAME = "workmate_database.db";
     //declarations of the client table columns(ie data points)
     public static final String TABLE_CLIENT = "CLIENT_TABLE";
     public static final String COLUMN_CLIENT_FNAME = "CLIENT_FNAME";
