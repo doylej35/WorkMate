@@ -230,4 +230,72 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         search.close();
         return client;
     }
+/////////////////untested functions below//////////////
+    //updates the data of a client based on their email
+    public boolean updateClientData(ClientModel clientModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cvClient = new ContentValues();
+        cvClient.put(COLUMN_CLIENT_ID, clientModel.getClientId());
+        cvClient.put(COLUMN_CLIENT_FNAME, clientModel.getClientFname());
+        cvClient.put(COLUMN_CLIENT_LNAME, clientModel.getClientLname());
+        cvClient.put(COLUMN_CLIENT_EMAIL, clientModel.getClientEmail());
+        cvClient.put(COLUMN_CLIENT_PHONE, clientModel.getClientPhone());
+        cvClient.put(COLUMN_CLIENT_ADDR, clientModel.getClientAddr());
+
+        //think the next line might be wrong...
+        db.update(TABLE_CLIENT, cvClient, "COLUMN_CLIENT_EMAIL = ?", new String[] { COLUMN_CLIENT_EMAIL});
+        return true;
+    }
+
+    //updates the data of a client based on their email
+    public boolean updateSupplierData(SupplierModel supplierModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cvSupplier = new ContentValues();
+        cvSupplier.put(COLUMN_SUPPLIER_ID, supplierModel.getSupplierId());
+        cvSupplier.put(COLUMN_SUPPLIER_FNAME, supplierModel.getSupplierFname());
+        cvSupplier.put(COLUMN_SUPPLIER_LNAME, supplierModel.getSupplierLname());
+        cvSupplier.put(COLUMN_SUPPLIER_EMAIL, supplierModel.getSupplierEmail());
+        cvSupplier.put(COLUMN_SUPPLIER_PHONE, supplierModel.getSupplierPhone());
+        cvSupplier.put(COLUMN_SUPPLIER_ADDR, supplierModel.getSupplierAddr());
+
+        db.update(TABLE_SUPPLIER, cvSupplier, "COLUMN_SUPPLIER_EMAIL = ?", new String[] { COLUMN_SUPPLIER_EMAIL});
+        return true;
+    }
+
+    //if the client is found in the database delete it and return true
+//if not found return false
+    public boolean deleteClient(ClientModel clientModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String queryString = "DELETE FROM " + TABLE_CLIENT + " WHERE " + COLUMN_CLIENT_ID + " = " + clientModel.getClientId();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()) {
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+    //if the supplier is found in the database delete it and return true
+//if not found return false
+    public boolean deleteSupplier(SupplierModel supplierModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String queryString = "DELETE FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_ID + " = " + supplierModel.getSupplierId();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()) {
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
 }
