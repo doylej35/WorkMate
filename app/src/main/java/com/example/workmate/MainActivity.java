@@ -130,8 +130,10 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
 
             case R.id.nav_login: //launch login
                 //open service provider registration
-                Intent intent = new Intent(this, Login.class);
-                startActivity(intent);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                        new LoginFragment()).commit();
+                //Intent intent = new Intent(this, Login.class);
+                //startActivity(intent);
                 break;
         }
 

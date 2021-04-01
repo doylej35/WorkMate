@@ -33,10 +33,10 @@
             android:padding="16dp"/>
 
         <Button
-            android:id="@+id/setting_nothing"
+            android:id="@+id/setting_PassReset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login"
+            android:text="Reset Password"
             android:padding="16dp"/>
 
 

@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class SettingsFragment extends Fragment {
     FirebaseAuth fAuth;
     View view;
-    Button logout;
+    Button logout, PassReset;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -27,6 +27,8 @@ public class SettingsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_settings,  container, false);
 
         logout = (Button) view.findViewById(R.id.setting_logout);
+        PassReset = (Button) view.findViewById(R.id.setting_PassReset);
+
         Intent intent = new Intent( getActivity(), MainActivity.class);
 
         logout.setOnClickListener(new View.OnClickListener() {
