@@ -230,4 +230,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         search.close();
         return client;
     }
+
+    public void updateClient(String user, String fname, String lname, String addr, String phone){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COLUMN_CLIENT_FNAME, fname);
+        contentValues.put(COLUMN_CLIENT_LNAME, lname);
+        contentValues.put(COLUMN_CLIENT_ADDR, addr);
+        contentValues.put(COLUMN_CLIENT_PHONE, phone);
+
+        db.update(TABLE_CLIENT, contentValues, "CLIENT_EMAIL=?", new String[]{user});
+
+    }
+
+    public void updateSupplier(String user, String fname, String lname, String addr, String phone){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COLUMN_SUPPLIER_FNAME, fname);
+        contentValues.put(COLUMN_SUPPLIER_LNAME, lname);
+        contentValues.put(COLUMN_SUPPLIER_ADDR, addr);
+        contentValues.put(COLUMN_SUPPLIER_PHONE, phone);
+
+        db.update(TABLE_SUPPLIER, contentValues, "SUPPLIER_EMAIL=?", new String[]{user});
+    }
 }

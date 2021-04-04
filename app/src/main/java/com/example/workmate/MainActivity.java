@@ -132,8 +132,6 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                 //open service provider registration
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                         new LoginFragment()).commit();
-                //Intent intent = new Intent(this, Login.class);
-                //startActivity(intent);
                 break;
         }
 
