@@ -29,11 +29,11 @@ public class ProfileFragment extends Fragment {
 
         if(user != null){
             String email = user.getEmail();
-            String address1;
-            String phone;
-            String service;
-            String fname;
-            String lname;
+            String address1 = null;
+            String phone = null;
+            String service = null;
+            String fname = null;
+            String lname = null;
 
 
             SupplierModel supplier = databaseHelper.searchSupplier(email);
@@ -46,11 +46,13 @@ public class ProfileFragment extends Fragment {
             }
             else {
                 ClientModel client = databaseHelper.searchClient(email);
-                address1 = client.getClientAddr();
-                phone = client.getClientPhone();
-                service = "Regular User";
-                fname = client.getClientFname();
-                lname = client.getClientLname();
+                if(client!=null) {
+                    address1 = client.getClientAddr();
+                    phone = client.getClientPhone();
+                    service = "Regular User";
+                    fname = client.getClientFname();
+                    lname = client.getClientLname();
+                }
             }
 
             String uid = user.getUid();

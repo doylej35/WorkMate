@@ -230,7 +230,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         search.close();
         return client;
     }
-
     public void updateClient(String user, String fname, String lname, String addr, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -255,4 +254,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.update(TABLE_SUPPLIER, contentValues, "SUPPLIER_EMAIL=?", new String[]{user});
     }
+
+    public boolean deleteClient(ClientModel clientModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String queryString = "DELETE FROM " + TABLE_CLIENT + " WHERE " + COLUMN_CLIENT_ID + " = " + clientModel.getClientId();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()) {
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+    //if the supplier is found in the database delete it and return true
+//if not found return false
+    public boolean deleteSupplier(SupplierModel supplierModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String queryString = "DELETE FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_ID + " = " + supplierModel.getSupplierId();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()) {
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
 }
