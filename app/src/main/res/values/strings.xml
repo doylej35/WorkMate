@@ -19,6 +19,14 @@
     <string name="search_plum">Plumber</string>
     <string name="search_gard">Gardener</string>
     <string name="search_gen">General</string>
+    //Search Spinner starts
+    <string-array name="spinnerItems">
+        <item>First Name</item>
+        <item>Last Name</item>
+        <item>Address</item>
+        <item>Service</item>
+    </string-array>
+    //ends here
 
     <!-- Drawer Titles -->
     <string name="drawer_home">Home</string>
