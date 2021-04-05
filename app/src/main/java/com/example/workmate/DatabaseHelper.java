@@ -180,6 +180,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return services;
     }
 
+    //sorts the data by a filter chosen by user
+    public ArrayList<SupplierModel> searchServiceFilter(String input, String filter){
+
+        String column = "";
+
+        switch (filter) {
+            case ("First Name"):
+                column = "SUPPLIER_FNAME";
+                break;
+            case ("Last Name"):
+                column = "SUPPLIER_LNAME";
+                break;
+            case ("Address"):
+                column = "SUPPLIER_ADDR";
+                break;
+            case ("Service"):
+                column = "SUPPLIER_SERVICE";
+                break;
+        }
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor search = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER + " WHERE " + column + " LIKE " + "'" + input + "'", null);
+
+        ArrayList<SupplierModel> services = new ArrayList<>();
+
+        if(search.moveToFirst()) {
+            do {
+                services.add(new SupplierModel(search.getInt(0),
+                        search.getString(1),
+                        search.getString(2),
+                        search.getString(3),
+                        search.getString(4),
+                        search.getString(5),
+                        search.getString(6)));
+            } while (search.moveToNext());
+        }else {
+            Log.d("CREATION", "NO DATA TO LOOK AT IN SEARCH FUNCTION");
+        }
+        search.close();
+        return services;
+    }
+
 
 
     //finds a supplier by their email
