@@ -16,6 +16,7 @@ import java.util.Objects;
 
 public class ClientRegActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class ClientRegActivity extends AppCompatActivity {
         final EditText Phone =  findViewById(R.id.etPhone);
         final EditText Pass1 = findViewById(R.id.etPassword1);
         final EditText Pass2 = findViewById(R.id.etPassword2);
+
 
 
         Button button =  findViewById(R.id.button);                     //register button

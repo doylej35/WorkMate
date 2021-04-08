@@ -36,8 +36,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SUPPLIER_SERVICE = "SUPPLIER_SERVICE";
     public static final String COLUMN_SUPPLIER_ID = "ID";
 
+    //order table
+    public static final String TABLE_ORDER = "ORDER_TABLE";
+    public static final String COLUMN_ORDER_ID = "ORDER_ID";
+ //   COLUMN_CLIENT_EMAIL
+ //   COLUMN_SUPPLIER_EMAIL
+    public static final String COLUMN_ORDER_DATE = "ORDER_DATE";
+    public static final String COLUMN_ORDER_HOURS = "ORDER_HOURS"; //int
+    public static final String COLUMN_ORDER_COST = "ORDER_COST";    //double
+    public static final String COLUMN_ORDER_LOCATION = "ORDER_LOCATION";   //geokey?
 
 
+    //create table for order
+    private static final String CREATE_TABLE_ORDER = "CREATE TABLE " +
+            TABLE_ORDER + " (" +
+            COLUMN_ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_CLIENT_EMAIL + " TEXT, " +
+            COLUMN_SUPPLIER_EMAIL + " TEXT, " +
+            COLUMN_ORDER_DATE + " TEXT, " +
+            COLUMN_ORDER_HOURS + " INTEGER, " +
+            COLUMN_ORDER_COST + " DOUBLE, " +
+            COLUMN_ORDER_LOCATION + " TEXT)";   //geoid?
 
 
     private static final String CREATE_TABLE_CLIENT = "CREATE TABLE " +
@@ -76,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CLIENT);
         db.execSQL(CREATE_TABLE_SUPPLIER);
+        db.execSQL(CREATE_TABLE_ORDER);
         Log.d("CREATION", "TABLES ARE BEING CREATED");
     }
 
@@ -86,9 +106,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //need code here to remove stuff thats already there/hasnt been updated
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_CLIENT + "'");
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_SUPPLIER + "'");
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_ORDER + "'");
 
         onCreate(db);
     }
+
+    public boolean addOrder(OrderModel orderModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //adding order inputs
+        ContentValues cvOrder = new ContentValues();
+        cvOrder.put(COLUMN_CLIENT_EMAIL, orderModel.getClientEmail());
+        cvOrder.put(COLUMN_SUPPLIER_EMAIL, orderModel.getClientEmail());
+        cvOrder.put(COLUMN_ORDER_DATE, orderModel.getOrderDate());
+        cvOrder.put(COLUMN_ORDER_HOURS, orderModel.getOrderHours());
+        cvOrder.put(COLUMN_ORDER_COST, orderModel.getOrderCost());
+        cvOrder.put(COLUMN_ORDER_LOCATION, orderModel.getOrderLocation());
+
+        long insert = db.insert(TABLE_CLIENT, null, cvOrder);
+        if(insert == -1) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
 
     public boolean addClient(ClientModel clientModel) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -108,6 +150,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+
     public boolean addSupplier(SupplierModel supplierModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 

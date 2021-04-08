@@ -3,6 +3,7 @@ package com.example.workmate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,18 +80,15 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        passRest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = mEmail.getText().toString().trim();      //email entered on login screen text box
-                if(email.equals("")){       //better than using '=='
-                    Toast.makeText(getActivity(), "Please Enter Email Above to Reset Password", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    fAuth.sendPasswordResetEmail(email);    //sends recovery email
-                    Toast.makeText(getActivity(), "Recovery Email Sent", Toast.LENGTH_SHORT).show();
-                    startActivity(intent);  //returns to main screen
-                }
+        passRest.setOnClickListener(v -> {
+            String email = mEmail.getText().toString().trim();      //email entered on login screen text box
+            if(email.equals("")){       //better than using '=='
+                Toast.makeText(getActivity(), "Please Enter Email Above to Reset Password", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                fAuth.sendPasswordResetEmail(email);    //sends recovery email
+                Toast.makeText(getActivity(), "Recovery Email Sent", Toast.LENGTH_SHORT).show();
+                startActivity(intent);  //returns to main screen
             }
         });
 
