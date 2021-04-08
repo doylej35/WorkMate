@@ -1,5 +1,6 @@
 package com.example.workmate;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +31,8 @@ public class SearchFragment extends Fragment {
     private DatabaseHelper dbHelper;
     private MainActivity mainHelper;
     private String input;
+
+    Context context = getActivity();
 
     public static SearchFragment newInstance(String text){
          SearchFragment fragment = new SearchFragment();

@@ -9,6 +9,7 @@
     app:cardCornerRadius="4dp">
 
     <LinearLayout
+        android:id="@+id/lv_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
