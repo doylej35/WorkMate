@@ -14,6 +14,10 @@ public class SupplierModel {
     private String SupplierPhone;
     private String SupplierService;
     private String SupplierAddr;
+    private String SupplierLatitude;
+    private String SupplierLongitude;
+
+
 
     //constructors
     public SupplierModel(int supplierId, String supplierFname,
@@ -99,5 +103,19 @@ public class SupplierModel {
 
     public void setSupplierAddr(String supplierAddr) {
         SupplierAddr = supplierAddr;
+    }
+
+    public String getSupplierLatitude() {return SupplierLatitude; }
+
+    public void setSupplierLatitude(String supplierLatitude) {
+        //nb this will come from the google geo stuff. NEEDS TO BE SET BEFORE ENTERING IN MYSQL
+        SupplierLatitude = supplierLatitude;
+    }
+
+    public String getSupplierLongitude() {return SupplierLongitude; }
+
+    public void setSupplierLongitude(String supplierLongitude) {
+        //nb this will come from the google geo stuff. NEEDS TO BE SET BEFORE ENTERING IN MYSQL
+        SupplierLongitude = supplierLongitude;
     }
 }

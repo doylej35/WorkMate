@@ -24,6 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CLIENT_PHONE = "CLIENT_PHONE";
     public static final String COLUMN_CLIENT_EMAIL = "CLIENT_EMAIL";
     public static final String COLUMN_CLIENT_ADDR = "CLIENT_ADDR";
+    public static final String COLUMN_CLIENT_LONGITUDE = "CLIENT_LONGITUDE";
+    public static final String COLUMN_CLIENT_LATITUDE = "CLIENT_LATITUDE";
     public static final String COLUMN_CLIENT_ID = "ID";
 
     //declarations of the supplier table columns(ie data points)
@@ -34,6 +36,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SUPPLIER_EMAIL = "SUPPLIER_EMAIL";
     public static final String COLUMN_SUPPLIER_ADDR = "SUPPLIER_ADDR";
     public static final String COLUMN_SUPPLIER_SERVICE = "SUPPLIER_SERVICE";
+    public static final String COLUMN_SUPPLIER_LONGITUDE = "SUPPLIER_LONGITUDE";
+    public static final String COLUMN_SUPPLIER_LATITUDE = "SUPPLIER_LATITUDE";
     public static final String COLUMN_SUPPLIER_ID = "ID";
 
     //order table
@@ -44,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ORDER_DATE = "ORDER_DATE";
     public static final String COLUMN_ORDER_HOURS = "ORDER_HOURS"; //int
     public static final String COLUMN_ORDER_COST = "ORDER_COST";    //double
-    public static final String COLUMN_ORDER_LOCATION = "ORDER_LOCATION";   //geokey?
+    public static final String COLUMN_ORDER_LOCATION = "ORDER_LOCATION";   //probs clients address
 
 
     //create table for order
@@ -66,6 +70,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_CLIENT_LNAME + " TEXT, " +
             COLUMN_CLIENT_PHONE + " TEXT, " +
             COLUMN_CLIENT_EMAIL + " TEXT, " +
+            COLUMN_CLIENT_LONGITUDE + " TEXT, " +
+            COLUMN_CLIENT_LATITUDE + " TEXT, " +
             COLUMN_CLIENT_ADDR + " TEXT)";
 
 
@@ -78,6 +84,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_SUPPLIER_PHONE + " TEXT, " +
             COLUMN_SUPPLIER_EMAIL + " TEXT, " +
             COLUMN_SUPPLIER_ADDR + " TEXT, " +
+            COLUMN_SUPPLIER_LONGITUDE + " TEXT, " +
+            COLUMN_SUPPLIER_LATITUDE + " TEXT, " +
             COLUMN_SUPPLIER_SERVICE + " TEXT)";
 
 
@@ -142,6 +150,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cvClient.put(COLUMN_CLIENT_EMAIL, clientModel.getClientEmail());
         cvClient.put(COLUMN_CLIENT_PHONE, clientModel.getClientPhone());
         cvClient.put(COLUMN_CLIENT_ADDR, clientModel.getClientAddr());
+        cvClient.put(COLUMN_CLIENT_LONGITUDE, clientModel.getClientLongitude());
+        cvClient.put(COLUMN_CLIENT_LATITUDE, clientModel.getClientLatitude());
 
         long insert = db.insert(TABLE_CLIENT, null, cvClient);
         if(insert == -1) {
@@ -162,6 +172,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cvSupplier.put(COLUMN_SUPPLIER_PHONE, supplierModel.getSupplierPhone());
         cvSupplier.put(COLUMN_SUPPLIER_ADDR, supplierModel.getSupplierAddr());
         cvSupplier.put(COLUMN_SUPPLIER_SERVICE, supplierModel.getSupplierService());
+        cvSupplier.put(COLUMN_SUPPLIER_LONGITUDE, supplierModel.getSupplierLongitude());
+        cvSupplier.put(COLUMN_SUPPLIER_LATITUDE, supplierModel.getSupplierLatitude());
 
         long insert = db.insert(TABLE_SUPPLIER, null, cvSupplier);
         Log.d("CREATION","addSupplier is being executed");
@@ -180,6 +192,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<SupplierModel> supplierModelArrayList = new ArrayList<>();
 
         //shows all of the stored data about the suppliers (I hope) will be edited later
+        //display their address (town) rather than exact geo data
         if(cursorSuppliers.moveToFirst()){
             do {
                 supplierModelArrayList.add(new SupplierModel(cursorSuppliers.getInt(0),
@@ -205,7 +218,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor search = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_SERVICE + " LIKE " + "'" + input + "'", null);
 
         ArrayList<SupplierModel> services = new ArrayList<>();
-
+        //display their address (town) rather than exact geo data
         if(search.moveToFirst()) {
             do {
                 services.add(new SupplierModel(search.getInt(0),
@@ -234,7 +247,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor search = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_EMAIL + " LIKE " + "'" + input + "'", null);
 
         SupplierModel supplier;
-
+        //display their address (town) rather than exact geo data
         if(search.moveToFirst()) {
             do {
                 supplier = new SupplierModel(search.getInt(0), search.getString(1), search.getString(2),
@@ -259,7 +272,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor search = db.rawQuery("SELECT * FROM " + TABLE_CLIENT + " WHERE " + COLUMN_CLIENT_EMAIL + " LIKE " + "'" + input + "'", null);
 
         ClientModel client;
-
+        //display their address (town) rather than exact geo data
         if(search.moveToFirst()) {
             do {
                 client = new ClientModel(search.getInt(0), search.getString(1), search.getString(2),
@@ -273,6 +286,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         search.close();
         return client;
     }
+
+    //may need to update their geolocation if their address has changed
     public void updateClient(String user, String fname, String lname, String addr, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -286,6 +301,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //may need to update their geolocation if their address has changed
     public void updateSupplier(String user, String fname, String lname, String addr, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

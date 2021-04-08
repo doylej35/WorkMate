@@ -10,7 +10,7 @@ public class OrderModel {
     private String OrderDate;
     private int OrderHours;
     private double OrderCost;
-    private String OrderLocation;       //the clients location
+    private String OrderLocation;       //the clients location (address)
 
     public OrderModel(int orderId, String clientEmail, String supplierEmail, String supplierService,
                       String orderDate, int orderHours, double orderCost, String orderLocation) {
