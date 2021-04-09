@@ -14,15 +14,13 @@
         android:roundIcon="@drawable/workmate_logo_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkMate">
-
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
+               ap to run.
         -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
-
 
         <meta-data
             android:name="preloaded_fonts"
@@ -30,10 +28,13 @@
 
         <activity
             android:name=".ServiceRegActivity"
-            android:parentActivityName=".Login" />
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SupplierProfileActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ClientRegActivity"
-            android:parentActivityName=".Login" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EditProfileActivity"
             android:parentActivityName=".MainActivity" />
