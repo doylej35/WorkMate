@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.ArrayList;
-
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 //this class implements the sqlite openhelper functionality to create our data base functions that will be used
 //WARNINGS ARE ABOUT SIMPLIFYING IF STATEMENTS
@@ -34,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SUPPLIER_EMAIL = "SUPPLIER_EMAIL";
     public static final String COLUMN_SUPPLIER_ADDR = "SUPPLIER_ADDR";
     public static final String COLUMN_SUPPLIER_SERVICE = "SUPPLIER_SERVICE";
+    public static final String COLUMN_SUPPLIER_RATING = "SUPPLIER_RATING";
     public static final String COLUMN_SUPPLIER_ID = "ID";
 
 
@@ -59,7 +60,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_SUPPLIER_PHONE + " TEXT, " +
             COLUMN_SUPPLIER_EMAIL + " TEXT, " +
             COLUMN_SUPPLIER_ADDR + " TEXT, " +
-            COLUMN_SUPPLIER_SERVICE + " TEXT)";
+            COLUMN_SUPPLIER_SERVICE + " TEXT, " +
+            COLUMN_SUPPLIER_RATING + "INTEGER)";
 
 
 
@@ -119,6 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cvSupplier.put(COLUMN_SUPPLIER_PHONE, supplierModel.getSupplierPhone());
         cvSupplier.put(COLUMN_SUPPLIER_ADDR, supplierModel.getSupplierAddr());
         cvSupplier.put(COLUMN_SUPPLIER_SERVICE, supplierModel.getSupplierService());
+        cvSupplier.put(COLUMN_SUPPLIER_RATING, supplierModel.getSupplierRating());
 
         long insert = db.insert(TABLE_SUPPLIER, null, cvSupplier);
         Log.d("CREATION","addSupplier is being executed");
@@ -145,7 +148,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                                              cursorSuppliers.getString(3),
                                                              cursorSuppliers.getString(4),
                                                              cursorSuppliers.getString(5),
-                                                             cursorSuppliers.getString(6)));
+                                                             cursorSuppliers.getString(6),
+                                                            cursorSuppliers.getInt(7)));
             }while(cursorSuppliers.moveToNext());
         }
 
@@ -171,7 +175,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         search.getString(3),
                         search.getString(4),
                         search.getString(5),
-                        search.getString(6)));
+                        search.getString(6),
+                        search.getInt(7)));
             } while (search.moveToNext());
         }else {
             Log.d("CREATION", "NO DATA TO LOOK AT IN SEARCH FUNCTION");
@@ -195,7 +200,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(search.moveToFirst()) {
             do {
                 supplier = new SupplierModel(search.getInt(0), search.getString(1), search.getString(2),
-                        search.getString(3), search.getString(4), search.getString(5), search.getString(6));
+                        search.getString(3), search.getString(4), search.getString(5), search.getString(6), search.getInt(7));
             } while (search.moveToNext());
         }else {
             Log.d("CREATION", "Person not found");
