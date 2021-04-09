@@ -61,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_SUPPLIER_EMAIL + " TEXT, " +
             COLUMN_SUPPLIER_ADDR + " TEXT, " +
             COLUMN_SUPPLIER_SERVICE + " TEXT, " +
-            COLUMN_SUPPLIER_RATING + "INTEGER)";
+            COLUMN_SUPPLIER_RATING + " INTEGER)";
 
 
 
