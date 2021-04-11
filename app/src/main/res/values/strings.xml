@@ -77,6 +77,8 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="title_activity_supplier_profile">SupplierProfileActivity</string>
+    <string name="Calender">drawer_calender</string>
+    <string name="drawer_calender">Calender</string>
 
 
 </resources>

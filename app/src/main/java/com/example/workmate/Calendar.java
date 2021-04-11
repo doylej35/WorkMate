@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
@@ -28,6 +29,10 @@ public class Calendar extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        Toolbar mToolbar = findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mEvent = findViewById(R.id.events);
         mMonth = findViewById(R.id.month);
@@ -73,7 +78,7 @@ public class Calendar extends AppCompatActivity {
         if (info != "") {
             mEvent.setText(info);
         }else {
-            mEvent.setText("No Classes Today");
+            mEvent.setText("No Jobs Today");
         }
 
     }

@@ -6,16 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".Calendar">
 
+    <include
+        layout="@layout/nav_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize" />
+
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
         android:id="@+id/compactcalendar_view"
         android:layout_width="fill_parent"
         android:layout_height="250dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="84dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        app:compactCalendarBackgroundColor="@color/tcdblue2"
-        app:compactCalendarCurrentDayBackgroundColor="@color/tcdblue1"
-        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/tcdgrey"
+        app:compactCalendarBackgroundColor="@color/main_blue"
+        app:compactCalendarCurrentDayBackgroundColor="@color/black"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/grey"
         app:compactCalendarMultiEventIndicatorColor="#fff"
         app:compactCalendarTargetHeight="250dp"
         app:compactCalendarTextColor="#fff"
@@ -34,8 +39,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/compactcalendar_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/events"

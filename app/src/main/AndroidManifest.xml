@@ -36,6 +36,9 @@
             android:name=".ClientRegActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".Calendar"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".EditProfileActivity"
             android:parentActivityName=".MainActivity" />
         <activity
