@@ -9,10 +9,9 @@
     android:background="@drawable/backcircle1">
 
     <include
-        layout="@layout/nav_action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize" />
-
+    layout="@layout/nav_action_bar"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -31,7 +30,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/edTitle"
+                android:id="@+id/SUPTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
@@ -47,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/edimageView"
+                android:id="@+id/SUPimageView"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
@@ -57,8 +56,8 @@
                 app:civ_border_width="2dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
-            <EditText
-                android:id="@+id/edFName"
+            <TextView
+                android:id="@+id/SUPFName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
@@ -71,8 +70,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <EditText
-                android:id="@+id/edLName"
+            <TextView
+                android:id="@+id/SUPLName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
@@ -84,10 +83,10 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edFirstName" />
+                app:layout_constraintTop_toBottomOf="@+id/SUPFirstName" />
 
             <TextView
-                android:id="@+id/edEmail"
+                android:id="@+id/SUPEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
@@ -101,10 +100,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edLastName" />
+                app:layout_constraintTop_toBottomOf="@+id/SUPLastName" />
 
-            <EditText
-                android:id="@+id/edAddress1"
+            <TextView
+                android:id="@+id/SUPAddress1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
@@ -117,10 +116,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edEmail2" />
+                app:layout_constraintTop_toBottomOf="@+id/SUPEmail" />
 
             <TextView
-                android:id="@+id/edService"
+                android:id="@+id/SUPService"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
@@ -133,10 +132,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edAddress1" />
+                app:layout_constraintTop_toBottomOf="@+id/SUPAddress1" />
 
             <TextView
-                android:id="@+id/edPostcode"
+                android:id="@+id/SUPPostcode"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
@@ -149,10 +148,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edAddress2" />
+                app:layout_constraintTop_toBottomOf="@+id/SUPAddress2" />
 
-            <EditText
-                android:id="@+id/edPhone"
+            <TextView
+                android:id="@+id/SUPPhone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
@@ -165,20 +164,31 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edPostcode" />
+                app:layout_constraintTop_toBottomOf="@+id/SUPPostcode" />
+
+            <RatingBar
+                android:id="@+id/SUPRating"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:numStars="5"
+                android:rating="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/SUPPhone" />
 
             <Button
-                android:id="@+id/edbtnEditProfile"
+                android:id="@+id/SUPbtnRate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/edit_profile"
+                android:text="Save Rating"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edPhone" />
-
 
         </LinearLayout>
 
