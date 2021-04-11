@@ -103,7 +103,7 @@ public class SearchFragment extends Fragment {
 
         Toast.makeText(getActivity(),text, Toast.LENGTH_SHORT).show();
 
-        Log.d("CREATION","TEXT = " + text);
+        Log.d("CREATION","BEN = " + supplierModelArrayList);
 
         //supplierModelArrayList = dbHelper.readSuppliers();
 

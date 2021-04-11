@@ -49,7 +49,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         holder.LNameTV.setText(modal.getSupplierLname());
         holder.AddressTV.setText(modal.getSupplierAddr());
         holder.PhoneTV.setText(modal.getSupplierPhone());
+        holder.ServiceTV.setText(modal.getSupplierService());
         String email = modal.getSupplierEmail();
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +75,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         // creating variables for our text views.
-        private TextView NameTV, LNameTV, AddressTV, PhoneTV;
+        private TextView NameTV, LNameTV, AddressTV, PhoneTV, ServiceTV;
         public LinearLayout lv;
 
         public ViewHolder(@NonNull View itemView) {
@@ -83,7 +85,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             LNameTV = itemView.findViewById(R.id.idTVLName);
             AddressTV = itemView.findViewById(R.id.idTVAddress);
             PhoneTV = itemView.findViewById(R.id.idTVPhone);
-
+            ServiceTV = itemView.findViewById(R.id.idTVService);
         }
     }
 }
