@@ -10,18 +10,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.common.SignInButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Objects;
-
 public class Login extends AppCompatActivity {
      EditText mEmail, mPassword;
+     private SignInButton googleSignInButton;
      FirebaseAuth fAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -38,7 +38,8 @@ public class Login extends AppCompatActivity {
         FirebaseUser currentUser = fAuth.getCurrentUser();              //loads in current users session
 
         Button button = findViewById(R.id.btnLogin);                    //login button
-        Button logout = findViewById(R.id.btnLogout);                   //this is the new logout button
+     //   googleSignInButton = findViewById(R.id.btnGoogle);                   //this is the google button
+     //   googleSignInButton.setSize(SignInButton.SIZE_STANDARD);
         TextView passRest = findViewById(R.id.loginForgotPass);
 
         button.setOnClickListener(v -> {
@@ -46,9 +47,10 @@ public class Login extends AppCompatActivity {
             String email = mEmail.getText().toString().trim();          //email text box from login_activity.xml
             String password = mPassword.getText().toString().trim();    //password text box from login_activity.xml
 
+
             //check if already logged in
             //if current user is not null they are already logged in, print error message
-            if (currentUser != null) {
+            if (currentUser != null ) {
                 //reload();    load their previous session ->link to their account page
                 Toast.makeText(Login.this, "Already Logged in", Toast.LENGTH_SHORT).show();
             } else {
@@ -87,22 +89,14 @@ public class Login extends AppCompatActivity {
                         }
                     }
             );
-       // }
-        });
 
-        //this sets up the logout functionality for the button
-        //could insert an if statement to check it worked?
-        logout.setOnClickListener(log -> {
+         });
+
+        //this button is to login with google
+      //  googleSignInButton.setOnClickListener(log -> {
             //logs out the current user then returns to main activity
-            if(currentUser!=null) {     //if existing user
-                FirebaseAuth.getInstance().signOut();   //signout
-                Toast.makeText(Login.this, "Logout Successful", Toast.LENGTH_SHORT).show();
-                openAct();  //returns to main page
-            }
-            else {
-                Toast.makeText(Login.this, "Not signed in!", Toast.LENGTH_SHORT).show();
-            }
-        });
+      //      signIn();
+      //  });
 
         passRest.setOnClickListener(pass -> {     //button for 'Forgot Password' on login screen
             String email = mEmail.getText().toString().trim();      //email entered on login screen text box
@@ -121,6 +115,7 @@ public class Login extends AppCompatActivity {
         Intent intent = new Intent( this, MainActivity.class);
         startActivity(intent);  //changes page to main activity
     }
+
 
     public void client_reg(View V){
         //open client registration

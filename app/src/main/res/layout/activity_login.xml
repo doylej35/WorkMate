@@ -120,11 +120,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginForgotPass" />
 
-        <Button
-            android:id="@+id/btnLogout"
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btnGoogle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/logout"
+            android:text="@string/google"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +141,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogout" />
+            app:layout_constraintTop_toBottomOf="@+id/btnGoogle" />
 
         <TextView
             android:id="@+id/tvPrompt2"
