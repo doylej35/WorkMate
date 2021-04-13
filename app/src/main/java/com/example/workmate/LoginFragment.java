@@ -110,18 +110,7 @@ public class LoginFragment<web_client_id> extends Fragment {
         View.OnClickListener handleGoogleLogin = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
-                //uncomment this when it is registering properly again
-               /* if(databaseHelper.searchSupplier(mEmail.getText().toString().trim())==null&&databaseHelper.searchClient(mEmail.getText().toString().trim())==null) {
-                    Toast.makeText(getActivity(), "Please register first", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent( getActivity(), MainActivity.class);
-                    startActivity(intent);
-                }
-                else {
-
-                */
                     signIn();
-              //  }
             }
         };
 
@@ -184,7 +173,24 @@ public class LoginFragment<web_client_id> extends Fragment {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            firebaseAuthWithGoogle(account);
+            DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+            //uncomment this when it is registering properly again
+            if((databaseHelper.searchSupplier(account.getEmail())==null)){
+                if(databaseHelper.searchClient(account.getEmail())==null) {
+                    Toast.makeText(getActivity(), "Please register first", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getActivity(), Login.class);
+                    startActivity(intent);
+                }
+                else {
+                    Log.d("LOGIN", "google authentication for client" + databaseHelper.searchClient(account.getEmail()).toString());
+                    firebaseAuthWithGoogle(account);
+                }
+            }
+            else {
+                Log.d("LOGIN", "google authentication for supplier" + databaseHelper.searchSupplier(account.getEmail()).toString());
+                firebaseAuthWithGoogle(account);
+            }
         } catch (ApiException e) {
             Log.w("ERROR","signInResult:failed code=" + e.getStatusCode() + " ");
             e.printStackTrace();

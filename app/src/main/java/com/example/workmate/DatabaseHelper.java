@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //name of the database is defined here
-    public static String DATABASE_NAME = "workmate_db.db";
+    public static String DATABASE_NAME = "workmate_database_test1.db";
     //declarations of the client table columns(ie data points)
     public static final String TABLE_CLIENT = "CLIENT_TABLE";
     public static final String COLUMN_CLIENT_FNAME = "CLIENT_FNAME";
@@ -39,6 +39,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SUPPLIER_LONGITUDE = "SUPPLIER_LONGITUDE";
     public static final String COLUMN_SUPPLIER_ID = "ID";
 
+
+    //order table
+    public static final String TABLE_ORDER = "ORDER_TABLE";
+    public static final String COLUMN_ORDER_ID = "ORDER_ID";
+    //   COLUMN_CLIENT_EMAIL
+    //   COLUMN_SUPPLIER_EMAIL
+    public static final String COLUMN_ORDER_DATE = "ORDER_DATE";
+    public static final String COLUMN_ORDER_HOURS = "ORDER_HOURS"; //int
+    public static final String COLUMN_ORDER_COST = "ORDER_COST";    //double
+    public static final String COLUMN_ORDER_LOCATION = "ORDER_LOCATION";   //probs clients address
+
+    public static final String TABLE_RATING =  "RATING_TABLE";
+    public static final String COLUMN_RATING_ID = "RATING_ID";
+    //COLOUMN_CLIENT_EMAIL
+    //COLUMN_SUPPLIER_EMAIL
+    public static final String COLUMN_RATING_NUMBER = "RATING_NUMBER";
+    public static final String COLUMN_RATING_COMMENT = "RATING_COMMENT";
+
+    private static final String CREATE_TABLE_RATING = "CREATE TABLE " +
+            TABLE_RATING + " (" +
+            COLUMN_RATING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_CLIENT_EMAIL + " TEXT, " +
+            COLUMN_SUPPLIER_EMAIL + " TEXT, " +
+            COLUMN_RATING_NUMBER + " INTEGER, " +
+            COLUMN_RATING_COMMENT + " TEXT)";
+
+    //create table for order
+    private static final String CREATE_TABLE_ORDER = "CREATE TABLE " +
+            TABLE_ORDER + " (" +
+            COLUMN_ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_CLIENT_EMAIL + " TEXT, " +
+            COLUMN_SUPPLIER_EMAIL + " TEXT, " +
+            COLUMN_ORDER_DATE + " TEXT, " +
+            COLUMN_ORDER_HOURS + " INTEGER, " +
+            COLUMN_ORDER_COST + " DOUBLE, " +
+            COLUMN_ORDER_LOCATION + " TEXT)";   //geoid?
 
 
 
@@ -82,6 +118,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CLIENT);
         db.execSQL(CREATE_TABLE_SUPPLIER);
+        db.execSQL(CREATE_TABLE_ORDER);
+        db.execSQL(CREATE_TABLE_RATING);
         Log.d("CREATION", "TABLES ARE BEING CREATED");
     }
 
@@ -92,9 +130,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //need code here to remove stuff thats already there/hasnt been updated
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_CLIENT + "'");
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_SUPPLIER + "'");
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_ORDER + "'");
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_RATING + "'");
 
         onCreate(db);
     }
+
+    public boolean addRating(RatingsModel ratingsModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //adding order inputs
+        ContentValues cvRating = new ContentValues();
+        cvRating.put(COLUMN_CLIENT_EMAIL, ratingsModel.getClientEmail());
+        cvRating.put(COLUMN_SUPPLIER_EMAIL, ratingsModel.getSupplierEmail());
+        cvRating.put(COLUMN_RATING_NUMBER, ratingsModel.getRatingNumber());
+        cvRating.put(COLUMN_RATING_COMMENT, ratingsModel.getRatingComment());
+
+
+        long insert = db.insert(TABLE_RATING, null, cvRating);
+        if(insert == -1) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+
+    public boolean addOrder(OrderModel orderModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //adding order inputs
+        ContentValues cvOrder = new ContentValues();
+        cvOrder.put(COLUMN_CLIENT_EMAIL, orderModel.getClientEmail());
+        cvOrder.put(COLUMN_SUPPLIER_EMAIL, orderModel.getSupplierEmail());
+        cvOrder.put(COLUMN_ORDER_DATE, orderModel.getOrderDate());
+        cvOrder.put(COLUMN_ORDER_HOURS, orderModel.getOrderHours());
+        cvOrder.put(COLUMN_ORDER_COST, orderModel.getOrderCost());
+        cvOrder.put(COLUMN_ORDER_LOCATION, orderModel.getOrderLocation());
+
+        long insert = db.insert(TABLE_ORDER, null, cvOrder);
+        if(insert == -1) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
 
     public boolean addClient(ClientModel clientModel) {
         SQLiteDatabase db = this.getWritableDatabase();
