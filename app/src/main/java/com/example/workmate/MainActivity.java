@@ -2,19 +2,10 @@ package com.example.workmate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.widget.CompoundButton;
-import android.widget.ToggleButton;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +41,10 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
 
         Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
+
+        //this is where i just started the get messaging stuff to test it, crashes the ui so maybe put it somewherer else
+        Intent intent = new Intent(this, GetMessages.class);
+        startActivity(intent);
 
         mDrawer = findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);

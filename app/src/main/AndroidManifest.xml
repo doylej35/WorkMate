@@ -40,6 +40,9 @@
             android:name=".EditProfileActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".GetMessages"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".Login"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
