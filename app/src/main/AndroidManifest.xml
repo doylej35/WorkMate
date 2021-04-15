@@ -43,6 +43,9 @@
             android:name=".GetMessages"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".OKHttpGET"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".Login"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">

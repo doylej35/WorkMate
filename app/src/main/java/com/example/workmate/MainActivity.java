@@ -42,9 +42,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-        //this is where i just started the get messaging stuff to test it, crashes the ui so maybe put it somewherer else
-        Intent intent = new Intent(this, GetMessages.class);
-        startActivity(intent);
+
 
         mDrawer = findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);

@@ -2,6 +2,7 @@ package com.example.workmate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -97,7 +98,7 @@ public class ClientRegActivity extends AppCompatActivity {
                         //print a pop up saying whether this succeeded or not
                         boolean success = databaseHelper.addClient(clientModel);
                         Toast.makeText(ClientRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
-
+                        Log.d("REGISTER", "succesful registration");
 
                         openAct();
 
@@ -105,6 +106,8 @@ public class ClientRegActivity extends AppCompatActivity {
                         //sign up failed!! print error message
                         Toast.makeText(ClientRegActivity.this, "Error" + Objects.requireNonNull(task.getException())
                                 .getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("FIREBASE ERROR", Objects.requireNonNull(task.getException())
+                                .getMessage());
                 });
 
             }
@@ -115,7 +118,7 @@ public class ClientRegActivity extends AppCompatActivity {
 
     //add in registration functions details
     public void openAct(){
-        Intent intent = new Intent( this, MainActivity.class);
+        Intent intent = new Intent( this, OKHttpGET.class);
         startActivity(intent);
     }
 

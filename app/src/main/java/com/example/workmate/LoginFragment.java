@@ -66,7 +66,7 @@ public class LoginFragment<web_client_id> extends Fragment {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
 
 
-        Intent intent = new Intent( getActivity(), MainActivity.class);
+        Intent intent = new Intent( getActivity(), OKHttpGET.class);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +94,7 @@ public class LoginFragment<web_client_id> extends Fragment {
                             FirebaseUser user = fAuth.getCurrentUser();  //creates a warning but is necessary so that
                             //the user stays logged in
 
+                            //sends them to okhttpget to update their local database
                             startActivity(intent);
                         }else {
                             //login not successful, prints reason
@@ -159,7 +160,7 @@ public class LoginFragment<web_client_id> extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("SIGNIN", "signInWithCredential:success");
                             FirebaseUser user = fAuth.getCurrentUser();
-                            Intent intent = new Intent( getActivity(), MainActivity.class);
+                            Intent intent = new Intent( getActivity(), OKHttpGET.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
