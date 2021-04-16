@@ -79,7 +79,6 @@ public class MessagesActivityTemp extends AppCompatActivity {
     private Button mSendButton;
     private RecyclerView mMessageRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
-    private ProgressBar mProgressBar;
     private EditText mMessageEditText;
     private ImageView mAddMessageImageView;
 
@@ -135,7 +134,6 @@ public class MessagesActivityTemp extends AppCompatActivity {
             protected void onBindViewHolder(final MessageViewHolder viewHolder,
                                             int position,
                                             FriendlyMessage friendlyMessage) {
-                mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 if (friendlyMessage.getText() != null) {
                     viewHolder.messageTextView.setText(friendlyMessage.getText());
                     viewHolder.messageTextView.setVisibility(TextView.VISIBLE);
@@ -229,13 +227,8 @@ public class MessagesActivityTemp extends AppCompatActivity {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FriendlyMessage friendlyMessage = new
-                        FriendlyMessage(mMessageEditText.getText().toString(),
-                        mUsername,
-                        mPhotoUrl,
-                        null /* no image */);
-                mFirebaseDatabaseReference.child(MESSAGES_CHILD)
-                        .push().setValue(friendlyMessage);
+                FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(), mUsername, mPhotoUrl, null /* no image */);
+                mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(friendlyMessage);
                 mMessageEditText.setText("");
                 logMessageSent();
             }
@@ -295,17 +288,13 @@ public class MessagesActivityTemp extends AppCompatActivity {
                     final Uri uri = data.getData();
                     Log.d(TAG, "Uri: " + uri.toString());
 
-                    FriendlyMessage tempMessage = new FriendlyMessage(null, mUsername, mPhotoUrl,
-                            LOADING_IMAGE_URL);
-                    mFirebaseDatabaseReference.child(MESSAGES_CHILD).push()
-                            .setValue(tempMessage, new DatabaseReference.CompletionListener() {
+                    FriendlyMessage tempMessage = new FriendlyMessage(null, mUsername, mPhotoUrl, LOADING_IMAGE_URL);
+                    mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(tempMessage, new DatabaseReference.CompletionListener() {
                                 @Override
-                                public void onComplete(DatabaseError databaseError,
-                                                       DatabaseReference databaseReference) {
+                                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                     if (databaseError == null) {
                                         String key = databaseReference.getKey();
-                                        StorageReference storageReference =
-                                                FirebaseStorage.getInstance()
+                                        StorageReference storageReference = FirebaseStorage.getInstance()
                                                         .getReference(mFirebaseUser.getUid())
                                                         .child(key)
                                                         .child(uri.getLastPathSegment());
@@ -332,11 +321,9 @@ public class MessagesActivityTemp extends AppCompatActivity {
                                     .addOnCompleteListener(MessagesActivityTemp.this, new OnCompleteListener<Uri>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Uri> task) {
-                                            FriendlyMessage friendlyMessage =
-                                                    new FriendlyMessage(null, mUsername, mPhotoUrl,
-                                                            task.getResult().toString());
-                                            mFirebaseDatabaseReference.child(MESSAGES_CHILD).child(key)
-                                                    .setValue(friendlyMessage);
+                                            MessageObject messageObject =
+                                                    new MessageObject(null, mUsername, mPhotoUrl, task.getResult().toString());
+                                            mFirebaseDatabaseReference.child(MESSAGES_CHILD).child(key).setValue(messageObject);
                                             logMessageSent();
                                         }
                                     });
