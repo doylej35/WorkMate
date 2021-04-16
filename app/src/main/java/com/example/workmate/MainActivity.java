@@ -159,6 +159,11 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         startActivity(intent);
     }
 
+    public void messagesTemp(View v) {
+        Intent i = new Intent(this, MessagesActivityTemp.class);
+        startActivity(i);
+    }
+
     //function to open search page
     public void openSearch(View view) {
         DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this);

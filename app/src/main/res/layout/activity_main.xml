@@ -36,7 +36,15 @@
         <FrameLayout
             android:id="@+id/frame_container"
             android:layout_width="match_parent"
-            android:layout_height="732dp"/>
+            android:layout_height="732dp">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="messagesTemp"
+                android:text="Button" />
+        </FrameLayout>
 
     </LinearLayout>
 
