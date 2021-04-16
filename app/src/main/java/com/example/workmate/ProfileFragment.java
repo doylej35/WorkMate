@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,19 +15,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileFragment extends Fragment {
+    Button edit;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState){
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_profile, null);
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        edit = (Button) root.findViewById(R.id.btnEditProfile);
+
+        Intent intent = new Intent( getActivity(), EditProfileActivity.class);
+
         if(user != null){
             String email = user.getEmail();
-            String address1;
-            String phone;
-            String service;
-            String fname;
-            String lname;
+            String address1 = null;
+            String phone = null;
+            String service = null;
+            String fname = null;
+            String lname = null;
 
 
             SupplierModel supplier = databaseHelper.searchSupplier(email);
@@ -39,11 +46,13 @@ public class ProfileFragment extends Fragment {
             }
             else {
                 ClientModel client = databaseHelper.searchClient(email);
-                address1 = client.getClientAddr();
-                phone = client.getClientPhone();
-                service = "Regular User";
-                fname = client.getClientFname();
-                lname = client.getClientLname();
+                if(client!=null) {
+                    address1 = client.getClientAddr();
+                    phone = client.getClientPhone();
+                    service = "Regular User";
+                    fname = client.getClientFname();
+                    lname = client.getClientLname();
+                }
             }
 
             String uid = user.getUid();
@@ -70,8 +79,8 @@ public class ProfileFragment extends Fragment {
 
         }else{
 
-            Intent intent = new Intent( getActivity(), Login.class);
-            startActivity(intent);  //changes page to main activity
+            Intent intent1 = new Intent( getActivity(), Login.class);
+            startActivity(intent1);  //changes page to main activity
            //Toast.makeText(getActivity(), "not logged in", Toast.LENGTH_SHORT).show();
         }
         /*firebaseDatabase = firebaseDatabase.getInstance();
@@ -82,8 +91,17 @@ public class ProfileFragment extends Fragment {
 
         getdata();*/
 
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
+            }
+        });
+
         return root;
         //return inflater.inflate(R.layout.fragment_profile,  container, false);
     }
+
+
 
 }

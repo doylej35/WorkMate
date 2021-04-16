@@ -1,5 +1,6 @@
 package com.example.workmate;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,9 @@ public class SearchFragment extends Fragment {
     private RecyclerView suppliersRV;
     private DatabaseHelper dbHelper;
     private MainActivity mainHelper;
+    private String input;
+
+    Context context = getActivity();
 
     public static SearchFragment newInstance(String text){
          SearchFragment fragment = new SearchFragment();
@@ -68,23 +72,40 @@ public class SearchFragment extends Fragment {
         }
 
         textView.setText(text);*/
-        supplierModelArrayList = new ArrayList<>();
+
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity());
 
-        //supplierModelArrayList = dbHelper.searchService("electrician");
-        /*switch(mainHelper.option){
-            case(0):
-                supplierModelArrayList = dbHelper.readSuppliers();
-            case(1):
-                supplierModelArrayList = dbHelper.searchService("electrician");
-            case(2):
-                supplierModelArrayList = dbHelper.searchService("mechanic");
-            case(3):
-                supplierModelArrayList = dbHelper.searchService("plumber");
-            case(4):
-                supplierModelArrayList = dbHelper.searchService("gardener");
-        }*/
-        supplierModelArrayList = dbHelper.readSuppliers();
+        if (getArguments() != null) {
+            text = getArguments().getString("ARG_TEXT");
+
+            Log.d("CREATION","TEXT = " + text);
+
+            switch (text) {
+                case ("You are searching for: General"):
+                    supplierModelArrayList = dbHelper.readSuppliers();
+                    break;
+                case ("You are searching for: Electricians"):
+                    supplierModelArrayList = dbHelper.searchService("electrician");
+                    break;
+                case ("You are searching for: Mechanics"):
+                    supplierModelArrayList = dbHelper.searchService("mechanic");
+                    break;
+                case ("You are searching for: Plumbers"):
+                    supplierModelArrayList = dbHelper.searchService("plumber");
+                    break;
+                case ("You are searching for: Gardeners"):
+                    supplierModelArrayList = dbHelper.searchService("gardener");
+                    break;
+            }
+        }else{
+            supplierModelArrayList = dbHelper.readSuppliers();
+        }
+
+        Toast.makeText(getActivity(),text, Toast.LENGTH_SHORT).show();
+
+        Log.d("CREATION","BEN = " + supplierModelArrayList);
+
+        //supplierModelArrayList = dbHelper.readSuppliers();
 
         rvAdapter = new RVAdapter(supplierModelArrayList, getActivity());
         suppliersRV = v.findViewById(R.id.idRVSuppliers);

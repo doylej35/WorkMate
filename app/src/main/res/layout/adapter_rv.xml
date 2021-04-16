@@ -22,6 +22,15 @@
             android:padding="3dp"
             android:text="@+string/Name"
             android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/idTVLName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="@+string/LName"
+            android:textColor="@color/black" />
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,14 +40,13 @@
 
             <!--text view for our course tracks-->
             <TextView
-                android:id="@+id/idTVLName"
+                android:id="@+id/idTVService"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
-                android:text="@+string/LName"
+                android:text="@+string/Service"
                 android:textColor="@color/black" />
-
 
             <!--text view for our course duration-->
             <TextView

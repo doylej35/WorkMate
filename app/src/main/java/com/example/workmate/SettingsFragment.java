@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class SettingsFragment extends Fragment {
     FirebaseAuth fAuth;
     View view;
-    Button logout, PassReset;
+    Button logout, PassReset, edit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -28,6 +28,7 @@ public class SettingsFragment extends Fragment {
 
         logout = (Button) view.findViewById(R.id.setting_logout);
         PassReset = (Button) view.findViewById(R.id.setting_PassReset);
+        edit = (Button) view.findViewById(R.id.setting_editUser);
 
         Intent intent = new Intent( getActivity(), MainActivity.class);
 
@@ -42,6 +43,35 @@ public class SettingsFragment extends Fragment {
                 }
                 else {
                     Toast.makeText(getActivity(), "Not signed in!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //logs out the current user then returns to main activity
+                if(currentUser!=null) {     //if existing user
+                    Intent intent1 = new Intent( getActivity(), EditProfileActivity.class);
+                    startActivity(intent1);
+                }
+                else {
+                    Toast.makeText(getActivity(), "Not signed in!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        PassReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = currentUser.getEmail();
+                //logs out the current user then returns to main activity
+                if(currentUser!=null) {     //if existing user
+                    fAuth.sendPasswordResetEmail(email);    //sends recovery email
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getActivity(), "Not signed  cannot reset!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

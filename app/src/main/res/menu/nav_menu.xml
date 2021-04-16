@@ -21,6 +21,11 @@
         android:icon="@drawable/ic_action_messsage"
         />
 
+    <item android:id="@+id/nav_calender"
+        android:title="@string/drawer_calender"
+        android:icon="@drawable/workmate_logo"
+        />
+
     <item android:id="@+id/nav_settings"
         android:title="@string/drawer_settings"
         android:icon="@drawable/ic_action_settings"

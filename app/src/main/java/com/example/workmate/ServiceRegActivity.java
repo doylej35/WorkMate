@@ -27,6 +27,7 @@ import java.util.Objects;
 public class ServiceRegActivity extends AppCompatActivity {
 
     String Prof;
+    int rating = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +153,7 @@ public class ServiceRegActivity extends AppCompatActivity {
 
                         //add the person to the supplier table of the database
                         SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                Phone.getText().toString(), email,  Addr1.getText().toString(), Prof);
+                                Phone.getText().toString(), email,  Addr1.getText().toString(), Prof, rating);
 
                         DatabaseHelper databaseHelper = new DatabaseHelper(ServiceRegActivity.this);
 
