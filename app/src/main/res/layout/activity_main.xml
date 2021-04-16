@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
+    android:background="@drawable/backcircle1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -11,12 +12,12 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
+        <!--ImageView
             android:layout_weight="4"
             android:src="@drawable/backcircle1"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp" /-->
         <View
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -31,12 +32,13 @@
         <include
             layout="@layout/nav_action_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            app:elevation="0dp"
+            android:layout_height="wrap_content" />
 
         <FrameLayout
             android:id="@+id/frame_container"
             android:layout_width="match_parent"
-            android:layout_height="732dp"/>
+            android:layout_height="732dp" />
 
     </LinearLayout>
 
