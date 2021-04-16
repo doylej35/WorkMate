@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -40,6 +40,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.workmate.MessageObject;
+import com.example.workmate.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;

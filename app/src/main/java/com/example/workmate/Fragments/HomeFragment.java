@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.workmate.R;
 
 public class HomeFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.workmate.R;
+import com.example.workmate.Models.SupplierModel;
 
 import java.util.ArrayList;
 

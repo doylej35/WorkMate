@@ -14,10 +14,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.workmate.Activities.ClientRegActivity;
+import com.example.workmate.Activities.MainActivity;
+import com.example.workmate.Activities.ServiceRegActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Objects;
 
 public class Login extends AppCompatActivity {
      EditText mEmail, mPassword;

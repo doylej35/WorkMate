@@ -1,17 +1,12 @@
-package com.example.workmate;
+package com.example.workmate.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.widget.CompoundButton;
-import android.widget.ToggleButton;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -23,12 +18,24 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.workmate.Adapters.RVAdapter;
+import com.example.workmate.DatabaseHelper;
+import com.example.workmate.Fragments.HomeFragment;
+import com.example.workmate.Fragments.LoginFragment;
+import com.example.workmate.MessagesActivityTemp;
+import com.example.workmate.Fragments.MessagesFragment;
+import com.example.workmate.Fragments.ProfileFragment;
+import com.example.workmate.R;
+import com.example.workmate.Fragments.SearchFragment;
+import com.example.workmate.Fragments.SettingsFragment;
+import com.example.workmate.Models.SupplierModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
 import java.util.Objects;
+
+import static com.example.workmate.Fragments.SearchFragment.*;
 
 public class MainActivity<stringTextView> extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -108,7 +115,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                 break;
 
             case R.id.nav_search: //launch search
-                SearchFragment fragment = SearchFragment.newInstance("You are searching for: General");
+                SearchFragment fragment = newInstance("You are searching for: General");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                         fragment).commit();
                 break;
@@ -205,7 +212,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
             Toast.makeText(MainActivity.this, "No suppliers of this type", Toast.LENGTH_SHORT).show();
         }*/
 
-        SearchFragment fragment = SearchFragment.newInstance(text);
+        SearchFragment fragment = newInstance(text);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                 fragment).commit();
     }

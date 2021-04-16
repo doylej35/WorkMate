@@ -11,6 +11,10 @@ import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 
+import com.example.workmate.Models.ClientModel;
+import com.example.workmate.Models.OrderModel;
+import com.example.workmate.Models.SupplierModel;
+
 //this class implements the sqlite openhelper functionality to create our data base functions that will be used
 //WARNINGS ARE ABOUT SIMPLIFYING IF STATEMENTS
 public class DatabaseHelper extends SQLiteOpenHelper {
