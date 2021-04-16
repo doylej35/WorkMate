@@ -42,7 +42,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
     private Menu menu;
     int option = 0;
 
-    @Override
+    @Override //Hello there Joey
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
