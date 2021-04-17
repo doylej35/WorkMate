@@ -22,7 +22,7 @@ import com.example.workmate.Adapters.RVAdapter;
 import com.example.workmate.DatabaseHelper;
 import com.example.workmate.Fragments.HomeFragment;
 import com.example.workmate.Fragments.LoginFragment;
-import com.example.workmate.MessagesActivityTemp;
+import com.example.workmate.ChatActivity;
 import com.example.workmate.Fragments.MessagesFragment;
 import com.example.workmate.Fragments.ProfileFragment;
 import com.example.workmate.R;
@@ -166,8 +166,8 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         startActivity(intent);
     }
 
-    public void messagesTemp(View v) {
-        Intent i = new Intent(this, MessagesActivityTemp.class);
+    public void chatActivity(View v) {
+        Intent i = new Intent(this, ChatActivity.class);
         startActivity(i);
     }
 

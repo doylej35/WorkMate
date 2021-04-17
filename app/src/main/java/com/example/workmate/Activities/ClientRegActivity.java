@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.workmate.Chat;
 import com.example.workmate.Models.ClientModel;
 import com.example.workmate.DatabaseHelper;
 import com.example.workmate.R;
@@ -135,6 +136,8 @@ public class ClientRegActivity extends AppCompatActivity {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             assert firebaseUser != null;
                             String userid = firebaseUser.getUid();
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("chats");
+                            ref.push().setValue(userid);
 
                             reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
@@ -146,6 +149,7 @@ public class ClientRegActivity extends AppCompatActivity {
                             HashMap<String, String> hashMap = new HashMap<>();
                             hashMap.put("id", userid);
                             hashMap.put("username", username);
+                            hashMap.put("email", email);
                             hashMap.put("imageURL", "default");
 
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -158,7 +162,9 @@ public class ClientRegActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                        } else{
+
+                        }
+                        else{
                             Toast.makeText(ClientRegActivity.this,
                                     "You can't register with this email or password"
                                     ,Toast.LENGTH_SHORT).show();
