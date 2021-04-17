@@ -1,21 +1,26 @@
 package com.example.workmate;
 
 public class FriendlyMessage {
-
     private String id;
     private String text;
     private String name;
     private String photoUrl;
     private String imageUrl;
+    private String senderEmail;
+    private String recipientEmail;
+    private String chatID;
 
     public FriendlyMessage() {
     }
 
-    public FriendlyMessage(String text, String name, String photoUrl, String imageUrl) {
+    public FriendlyMessage(String text, String name, String photoUrl, String imageUrl, String senderEmail, String recipientEmail, String chatID) {
         this.text = text;
         this.name = name;
         this.photoUrl = photoUrl;
         this.imageUrl = imageUrl;
+        this.senderEmail = senderEmail;
+        this.recipientEmail = recipientEmail;
+        this.chatID = chatID;
     }
 
     public String getId() {
@@ -56,5 +61,21 @@ public class FriendlyMessage {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getSender() {
+        return senderEmail;
+    }
+
+    public void setSender(String senderEmail) {
+        this.senderEmail = senderEmail;
+    }
+
+    public String getRecipient() {
+        return recipientEmail;
+    }
+
+    public void setRecipient(String receipEmail) {
+        this.recipientEmail = recipientEmail;
     }
 }
