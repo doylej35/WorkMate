@@ -23,12 +23,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,15 +39,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ChatActivity extends AppCompatActivity {
+public class MessagesActivityTemp extends AppCompatActivity {
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         TextView messageTextView;
@@ -61,7 +61,8 @@ public class ChatActivity extends AppCompatActivity {
             messengerImageView = (CircleImageView) itemView.findViewById(R.id.messengerImageView);
         }
     }
-    private static final String TAG = "ChatActivity";
+
+    private static final String TAG = "MessagesActivityTemp";
     public static final String MESSAGES_CHILD = "messages";
     private static final int REQUEST_INVITE = 1;
     private static final int REQUEST_IMAGE = 2;
@@ -70,9 +71,6 @@ public class ChatActivity extends AppCompatActivity {
     public static final String ANONYMOUS = "anonymous";
     private static final String MESSAGE_SENT_EVENT = "message_sent";
     private String mUsername;
-    private String mSenderEmail;
-    private String mRecipientEmail;
-    private String mChatID;
     private String mPhotoUrl;
     private SharedPreferences mSharedPreferences;
    // private GoogleSignInClient mSignInClient;
@@ -97,23 +95,9 @@ public class ChatActivity extends AppCompatActivity {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // Set default username is anonymous.
         mUsername = ANONYMOUS;
-        mSenderEmail = ANONYMOUS;
-        mRecipientEmail = "mcardleg2@tcd.ie";                                        //CHANGE THIS
-
         // Initialize Firebase Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if (mFirebaseUser == null) { // Not signed in, launch the Login activity
-            startActivity(new Intent(this, Login.class));
-            finish();
-            return;
-        } else {
-            mUsername = mFirebaseUser.getDisplayName();
-            mSenderEmail = mFirebaseUser.getEmail();
-            if (mFirebaseUser.getPhotoUrl() != null) {
-                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
-            }
-        }
 
         // Initialize RecyclerView.
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
@@ -122,7 +106,7 @@ public class ChatActivity extends AppCompatActivity {
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         // New child entries
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();                     //Users -> specific user -> messages
         SnapshotParser<FriendlyMessage> parser = new SnapshotParser<FriendlyMessage>() {
             @Override
             public FriendlyMessage parseSnapshot(DataSnapshot dataSnapshot) {
@@ -134,9 +118,9 @@ public class ChatActivity extends AppCompatActivity {
             }
         };
 
-        DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);                   //CHANGES HERE
+        DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);               //These children should be all the chats
         FirebaseRecyclerOptions<FriendlyMessage> options =
-                new FirebaseRecyclerOptions.Builder<FriendlyMessage>().setQuery(messagesRef.orderByChild("chatID").equalTo(mChatID), parser).build();
+                new FirebaseRecyclerOptions.Builder<FriendlyMessage>().setQuery(messagesRef, parser).build();
         mFirebaseAdapter = new FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>(options) {
             @Override
             public MessageViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -173,12 +157,12 @@ public class ChatActivity extends AppCompatActivity {
                     viewHolder.messageTextView.setVisibility(TextView.GONE);
                 }
 
+
                 viewHolder.messengerTextView.setText(friendlyMessage.getName());
                 if (friendlyMessage.getPhotoUrl() == null) {
-                    viewHolder.messengerImageView.setImageDrawable(ContextCompat
-                            .getDrawable(ChatActivity.this, R.drawable.ic_account_circle_black_36dp));
+                    viewHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(MessagesActivityTemp.this, R.drawable.ic_account_circle_black_36dp));
                 } else {
-                    Glide.with(ChatActivity.this).load(friendlyMessage.getPhotoUrl()).into(viewHolder.messengerImageView);
+                    Glide.with(MessagesActivityTemp.this).load(friendlyMessage.getPhotoUrl()).into(viewHolder.messengerImageView);
                 }
 
             }
@@ -226,7 +210,10 @@ public class ChatActivity extends AppCompatActivity {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                senderChat();
+                FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(), mUsername, mPhotoUrl, null /* no image */);
+                mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(friendlyMessage);
+                mMessageEditText.setText("");
+                logMessageSent();
             }
         });
 
@@ -284,7 +271,7 @@ public class ChatActivity extends AppCompatActivity {
                     final Uri uri = data.getData();
                     Log.d(TAG, "Uri: " + uri.toString());
 
-                    FriendlyMessage tempMessage = new FriendlyMessage(null, mUsername, mPhotoUrl, LOADING_IMAGE_URL, mSenderEmail, mRecipientEmail, mChatID);
+                    FriendlyMessage tempMessage = new FriendlyMessage(null, mUsername, mPhotoUrl, LOADING_IMAGE_URL);
                     mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(tempMessage, new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -304,105 +291,27 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void putImageInStorage(StorageReference storageReference, Uri uri, final String key) {
-        storageReference.putFile(uri).addOnCompleteListener(ChatActivity.this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        storageReference.putFile(uri).addOnCompleteListener(MessagesActivityTemp.this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
                             task.getResult().getMetadata().getReference().getDownloadUrl()
-                                    .addOnCompleteListener(ChatActivity.this, new OnCompleteListener<Uri>() {
+                                    .addOnCompleteListener(MessagesActivityTemp.this, new OnCompleteListener<Uri>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Uri> task) {
-                                            FriendlyMessage friendlyMessage = new FriendlyMessage(null, mUsername, mPhotoUrl,
-                                                    task.getResult().toString(), mSenderEmail, mRecipientEmail, mChatID);
-                                            mFirebaseDatabaseReference.child(MESSAGES_CHILD).child(key).setValue(friendlyMessage);
+                                            MessageObject messageObject = new MessageObject(null, mUsername, mPhotoUrl, task.getResult().toString());
+                                            mFirebaseDatabaseReference.child(MESSAGES_CHILD).child(key).setValue(messageObject);
                                             logMessageSent();
                                         }
                                     });
                         } else {
-                            Log.w(TAG, "Image upload task was not successful.", task.getException());
+                            Log.w(TAG, "Image upload task was not successful.",
+                                    task.getException());
                         }
                     }
                 });
     }
 
     private void logMessageSent() {
-    }
-
-    private void senderChat(){
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String senderID = currentUser.getUid();
-        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats");
-        chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild(senderID)){
-                    getChatIDFromSender(senderID);
-                }
-                else {
-                    recipientChat();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void getChatIDFromSender(String senderID){
-        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats");
-        Query chatQuery =  chatsRef.child(senderID).orderByChild("chatter").equalTo(mRecipientEmail);
-        chatQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snap: snapshot.getChildren()){
-                    String chatID = snap.getKey();
-                    Log.i(TAG, chatID);
-                    addMessage(chatID);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void recipientChat(){
-        DatabaseReference recipRef = mFirebaseDatabaseReference.child("Users").orderByChild("email").equalTo(mRecipientEmail).getRef();
-        String recipID = recipRef.getKey();
-        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats");
-        chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild(recipID)){
-                }
-                else {
-                    addChat();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void addChat(){
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String senderID = currentUser.getUid();
-        Chat tempChat = new Chat(mRecipientEmail);
-        DatabaseReference chatsRef = FirebaseDatabase.getInstance().getReference("/chats" + "/" + senderID);
-        chatsRef.push().setValue(tempChat);
-        //go to setChatID
-    }
-
-    private void addMessage(String chatID){
-        mChatID = chatID;
-        FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(),
-                mUsername, mPhotoUrl, null /* no image */, mSenderEmail, mRecipientEmail, mChatID);
-        mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(friendlyMessage);
-        mMessageEditText.setText("");
-        logMessageSent();
     }
 }
