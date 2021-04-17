@@ -11,10 +11,6 @@ import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 
-import com.example.workmate.Models.ClientModel;
-import com.example.workmate.Models.OrderModel;
-import com.example.workmate.Models.SupplierModel;
-
 //this class implements the sqlite openhelper functionality to create our data base functions that will be used
 //WARNINGS ARE ABOUT SIMPLIFYING IF STATEMENTS
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -28,8 +24,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CLIENT_PHONE = "CLIENT_PHONE";
     public static final String COLUMN_CLIENT_EMAIL = "CLIENT_EMAIL";
     public static final String COLUMN_CLIENT_ADDR = "CLIENT_ADDR";
-    public static final String COLUMN_CLIENT_LONGITUDE = "CLIENT_LONGITUDE";
-    public static final String COLUMN_CLIENT_LATITUDE = "CLIENT_LATITUDE";
     public static final String COLUMN_CLIENT_ID = "ID";
 
     //declarations of the supplier table columns(ie data points)
@@ -40,31 +34,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SUPPLIER_EMAIL = "SUPPLIER_EMAIL";
     public static final String COLUMN_SUPPLIER_ADDR = "SUPPLIER_ADDR";
     public static final String COLUMN_SUPPLIER_SERVICE = "SUPPLIER_SERVICE";
-    public static final String COLUMN_SUPPLIER_LONGITUDE = "SUPPLIER_LONGITUDE";
-    public static final String COLUMN_SUPPLIER_LATITUDE = "SUPPLIER_LATITUDE";
     public static final String COLUMN_SUPPLIER_ID = "ID";
 
-    //order table
-    public static final String TABLE_ORDER = "ORDER_TABLE";
-    public static final String COLUMN_ORDER_ID = "ORDER_ID";
- //   COLUMN_CLIENT_EMAIL
- //   COLUMN_SUPPLIER_EMAIL
-    public static final String COLUMN_ORDER_DATE = "ORDER_DATE";
-    public static final String COLUMN_ORDER_HOURS = "ORDER_HOURS"; //int
-    public static final String COLUMN_ORDER_COST = "ORDER_COST";    //double
-    public static final String COLUMN_ORDER_LOCATION = "ORDER_LOCATION";   //probs clients address
 
 
-    //create table for order
-    private static final String CREATE_TABLE_ORDER = "CREATE TABLE " +
-            TABLE_ORDER + " (" +
-            COLUMN_ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            COLUMN_CLIENT_EMAIL + " TEXT, " +
-            COLUMN_SUPPLIER_EMAIL + " TEXT, " +
-            COLUMN_ORDER_DATE + " TEXT, " +
-            COLUMN_ORDER_HOURS + " INTEGER, " +
-            COLUMN_ORDER_COST + " DOUBLE, " +
-            COLUMN_ORDER_LOCATION + " TEXT)";   //geoid?
 
 
     private static final String CREATE_TABLE_CLIENT = "CREATE TABLE " +
@@ -74,8 +47,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_CLIENT_LNAME + " TEXT, " +
             COLUMN_CLIENT_PHONE + " TEXT, " +
             COLUMN_CLIENT_EMAIL + " TEXT, " +
-            COLUMN_CLIENT_LONGITUDE + " TEXT, " +
-            COLUMN_CLIENT_LATITUDE + " TEXT, " +
             COLUMN_CLIENT_ADDR + " TEXT)";
 
 
@@ -88,8 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_SUPPLIER_PHONE + " TEXT, " +
             COLUMN_SUPPLIER_EMAIL + " TEXT, " +
             COLUMN_SUPPLIER_ADDR + " TEXT, " +
-            COLUMN_SUPPLIER_LONGITUDE + " TEXT, " +
-            COLUMN_SUPPLIER_LATITUDE + " TEXT, " +
             COLUMN_SUPPLIER_SERVICE + " TEXT)";
 
 
@@ -107,7 +76,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CLIENT);
         db.execSQL(CREATE_TABLE_SUPPLIER);
-        db.execSQL(CREATE_TABLE_ORDER);
         Log.d("CREATION", "TABLES ARE BEING CREATED");
     }
 
@@ -118,31 +86,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //need code here to remove stuff thats already there/hasnt been updated
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_CLIENT + "'");
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_SUPPLIER + "'");
-        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_ORDER + "'");
 
         onCreate(db);
     }
-
-    public boolean addOrder(OrderModel orderModel) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        //adding order inputs
-        ContentValues cvOrder = new ContentValues();
-        cvOrder.put(COLUMN_CLIENT_EMAIL, orderModel.getClientEmail());
-        cvOrder.put(COLUMN_SUPPLIER_EMAIL, orderModel.getClientEmail());
-        cvOrder.put(COLUMN_ORDER_DATE, orderModel.getOrderDate());
-        cvOrder.put(COLUMN_ORDER_HOURS, orderModel.getOrderHours());
-        cvOrder.put(COLUMN_ORDER_COST, orderModel.getOrderCost());
-        cvOrder.put(COLUMN_ORDER_LOCATION, orderModel.getOrderLocation());
-
-        long insert = db.insert(TABLE_CLIENT, null, cvOrder);
-        if(insert == -1) {
-            return false;
-        }else {
-            return true;
-        }
-    }
-
 
     public boolean addClient(ClientModel clientModel) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -154,8 +100,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cvClient.put(COLUMN_CLIENT_EMAIL, clientModel.getClientEmail());
         cvClient.put(COLUMN_CLIENT_PHONE, clientModel.getClientPhone());
         cvClient.put(COLUMN_CLIENT_ADDR, clientModel.getClientAddr());
-        cvClient.put(COLUMN_CLIENT_LONGITUDE, clientModel.getClientLongitude());
-        cvClient.put(COLUMN_CLIENT_LATITUDE, clientModel.getClientLatitude());
 
         long insert = db.insert(TABLE_CLIENT, null, cvClient);
         if(insert == -1) {
@@ -164,7 +108,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-
     public boolean addSupplier(SupplierModel supplierModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -176,8 +119,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cvSupplier.put(COLUMN_SUPPLIER_PHONE, supplierModel.getSupplierPhone());
         cvSupplier.put(COLUMN_SUPPLIER_ADDR, supplierModel.getSupplierAddr());
         cvSupplier.put(COLUMN_SUPPLIER_SERVICE, supplierModel.getSupplierService());
-        cvSupplier.put(COLUMN_SUPPLIER_LONGITUDE, supplierModel.getSupplierLongitude());
-        cvSupplier.put(COLUMN_SUPPLIER_LATITUDE, supplierModel.getSupplierLatitude());
 
         long insert = db.insert(TABLE_SUPPLIER, null, cvSupplier);
         Log.d("CREATION","addSupplier is being executed");
@@ -196,7 +137,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<SupplierModel> supplierModelArrayList = new ArrayList<>();
 
         //shows all of the stored data about the suppliers (I hope) will be edited later
-        //display their address (town) rather than exact geo data
         if(cursorSuppliers.moveToFirst()){
             do {
                 supplierModelArrayList.add(new SupplierModel(cursorSuppliers.getInt(0),
@@ -222,7 +162,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor search = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_SERVICE + " LIKE " + "'" + input + "'", null);
 
         ArrayList<SupplierModel> services = new ArrayList<>();
-        //display their address (town) rather than exact geo data
+
         if(search.moveToFirst()) {
             do {
                 services.add(new SupplierModel(search.getInt(0),
@@ -242,7 +182,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    //finds a supplier by their email
+    //sorts the data by service
     public SupplierModel searchSupplier(String input){
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -251,7 +191,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor search = db.rawQuery("SELECT * FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_EMAIL + " LIKE " + "'" + input + "'", null);
 
         SupplierModel supplier;
-        //display their address (town) rather than exact geo data
+
         if(search.moveToFirst()) {
             do {
                 supplier = new SupplierModel(search.getInt(0), search.getString(1), search.getString(2),
@@ -265,89 +205,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         search.close();
         return supplier;
     }
-
-
-    //finds a client by their email
-    public ClientModel searchClient(String input){
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        //search based on their email
-        Cursor search = db.rawQuery("SELECT * FROM " + TABLE_CLIENT + " WHERE " + COLUMN_CLIENT_EMAIL + " LIKE " + "'" + input + "'", null);
-
-        ClientModel client;
-        //display their address (town) rather than exact geo data
-        if(search.moveToFirst()) {
-            do {
-                client = new ClientModel(search.getInt(0), search.getString(1), search.getString(2),
-                        search.getString(3), search.getString(4), search.getString(5));
-            } while (search.moveToNext());
-        }else {
-            Log.d("CREATION", "Person not found");
-            client = null;
-        }
-
-        search.close();
-        return client;
-    }
-
-    //may need to update their geolocation if their address has changed
-    public void updateClient(String user, String fname, String lname, String addr, String phone){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(COLUMN_CLIENT_FNAME, fname);
-        contentValues.put(COLUMN_CLIENT_LNAME, lname);
-        contentValues.put(COLUMN_CLIENT_ADDR, addr);
-        contentValues.put(COLUMN_CLIENT_PHONE, phone);
-
-        db.update(TABLE_CLIENT, contentValues, "CLIENT_EMAIL=?", new String[]{user});
-
-    }
-
-    //may need to update their geolocation if their address has changed
-    public void updateSupplier(String user, String fname, String lname, String addr, String phone){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(COLUMN_SUPPLIER_FNAME, fname);
-        contentValues.put(COLUMN_SUPPLIER_LNAME, lname);
-        contentValues.put(COLUMN_SUPPLIER_ADDR, addr);
-        contentValues.put(COLUMN_SUPPLIER_PHONE, phone);
-
-        db.update(TABLE_SUPPLIER, contentValues, "SUPPLIER_EMAIL=?", new String[]{user});
-    }
-
-    public boolean deleteClient(ClientModel clientModel) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String queryString = "DELETE FROM " + TABLE_CLIENT + " WHERE " + COLUMN_CLIENT_ID + " = " + clientModel.getClientId();
-
-        Cursor cursor = db.rawQuery(queryString, null);
-
-        if(cursor.moveToFirst()) {
-            return true;
-        }else {
-            return false;
-        }
-
-    }
-
-    //if the supplier is found in the database delete it and return true
-//if not found return false
-    public boolean deleteSupplier(SupplierModel supplierModel) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String queryString = "DELETE FROM " + TABLE_SUPPLIER + " WHERE " + COLUMN_SUPPLIER_ID + " = " + supplierModel.getSupplierId();
-
-        Cursor cursor = db.rawQuery(queryString, null);
-
-        if(cursor.moveToFirst()) {
-            return true;
-        }else {
-            return false;
-        }
-
-    }
-
 }

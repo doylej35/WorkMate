@@ -1,23 +1,24 @@
-package com.example.workmate.Fragments;
+package com.example.workmate;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.workmate.Activities.MainActivity;
-import com.example.workmate.Adapters.RVAdapter;
-import com.example.workmate.DatabaseHelper;
-import com.example.workmate.R;
-import com.example.workmate.Models.SupplierModel;
-
 import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.Inflater;
 
 public class SearchFragment extends Fragment {
 
