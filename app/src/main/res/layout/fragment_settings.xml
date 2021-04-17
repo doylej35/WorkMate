@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MainActivity">
+    tools:context=".MainActivity">
 
 
     <LinearLayout
@@ -26,25 +26,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/setting_PassReset"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reset Password"
-            android:padding="16dp"/>
-
-        <Button
-            android:id="@+id/setting_editUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Edit Profile"
-            android:padding="16dp"/>
-
-        <Button
             android:id="@+id/setting_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/logout"
             android:padding="16dp"/>
+
 
     </LinearLayout>
 

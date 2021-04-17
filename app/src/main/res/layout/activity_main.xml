@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MainActivity">
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -36,15 +36,7 @@
         <FrameLayout
             android:id="@+id/frame_container"
             android:layout_width="match_parent"
-            android:layout_height="732dp">
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="messagesTemp"
-                android:text="Button" />
-        </FrameLayout>
+            android:layout_height="732dp"/>
 
     </LinearLayout>
 

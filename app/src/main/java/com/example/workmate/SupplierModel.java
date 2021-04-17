@@ -1,9 +1,8 @@
-package com.example.workmate.Models;
+package com.example.workmate;
 
 //this defines a supplier class with its data, construtors, a print function, and getters and setters
 //most of the warnings are about functions not being used.
 //*****need to figure out + fix the override warning*****
-//**fix the constructor to accept null values
 
 public class SupplierModel {
 
@@ -14,10 +13,6 @@ public class SupplierModel {
     private String SupplierPhone;
     private String SupplierService;
     private String SupplierAddr;
-    private String SupplierLatitude;
-    private String SupplierLongitude;
-
-
 
     //constructors
     public SupplierModel(int supplierId, String supplierFname,
@@ -103,19 +98,5 @@ public class SupplierModel {
 
     public void setSupplierAddr(String supplierAddr) {
         SupplierAddr = supplierAddr;
-    }
-
-    public String getSupplierLatitude() {return SupplierLatitude; }
-
-    public void setSupplierLatitude(String supplierLatitude) {
-        //nb this will come from the google geo stuff. NEEDS TO BE SET BEFORE ENTERING IN MYSQL
-        SupplierLatitude = supplierLatitude;
-    }
-
-    public String getSupplierLongitude() {return SupplierLongitude; }
-
-    public void setSupplierLongitude(String supplierLongitude) {
-        //nb this will come from the google geo stuff. NEEDS TO BE SET BEFORE ENTERING IN MYSQL
-        SupplierLongitude = supplierLongitude;
     }
 }
