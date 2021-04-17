@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.workmate">
 
@@ -14,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkMate">
 
+        <activity android:name=".MessagesActivityTemp"></activity>
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
@@ -22,28 +26,24 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".ServiceRegActivity"
+            android:name=".Activities.ServiceRegActivity"
             android:parentActivityName=".Login" />
-
         <activity
-            android:name=".ClientRegActivity"
+            android:name=".Activities.ClientRegActivity"
             android:parentActivityName=".Login" />
-
+        <activity
+            android:name=".Activities.EditProfileActivity"
+            android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Login"
-            android:parentActivityName=".MainActivity" />
-
-        <activity android:name=".MainActivity">
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
-
         </activity>
-
     </application>
 
 </manifest>

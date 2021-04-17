@@ -1,13 +1,12 @@
-package com.example.workmate;
+package com.example.workmate.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.Menu;
+import android.widget.CompoundButton;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -19,12 +18,24 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.workmate.Adapters.RVAdapter;
+import com.example.workmate.DatabaseHelper;
+import com.example.workmate.Fragments.HomeFragment;
+import com.example.workmate.Fragments.LoginFragment;
+import com.example.workmate.MessagesActivityTemp;
+import com.example.workmate.Fragments.MessagesFragment;
+import com.example.workmate.Fragments.ProfileFragment;
+import com.example.workmate.R;
+import com.example.workmate.Fragments.SearchFragment;
+import com.example.workmate.Fragments.SettingsFragment;
+import com.example.workmate.Models.SupplierModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
 import java.util.Objects;
+
+import static com.example.workmate.Fragments.SearchFragment.*;
 
 public class MainActivity<stringTextView> extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -35,6 +46,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
     private DatabaseHelper dbHelper;
     private RVAdapter rvAdapter;
     private RecyclerView suppliersRV;
+    private Menu menu;
     int option = 0;
 
     @Override
@@ -47,7 +59,6 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
 
         mDrawer = findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
-
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
 
@@ -57,7 +68,15 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        menu = navigationView.getMenu();
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        if(currentUser != null){
+            menu.findItem(R.id.nav_login).setVisible(false);
+        }else{
+            menu.findItem(R.id.nav_login).setVisible(true);
+        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
@@ -66,8 +85,28 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         }
     }
 
+    CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (menu != null){
+                updateMenu();
+            }
+        }
+    };
+
+    private void updateMenu(){
+        fAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = fAuth.getCurrentUser();
+        if (currentUser != null){
+            menu.findItem(R.id.nav_login).setVisible(true);
+        }else{
+            menu.findItem(R.id.nav_login).setVisible(false);
+        }
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //updateMenu();
         switch (item.getItemId()) {
 
             case R.id.nav_home: //launch home
@@ -76,7 +115,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                 break;
 
             case R.id.nav_search: //launch search
-                SearchFragment fragment = SearchFragment.newInstance("You are searching for: General");
+                SearchFragment fragment = newInstance("You are searching for: General");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                         fragment).commit();
                 break;
@@ -98,8 +137,8 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
 
             case R.id.nav_login: //launch login
                 //open service provider registration
-                Intent intent = new Intent(this, Login.class);
-                startActivity(intent);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                        new LoginFragment()).commit();
                 break;
         }
 
@@ -125,6 +164,11 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         //open service provider registration
         Intent intent = new Intent(this, ServiceRegActivity.class);
         startActivity(intent);
+    }
+
+    public void messagesTemp(View v) {
+        Intent i = new Intent(this, MessagesActivityTemp.class);
+        startActivity(i);
     }
 
     //function to open search page
@@ -168,7 +212,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
             Toast.makeText(MainActivity.this, "No suppliers of this type", Toast.LENGTH_SHORT).show();
         }*/
 
-        SearchFragment fragment = SearchFragment.newInstance(text);
+        SearchFragment fragment = newInstance(text);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                 fragment).commit();
     }
