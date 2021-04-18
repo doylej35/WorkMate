@@ -2,25 +2,30 @@ package com.example.workmate;
 
 public class MessageObject {
 
-    private String id;
-    private String text;
-    private String name;
-    private String photoUrl;
-    private String imageUrl;
+        private String id;
+        private String text;
+        private String sender;
+        private String recipient;
+        private String photoUrl;
+        private String imageUrl;
+        private String chatID;
 
-    public MessageObject() {
-    }
+        public MessageObject() {
+        }
 
-    public MessageObject(String text, String name, String photoUrl, String imageUrl) {
-        this.text = text;
-        this.name = name;
-        this.photoUrl = photoUrl;
-        this.imageUrl = imageUrl;
-    }
+        public MessageObject(String text, String sender, String recipient, String photoUrl, String imageUrl, String chatID) {
+            this.text = text;
+            this.sender = sender;
+            this.recipient = recipient;
+            this.photoUrl = photoUrl;
+            this.imageUrl = imageUrl;
+            this.chatID = chatID;
+        }
 
-    public String getId() {
+        public String getId() {
             return id;
         }
+
         public void setId(String id) {
             this.id = id;
         }
@@ -29,12 +34,12 @@ public class MessageObject {
             this.text = text;
         }
 
-        public String getName() {
-            return name;
+        public String getSenderName() {
+            return sender;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.sender = name;
         }
 
         public String getPhotoUrl() {
@@ -56,4 +61,4 @@ public class MessageObject {
         public void setImageUrl(String imageUrl) {
             this.imageUrl = imageUrl;
         }
-}
+    }

@@ -90,7 +90,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mFirebaseDatabaseReference;
-    private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder> mFirebaseAdapter;
+    private FirebaseRecyclerAdapter<MessageObject, MessageViewHolder> mFirebaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,21 +129,21 @@ public class MessagesActivityTemp extends AppCompatActivity {
 
         // New child entries
 
-        SnapshotParser<FriendlyMessage> parser = new SnapshotParser<FriendlyMessage>() {
+        SnapshotParser<MessageObject> parser = new SnapshotParser<MessageObject>() {
             @Override
-            public FriendlyMessage parseSnapshot(DataSnapshot dataSnapshot) {
-                FriendlyMessage friendlyMessage = dataSnapshot.getValue(FriendlyMessage.class);
-                if (friendlyMessage != null) {
-                    friendlyMessage.setId(dataSnapshot.getKey());
+            public MessageObject parseSnapshot(DataSnapshot dataSnapshot) {
+                MessageObject message = dataSnapshot.getValue(MessageObject.class);
+                if (message != null) {
+                    message.setId(dataSnapshot.getKey());
                 }
-                return friendlyMessage;
+                return message;
             }
         };
 
         DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);                   //CHANGES HERE
-        FirebaseRecyclerOptions<FriendlyMessage> options =
-                new FirebaseRecyclerOptions.Builder<FriendlyMessage>().setQuery(messagesRef, parser).build();       //.orderByChild("chatID").equalTo(mChatID)
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>(options) {
+        FirebaseRecyclerOptions<MessageObject> options =
+                new FirebaseRecyclerOptions.Builder<MessageObject>().setQuery(messagesRef, parser).build();       //.orderByChild("chatID").equalTo(mChatID)
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<MessageObject, MessageViewHolder>(options) {
             @Override
             public MessageViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
                 LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
@@ -151,13 +151,13 @@ public class MessagesActivityTemp extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(final MessageViewHolder viewHolder, int position, FriendlyMessage friendlyMessage) {
-                if (friendlyMessage.getText() != null) {
-                    viewHolder.messageTextView.setText(friendlyMessage.getText());
+            protected void onBindViewHolder(final MessageViewHolder viewHolder, int position, MessageObject message) {
+                if (message.getText() != null) {
+                    viewHolder.messageTextView.setText(message.getText());
                     viewHolder.messageTextView.setVisibility(TextView.VISIBLE);
                     viewHolder.messageImageView.setVisibility(ImageView.GONE);
-                } else if (friendlyMessage.getImageUrl() != null) {
-                    String imageUrl = friendlyMessage.getImageUrl();
+                } else if (message.getImageUrl() != null) {
+                    String imageUrl = message.getImageUrl();
                     if (imageUrl.startsWith("gs://")) {
                         StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl);
                         storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -173,18 +173,18 @@ public class MessagesActivityTemp extends AppCompatActivity {
                             }
                         });
                     } else {
-                        Glide.with(viewHolder.messageImageView.getContext()).load(friendlyMessage.getImageUrl()).into(viewHolder.messageImageView);
+                        Glide.with(viewHolder.messageImageView.getContext()).load(message.getImageUrl()).into(viewHolder.messageImageView);
                     }
                     viewHolder.messageImageView.setVisibility(ImageView.VISIBLE);
                     viewHolder.messageTextView.setVisibility(TextView.GONE);
                 }
 
-                viewHolder.messengerTextView.setText(friendlyMessage.getSenderName());
-                if (friendlyMessage.getPhotoUrl() == null) {
+                viewHolder.messengerTextView.setText(message.getSenderName());
+                if (message.getPhotoUrl() == null) {
                     viewHolder.messengerImageView.setImageDrawable(ContextCompat
                             .getDrawable(MessagesActivityTemp.this, R.drawable.ic_account_circle_black_36dp));
                 } else {
-                    Glide.with(MessagesActivityTemp.this).load(friendlyMessage.getPhotoUrl()).into(viewHolder.messengerImageView);
+                    Glide.with(MessagesActivityTemp.this).load(message.getPhotoUrl()).into(viewHolder.messengerImageView);
                 }
 
             }
@@ -290,7 +290,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
                     final Uri uri = data.getData();
                     Log.d(TAG, "Uri: " + uri.toString());
 
-                    FriendlyMessage tempMessage = new FriendlyMessage(null, mSender, mRecipient, mPhotoUrl, LOADING_IMAGE_URL, mChatID);
+                    MessageObject tempMessage = new MessageObject(null, mSender, mRecipient, mPhotoUrl, LOADING_IMAGE_URL, mChatID);
                     mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(tempMessage, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -318,9 +318,9 @@ public class MessagesActivityTemp extends AppCompatActivity {
                             .addOnCompleteListener(MessagesActivityTemp.this, new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
-                                    FriendlyMessage friendlyMessage = new FriendlyMessage(null, mSender, mRecipient, mPhotoUrl,
+                                    MessageObject message = new MessageObject(null, mSender, mRecipient, mPhotoUrl,
                                             task.getResult().toString(), mChatID);
-                                    mFirebaseDatabaseReference.child(MESSAGES_CHILD).child(key).setValue(friendlyMessage);
+                                    mFirebaseDatabaseReference.child(MESSAGES_CHILD).child(key).setValue(message);
                                     Log.i(TAG, "sent on result");
                                 }
                             });
@@ -495,9 +495,9 @@ public class MessagesActivityTemp extends AppCompatActivity {
     }
 
     private void addMessage(){
-        FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(),
+        MessageObject message = new MessageObject(mMessageEditText.getText().toString(),
                 mSender,mRecipient, mPhotoUrl, null /* no image */, mChatID);
-        mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(friendlyMessage);
+        mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(message);
         mMessageEditText.setText("");
         Log.i(TAG, mSender);
         Log.i(TAG, mRecipient);
