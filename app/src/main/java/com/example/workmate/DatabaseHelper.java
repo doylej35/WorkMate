@@ -183,7 +183,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean addClient(ClientModel clientModel) {
+    public boolean addClient(ClientModel clientModel, boolean registration) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         //adding clients
@@ -196,6 +196,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cvClient.put(COLUMN_CLIENT_LATITUDE, clientModel.getClientLatitude());
         cvClient.put(COLUMN_CLIENT_LONGITUDE, clientModel.getClientLongitude());
 
+        if(registration) {
+            OKHttpPOST okHttpPOST = new OKHttpPOST();
+            okHttpPOST.saveClientData(clientModel);
+        }
+
         long insert = db.insert(TABLE_CLIENT, null, cvClient);
         if(insert == -1) {
             return false;
@@ -203,7 +208,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-    public boolean addSupplier(SupplierModel supplierModel) {
+    public boolean addSupplier(SupplierModel supplierModel, boolean registration) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         //adding suppliers
@@ -217,6 +222,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cvSupplier.put(COLUMN_SUPPLIER_RATING, supplierModel.getSupplierRating());
         cvSupplier.put(COLUMN_SUPPLIER_LATITUDE, supplierModel.getSupplierLatitude());
         cvSupplier.put(COLUMN_SUPPLIER_LONGITUDE, supplierModel.getSupplierLongitude());
+
+        if(registration) {
+            OKHttpPOST okHttpPOST = new OKHttpPOST();
+            okHttpPOST.saveSupplierData(supplierModel);
+        }
+
 
         long insert = db.insert(TABLE_SUPPLIER, null, cvSupplier);
         Log.d("CREATION","addSupplier is being executed");

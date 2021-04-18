@@ -30,13 +30,12 @@ public class OKHttpPOST extends AppCompatActivity{
 
 
         RequestBody formBody = new FormBody.Builder()
-                .add("client_id", String.valueOf(clientModel.getClientId()))
                 .add("client_fname", clientModel.getClientFname())
                 .add("client_lname", clientModel.getClientLname())
                 .add("client_phone", clientModel.getClientPhone())
                 .add("client_email", clientModel.getClientEmail())
                 .add("client_addr", clientModel.getClientAddr())
-                .add("client_latitude", clientModel.getClientLatitude())
+                .add("client_latitude", clientModel.getClientLongitude())
                 .add("client_longitude", clientModel.getClientLongitude())
                 .build();
         Log.d("FORMBODY", formBody.toString());
@@ -52,6 +51,7 @@ public class OKHttpPOST extends AppCompatActivity{
         clientc.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                Log.d("OKHTTPPOST", "failed posting client");
                 e.printStackTrace();
             }
 
@@ -64,8 +64,10 @@ public class OKHttpPOST extends AppCompatActivity{
                 } else {
                     Log.d("FAILURE", "failed on response");
                 }
+
             }
         });
+
     }
 
     //to save a supplier
