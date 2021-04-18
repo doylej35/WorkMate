@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //this class implements the sqlite openhelper functionality to create our data base functions that will be used
 //WARNINGS ARE ABOUT SIMPLIFYING IF STATEMENTS
@@ -462,7 +463,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //if the supplier is found in the database delete it and return true
-//if not found return false
+    //if not found return false
     public boolean deleteSupplier(SupplierModel supplierModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -475,6 +476,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }else {
             return false;
         }
+    }
 
+    public ArrayList<SupplierModel> sortF(ArrayList<SupplierModel> Input, List<Integer> distance){
+        ArrayList<SupplierModel> sorted = new ArrayList<>();
+
+        int min = 9999;
+        int min_index = 999;
+
+        for(int i = 0; i < Input.size(); i++ ) {
+            for(int j =0; j < Input.size(); j++){
+                if (distance.get(j) <= min) {
+                    min_index = j;
+                    min = distance.get(j);
+                }
+                Log.d("MIN INDEX", "FOUND MIN -> " + min_index + "\n");
+            }
+            sorted.add(Input.get(min_index));
+            Log.d("SORTING",sorted.toString());
+            distance.set(min_index,99999);      //set distance very high
+            min = 999;
+        }
+        return sorted;
     }
 }
