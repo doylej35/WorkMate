@@ -6,20 +6,20 @@ public class FriendlyMessage {
     private String name;
     private String photoUrl;
     private String imageUrl;
-    private String senderEmail;
-    private String recipientEmail;
+    private String person1;
+    private String person2;
     private String chatID;
 
     public FriendlyMessage() {
     }
 
-    public FriendlyMessage(String text, String name, String photoUrl, String imageUrl, String senderEmail, String recipientEmail, String chatID) {
+    public FriendlyMessage(String text, String name, String photoUrl, String imageUrl, String person1, String person2, String chatID) {
         this.text = text;
         this.name = name;
         this.photoUrl = photoUrl;
         this.imageUrl = imageUrl;
-        this.senderEmail = senderEmail;
-        this.recipientEmail = recipientEmail;
+        this.person1 = person1;
+        this.person2 = person2;
         this.chatID = chatID;
     }
 
@@ -61,21 +61,5 @@ public class FriendlyMessage {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public String getSender() {
-        return senderEmail;
-    }
-
-    public void setSender(String senderEmail) {
-        this.senderEmail = senderEmail;
-    }
-
-    public String getRecipient() {
-        return recipientEmail;
-    }
-
-    public void setRecipient(String receipEmail) {
-        this.recipientEmail = recipientEmail;
     }
 }
