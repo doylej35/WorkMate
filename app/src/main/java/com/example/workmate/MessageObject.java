@@ -5,21 +5,19 @@ public class MessageObject {
         private String id;
         private String text;
         private String sender;
-        private String recipient;
         private String photoUrl;
         private String imageUrl;
-        private String chatID;
+        private String chat;
 
         public MessageObject() {
         }
 
-        public MessageObject(String text, String sender, String recipient, String photoUrl, String imageUrl, String chatID) {
+        public MessageObject(String text, String sender,String photoUrl, String imageUrl, String chat) {
             this.text = text;
             this.sender = sender;
-            this.recipient = recipient;
             this.photoUrl = photoUrl;
             this.imageUrl = imageUrl;
-            this.chatID = chatID;
+            this.chat = chat;
         }
 
         public String getId() {

@@ -44,6 +44,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessagesActivityTemp extends AppCompatActivity {
@@ -74,7 +76,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
     private String mRecipient;
     private String mSenderID;
     private String mRecipientID;
-    private String mChatID;
+    private String mChat;
     private String mPhotoUrl;
     private SharedPreferences mSharedPreferences;
     // private GoogleSignInClient mSignInClient;
@@ -99,7 +101,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
-        mChatID = "-MYZtoa2Xt-MGz6nms5B";                                      //CHANGE THIS
+        mChat = "-MYZtoa2Xt-MGz6nms5B";                                      //CHANGE THIS
 
         // Initialize Firebase Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -142,7 +144,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
 
         DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);                   //CHANGES HERE
         FirebaseRecyclerOptions<MessageObject> options =
-                new FirebaseRecyclerOptions.Builder<MessageObject>().setQuery(messagesRef, parser).build();       //.orderByChild("chatID").equalTo(mChatID)
+                new FirebaseRecyclerOptions.Builder<MessageObject>().setQuery(messagesRef, parser).build();       //.orderByChild("chatID").equalTo(mChat)
         mFirebaseAdapter = new FirebaseRecyclerAdapter<MessageObject, MessageViewHolder>(options) {
             @Override
             public MessageViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -290,7 +292,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
                     final Uri uri = data.getData();
                     Log.d(TAG, "Uri: " + uri.toString());
 
-                    MessageObject tempMessage = new MessageObject(null, mSender, mRecipient, mPhotoUrl, LOADING_IMAGE_URL, mChatID);
+                    MessageObject tempMessage = new MessageObject(null, mSender, mPhotoUrl, LOADING_IMAGE_URL, mChat);
                     mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(tempMessage, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -318,8 +320,8 @@ public class MessagesActivityTemp extends AppCompatActivity {
                             .addOnCompleteListener(MessagesActivityTemp.this, new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
-                                    MessageObject message = new MessageObject(null, mSender, mRecipient, mPhotoUrl,
-                                            task.getResult().toString(), mChatID);
+                                    MessageObject message = new MessageObject(null, mSender, mPhotoUrl,
+                                            task.getResult().toString(), mChat);
                                     mFirebaseDatabaseReference.child(MESSAGES_CHILD).child(key).setValue(message);
                                     Log.i(TAG, "sent on result");
                                 }
@@ -383,7 +385,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
         chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild(mChatID)){ getRecipID(); }
+                if (snapshot.hasChild(mChat)){ getRecipID(); }
                 else { checkRecipChat(); }
             }
             @Override
@@ -392,7 +394,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
     }
 
     private void getRecipID(){
-        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats").child(mSenderID).child(mChatID);
+        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats").child(mSenderID).child(mChat);
         chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -411,7 +413,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
 
     private void checkRecipChat(){
         DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats");
-        Query chatQuery =  chatsRef.orderByChild("id").equalTo(mChatID);
+        Query chatQuery =  chatsRef.orderByChild("id").equalTo(mChat);
         chatQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -496,12 +498,13 @@ public class MessagesActivityTemp extends AppCompatActivity {
 
     private void addMessage(){
         MessageObject message = new MessageObject(mMessageEditText.getText().toString(),
-                mSender,mRecipient, mPhotoUrl, null /* no image */, mChatID);
+                mSender, mPhotoUrl, null /* no image */, mChat);
         mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(message);
+
         mMessageEditText.setText("");
         Log.i(TAG, mSender);
         Log.i(TAG, mRecipient);
-        Log.i(TAG, mChatID);
+        Log.i(TAG, mChat);
     }
 
 }
