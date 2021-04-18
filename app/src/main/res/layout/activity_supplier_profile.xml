@@ -166,29 +166,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/SUPPostcode" />
 
-            <RatingBar
+            <Button
                 android:id="@+id/SUPRating"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
-                android:numStars="5"
-                android:rating="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/SUPPhone" />
+                android:text="Rate Servicer"
+                app:layout_constraintTop_toBottomOf="@+id/SUPPostcode" />
 
             <Button
-                android:id="@+id/SUPbtnRate"
+                android:id="@+id/SUPSeeRating"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="8dp"
-                android:text="Save Rating"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edPhone" />
+                android:text="See Service Ratings"
+                app:layout_constraintTop_toBottomOf="@+id/SUPRating" />
 
         </LinearLayout>
 

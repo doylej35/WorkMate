@@ -2,20 +2,11 @@ package com.example.workmate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import java.util.Objects;
 
 public class SupplierProfileActivity extends AppCompatActivity {
 
@@ -35,9 +26,6 @@ public class SupplierProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         databaseHelper = new DatabaseHelper(SupplierProfileActivity.this);
-
-        final RatingBar simpleRatingBar = (RatingBar) findViewById(R.id.SUPRating);
-        button = findViewById(R.id.SUPbtnRate);
 
         Intent intent = getIntent();
         String email = intent.getStringExtra(EMAIL);

@@ -80,6 +80,7 @@
     <string name="title_activity_supplier_profile">SupplierProfileActivity</string>
     <string name="Calender">drawer_calender</string>
     <string name="drawer_calender">Calender</string>
+    <string name="title_activity_rate_service">RateService</string>
 
 
 </resources>
