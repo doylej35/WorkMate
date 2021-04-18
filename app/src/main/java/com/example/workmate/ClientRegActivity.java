@@ -2,7 +2,6 @@ package com.example.workmate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -12,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Objects;
 
 public class ClientRegActivity extends AppCompatActivity {
 
@@ -87,35 +84,31 @@ public class ClientRegActivity extends AppCompatActivity {
                 String phone = Phone.getText().toString();
                 String addr1 = Addr1.getText().toString();
 
-                //attempt to create a new user
-                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) {
-                        //sign up was succesful print a message and go to main page
-                        Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
+                fAuth.createUserWithEmailAndPassword(email,password);
 
-                        //add the person to the client table of the database
-                        ClientModel clientModel = new ClientModel(0, fname, lname, phone, email, addr1, "null", "null");
-
+                //sign up was succesful print a message and go to main page
+                Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
+                        //add the person to the client table of the databas
+                        ClientModel clientModel = new ClientModel();
+                        clientModel.setClientFname(fname);
+                        clientModel.setClientLname(lname);
+                        clientModel.setClientPhone(phone);
+                        clientModel.setClientEmail(email);
+                        clientModel.setClientAddr(addr1);
+                        clientModel.setClientLatitude("null");
+                        clientModel.setClientLongitude("null");
                         DatabaseHelper databaseHelper = new DatabaseHelper(ClientRegActivity.this);
 
                         //print a pop up saying whether this succeeded or not
-                        boolean success = databaseHelper.addClient(clientModel);
+                        boolean success = databaseHelper.addClient(clientModel, true);
                         Toast.makeText(ClientRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
+                        if(success) {
+                            openAct();
 
-                      //  ClientModel clientModel1 = new ClientModel(0,"mary", "test2", "9379863", "testingserver@gmail.com", "address", "null", "null");
+                        } else {
+                            Toast.makeText(ClientRegActivity.this, "FAILED",Toast.LENGTH_SHORT).show();
+                        }
 
-                        OKHttpPOST okHttpPOST = new OKHttpPOST();
-                        okHttpPOST.saveClientData(clientModel);
-
-                        Log.d("FINISHED", "back to main");
-                        openAct();
-                    }else
-                        //sign up failed!! print error message
-                        Toast.makeText(ClientRegActivity.this, "Error" + Objects.requireNonNull(task.getException())
-                                .getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.d("FIREBASE ERROR", Objects.requireNonNull(task.getException())
-                                .getMessage());
-                });
 
             }
 

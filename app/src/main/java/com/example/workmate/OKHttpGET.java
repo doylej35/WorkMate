@@ -60,7 +60,7 @@ public class OKHttpGET extends AppCompatActivity {
 
                             //if not already in database, add them
                             if (client == null) {
-                                added = databaseHelper.addClient(clientModel);
+                                added = databaseHelper.addClient(clientModel, false);
                                 if (!added) {
                                     Log.d("OKHTTPGET", "Error adding the client:");
                                 } else {
@@ -108,7 +108,7 @@ public class OKHttpGET extends AppCompatActivity {
 
                             //if not already in database, add them
                             if (supplier == null) {
-                                added = databaseHelper.addSupplier(supplierModel);
+                                added = databaseHelper.addSupplier(supplierModel, false);
                                 if (!added) {
                                     Log.d("OKHTTPGET", "Error adding the supplier:");
                                 } else {

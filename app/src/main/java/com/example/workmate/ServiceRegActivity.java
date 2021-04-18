@@ -23,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class ServiceRegActivity extends AppCompatActivity {
 
@@ -146,30 +145,28 @@ public class ServiceRegActivity extends AppCompatActivity {
                 String email = Email1.getText().toString().trim();
                 String password = Pass1.getText().toString().trim();
 
-                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task ->{
-                    if(task.isSuccessful()) {
-                        Toast.makeText(ServiceRegActivity.this, "Worker Created",
-                                Toast.LENGTH_SHORT).show();
+                fAuth.createUserWithEmailAndPassword(email, password);
 
-                        //add the person to the supplier table of the database
-                        SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                Phone.getText().toString(), email,  Addr1.getText().toString(), Prof, 0, "null", "null");
+                Toast.makeText(ServiceRegActivity.this, "Worker Created",
+                        Toast.LENGTH_SHORT).show();
 
-                        Log.d("Supplier model", supplierModel.toString());
+                //add the person to the supplier table of the database
+                SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
+                        Phone.getText().toString(), email,  Addr1.getText().toString(), Prof, 0, "null", "null");
 
-                        DatabaseHelper databaseHelper = new DatabaseHelper(ServiceRegActivity.this);
+                Log.d("Supplier model", supplierModel.toString());
 
-                        boolean success = databaseHelper.addSupplier(supplierModel);
-                        Toast.makeText(ServiceRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
-                        OKHttpPOST okHttpPOST = new OKHttpPOST();
-                        okHttpPOST.saveSupplierData(supplierModel);
+                DatabaseHelper databaseHelper = new DatabaseHelper(ServiceRegActivity.this);
 
-                        openAct();
-                    }else
-                        Toast.makeText(ServiceRegActivity.this, "Error" + Objects.
-                               requireNonNull(task.getException()).getMessage(), Toast
-                                .LENGTH_SHORT).show();
-                });
+                boolean success = databaseHelper.addSupplier(supplierModel, true);
+                Toast.makeText(ServiceRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
+
+                if(success) {
+                    openAct();
+                } else {
+                    Log.d("REGISTRATION-ERROR", "error registering the supplier");
+                }
+
             }
         });
 
