@@ -61,7 +61,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
             messengerImageView = (CircleImageView) itemView.findViewById(R.id.messengerImageView);
         }
     }
-    private static final String TAG = "ChatActivity";
+    private static final String TAG = "MessagesActivityTemp";
     public static final String MESSAGES_CHILD = "messages";
     private static final int REQUEST_INVITE = 1;
     private static final int REQUEST_IMAGE = 2;
@@ -69,9 +69,9 @@ public class MessagesActivityTemp extends AppCompatActivity {
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 10;
     public static final String ANONYMOUS = "anonymous";
     private static final String MESSAGE_SENT_EVENT = "message_sent";
-    private String mUsername;
-    private String mSenderEmail;
-    private String mRecipientEmail;
+    private String mRecipient;
+    private String mSenderID;
+    private String mRecipientID;
     private String mChatID;
     private String mPhotoUrl;
     private SharedPreferences mSharedPreferences;
@@ -95,10 +95,9 @@ public class MessagesActivityTemp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages_temp);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // Set default username is anonymous.
-        mUsername = ANONYMOUS;
-        mSenderEmail = ANONYMOUS;
-        mRecipientEmail = "mcardleg2@tcd.ie";                                        //CHANGE THIS
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+        mRecipient = "nitigya@tcd.ie";                                        //CHANGE THIS
 
         // Initialize Firebase Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -108,12 +107,14 @@ public class MessagesActivityTemp extends AppCompatActivity {
             finish();
             return;
         } else {
-            mUsername = mFirebaseUser.getDisplayName();
-            mSenderEmail = mFirebaseUser.getEmail();
+            mSenderID = mFirebaseUser.getUid();
             if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             }
         }
+
+        //Get recipient ID
+        checkChatID();
 
         // Initialize RecyclerView.
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
@@ -122,7 +123,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         // New child entries
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
         SnapshotParser<FriendlyMessage> parser = new SnapshotParser<FriendlyMessage>() {
             @Override
             public FriendlyMessage parseSnapshot(DataSnapshot dataSnapshot) {
@@ -328,6 +329,50 @@ public class MessagesActivityTemp extends AppCompatActivity {
     private void logMessageSent() {
     }
 
+    private void checkChatID(){
+        
+    }
+
+/*
+    public void checkSenderChat(){
+        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats");
+        chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(mSenderID)){ checkChatID(); }
+                else { checkRecipChat(); }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+
+    public void checkChatID(){
+        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats").child(mSenderID);
+        chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(mChatID)){ getRecipID(); }
+                else { checkRecipChat(); }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+
+    public void checkRecipChat(){
+        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats");
+        chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild()){  }
+                else {  }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+*/
     private void senderChat(){
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String senderID = currentUser.getUid();
