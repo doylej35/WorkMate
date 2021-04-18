@@ -3,6 +3,7 @@ package com.example.workmate;
 //this defines a supplier class with its data, construtors, a print function, and getters and setters
 //most of the warnings are about functions not being used.
 //*****need to figure out + fix the override warning*****
+//**fix the constructor to accept null values
 
 public class SupplierModel {
 
@@ -13,10 +14,15 @@ public class SupplierModel {
     private String SupplierPhone;
     private String SupplierService;
     private String SupplierAddr;
+    private int SupplierRating;
+    private String SupplierLatitude;
+    private String SupplierLongitude;
+
 
     //constructors
     public SupplierModel(int supplierId, String supplierFname,
-                         String supplierLname,  String supplierPhone, String supplierEmail,  String supplierAddr,String supplierService) {
+                         String supplierLname,  String supplierPhone, String supplierEmail,
+                         String supplierAddr,String supplierService, int supplierRating, String supplierLatitude, String supplierLongitude) {
         SupplierId = supplierId;
         SupplierFname = supplierFname;
         SupplierLname = supplierLname;
@@ -24,6 +30,9 @@ public class SupplierModel {
         SupplierPhone = supplierPhone;
         SupplierService = supplierService;
         SupplierAddr = supplierAddr;
+        SupplierRating = supplierRating;
+        SupplierLatitude = supplierLatitude;
+        SupplierLongitude = supplierLongitude;
     }
 
     //public SupplierModel() {
@@ -36,10 +45,13 @@ public class SupplierModel {
                 "SupplierId=" + SupplierId +
                 ", SupplierFname='" + SupplierFname + '\'' +
                 ", SupplierLname='" + SupplierLname + '\'' +
-                ", SupplierEmail='" + SupplierEmail + '\'' +
                 ", SupplierPhone='" + SupplierPhone + '\'' +
+                ", SupplierEmail='" + SupplierEmail + '\'' +
                 ", SupplierService='" + SupplierService + '\'' +
                 ", SupplierAddr='" + SupplierAddr + '\'' +
+                ", SupplierRating='" + SupplierRating + '\'' +
+                ", SupplierLatitude='" + SupplierLatitude + '\'' +
+                ", SupplierLongitude='" + SupplierLongitude + '\'' +
                 '}';
     }
 
@@ -99,4 +111,28 @@ public class SupplierModel {
     public void setSupplierAddr(String supplierAddr) {
         SupplierAddr = supplierAddr;
     }
+
+    public int getSupplierRating() {
+        return SupplierRating;
+    }
+
+    public void setSupplierRating(int supplierRating) {
+        SupplierRating = supplierRating;
+    }
+
+    public String getSupplierLatitude() {return SupplierLatitude; }
+
+    public void setSupplierLatitude(String supplierLatitude) {
+        //nb this will come from the google geo stuff. NEEDS TO BE SET BEFORE ENTERING IN MYSQL
+        SupplierLatitude = supplierLatitude;
+    }
+
+    public String getSupplierLongitude() {return SupplierLongitude; }
+
+    public void setSupplierLongitude(String supplierLongitude) {
+        //nb this will come from the google geo stuff. NEEDS TO BE SET BEFORE ENTERING IN MYSQL
+        SupplierLongitude = supplierLongitude;
+    }
+
+
 }

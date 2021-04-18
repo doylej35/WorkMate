@@ -2,15 +2,10 @@ package com.example.workmate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +31,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
     private DatabaseHelper dbHelper;
     private RVAdapter rvAdapter;
     private RecyclerView suppliersRV;
+    private Menu menu;
     int option = 0;
 
     @Override
@@ -47,7 +44,6 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
 
         mDrawer = findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
-
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
 
@@ -57,7 +53,15 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        menu = navigationView.getMenu();
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        if(currentUser != null){
+            menu.findItem(R.id.nav_login).setVisible(false);
+        }else{
+            menu.findItem(R.id.nav_login).setVisible(true);
+        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
@@ -66,8 +70,28 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         }
     }
 
+    CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (menu != null){
+                updateMenu();
+            }
+        }
+    };
+
+    private void updateMenu(){
+        fAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = fAuth.getCurrentUser();
+        if (currentUser != null){
+            menu.findItem(R.id.nav_login).setVisible(true);
+        }else{
+            menu.findItem(R.id.nav_login).setVisible(false);
+        }
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //updateMenu();
         switch (item.getItemId()) {
 
             case R.id.nav_home: //launch home
@@ -98,8 +122,8 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
 
             case R.id.nav_login: //launch login
                 //open service provider registration
-                Intent intent = new Intent(this, Login.class);
-                startActivity(intent);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                        new LoginFragment()).commit();
                 break;
         }
 

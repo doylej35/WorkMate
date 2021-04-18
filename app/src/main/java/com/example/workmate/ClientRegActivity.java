@@ -2,6 +2,7 @@ package com.example.workmate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -79,6 +80,10 @@ public class ClientRegActivity extends AppCompatActivity {
                 //convert variables to correct types
                 String email = Email1.getText().toString().trim();
                 String password = Pass1.getText().toString().trim();
+                String fname = Fname.getText().toString();
+                String lname = Lname.getText().toString();
+                String phone = Phone.getText().toString();
+                String addr1 = Addr1.getText().toString();
 
                 //attempt to create a new user
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
@@ -87,8 +92,7 @@ public class ClientRegActivity extends AppCompatActivity {
                         Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
 
                         //add the person to the client table of the database
-                        ClientModel clientModel = new ClientModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                Phone.getText().toString(), email, Addr1.getText().toString());
+                        ClientModel clientModel = new ClientModel(0, fname, lname, phone, email, addr1, "null", "null");
 
                         DatabaseHelper databaseHelper = new DatabaseHelper(ClientRegActivity.this);
 
@@ -96,13 +100,19 @@ public class ClientRegActivity extends AppCompatActivity {
                         boolean success = databaseHelper.addClient(clientModel);
                         Toast.makeText(ClientRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
 
+                      //  ClientModel clientModel1 = new ClientModel(0,"mary", "test2", "9379863", "testingserver@gmail.com", "address", "null", "null");
 
+                        OKHttpPOST okHttpPOST = new OKHttpPOST();
+                        okHttpPOST.saveClientData(clientModel);
+
+                        Log.d("FINISHED", "back to main");
                         openAct();
-
                     }else
                         //sign up failed!! print error message
                         Toast.makeText(ClientRegActivity.this, "Error" + Objects.requireNonNull(task.getException())
                                 .getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("FIREBASE ERROR", Objects.requireNonNull(task.getException())
+                                .getMessage());
                 });
 
             }
@@ -113,7 +123,7 @@ public class ClientRegActivity extends AppCompatActivity {
 
     //add in registration functions details
     public void openAct(){
-        Intent intent = new Intent( this, MainActivity.class);
+        Intent intent = new Intent( this, OKHttpGET.class);
         startActivity(intent);
     }
 

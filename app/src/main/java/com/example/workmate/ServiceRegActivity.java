@@ -3,6 +3,7 @@ package com.example.workmate;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -152,12 +153,16 @@ public class ServiceRegActivity extends AppCompatActivity {
 
                         //add the person to the supplier table of the database
                         SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                Phone.getText().toString(), email,  Addr1.getText().toString(), Prof);
+                                Phone.getText().toString(), email,  Addr1.getText().toString(), Prof, 0, "null", "null");
+
+                        Log.d("Supplier model", supplierModel.toString());
 
                         DatabaseHelper databaseHelper = new DatabaseHelper(ServiceRegActivity.this);
 
                         boolean success = databaseHelper.addSupplier(supplierModel);
                         Toast.makeText(ServiceRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
+                        OKHttpPOST okHttpPOST = new OKHttpPOST();
+                        okHttpPOST.saveSupplierData(supplierModel);
 
                         openAct();
                     }else
