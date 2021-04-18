@@ -42,8 +42,6 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
         Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-
-
         mDrawer = findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
         mDrawer.addDrawerListener(mToggle);

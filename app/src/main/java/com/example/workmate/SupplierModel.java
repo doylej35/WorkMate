@@ -45,8 +45,8 @@ public class SupplierModel {
                 "SupplierId=" + SupplierId +
                 ", SupplierFname='" + SupplierFname + '\'' +
                 ", SupplierLname='" + SupplierLname + '\'' +
-                ", SupplierEmail='" + SupplierEmail + '\'' +
                 ", SupplierPhone='" + SupplierPhone + '\'' +
+                ", SupplierEmail='" + SupplierEmail + '\'' +
                 ", SupplierService='" + SupplierService + '\'' +
                 ", SupplierAddr='" + SupplierAddr + '\'' +
                 ", SupplierRating='" + SupplierRating + '\'' +

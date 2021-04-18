@@ -40,10 +40,10 @@
             android:name=".EditProfileActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".GetMessages"
+            android:name=".OKHttpGET"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".OKHttpGET"
+            android:name=".OKHttpPOST"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Login"

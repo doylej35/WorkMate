@@ -161,6 +161,8 @@ public class ServiceRegActivity extends AppCompatActivity {
 
                         boolean success = databaseHelper.addSupplier(supplierModel);
                         Toast.makeText(ServiceRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
+                        OKHttpPOST okHttpPOST = new OKHttpPOST();
+                        okHttpPOST.saveSupplierData(supplierModel);
 
                         openAct();
                     }else

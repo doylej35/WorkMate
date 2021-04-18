@@ -94,6 +94,19 @@ public class LoginFragment<web_client_id> extends Fragment {
                             FirebaseUser user = fAuth.getCurrentUser();  //creates a warning but is necessary so that
                             //the user stays logged in
 
+
+                            //example of how to insert a rating or an order
+                        /*    RatingsModel ratingsModel = new RatingsModel(-1, "client1@gmail.com", "supplier1@gmail.com", 5, "Excellent");
+                            OKHttpPOST okHttpPOST = new OKHttpPOST();
+                            okHttpPOST.saveRatingsData(ratingsModel);
+
+                            OrderModel orderModel = new OrderModel(-1, "client2@gmail.com", "supplier2@gmail.com", "Plumber", "3rd March 2020", 3, 45.50, "Dublin");
+                            okHttpPOST.saveOrderData(orderModel);
+
+                            SupplierModel supplier = new SupplierModel(-5, "supplierfname", "supplierlname", "00239837", "supplier1@gmail.com", "Dublin", "Gardener", 3, "null", "null");
+                            okHttpPOST.saveSupplierData(supplier);
+                        */
+
                             //sends them to okhttpget to update their local database
                             startActivity(intent);
                         }else {

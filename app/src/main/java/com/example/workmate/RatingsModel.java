@@ -15,6 +15,17 @@ public class RatingsModel {
         RatingComment = ratingComment;
     }
 
+    @Override
+    public String toString() {
+        return "RatingsModel{" +
+                "RatingId=" + RatingId +
+                ", ClientEmail='" + ClientEmail + '\'' +
+                ", SupplierEmail='" + SupplierEmail + '\'' +
+                ", RatingNumber=" + RatingNumber +
+                ", RatingComment='" + RatingComment + '\'' +
+                '}';
+    }
+
     public int getRatingId() {
         return RatingId;
     }

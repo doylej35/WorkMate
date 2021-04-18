@@ -18,7 +18,7 @@ public class ClientModel {
 
 
     //constructors
-    public ClientModel(int clientId, String clientFname, String clientLname, String clientPhone, String clientEmail,  String clientAddr) {
+    public ClientModel(int clientId, String clientFname, String clientLname, String clientPhone, String clientEmail,  String clientAddr, String clientLatitude, String clientLongitude) {
         ClientId = clientId;
         ClientFname = clientFname;
         ClientLname = clientLname;
@@ -26,13 +26,14 @@ public class ClientModel {
         ClientEmail = clientEmail;
      //   OrderID = orderID;
         ClientAddr = clientAddr;
+        ClientLongitude = clientLongitude;
+        ClientLatitude = clientLatitude;
     }
 
     public ClientModel() {
 
     }
 
-    //toString is necessary for printing the contents of a class object
     @Override
     public String toString() {
         return "ClientModel{" +
@@ -41,8 +42,9 @@ public class ClientModel {
                 ", ClientLname='" + ClientLname + '\'' +
                 ", ClientPhone='" + ClientPhone + '\'' +
                 ", ClientEmail='" + ClientEmail + '\'' +
-             //   ", OrderID=" + OrderID +
-                ", ClientAddr=" + ClientAddr +
+                ", ClientAddr='" + ClientAddr + '\'' +
+                ", ClientLatitude='" + ClientLatitude + '\'' +
+                ", ClientLongitude='" + ClientLongitude + '\'' +
                 '}';
     }
 

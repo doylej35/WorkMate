@@ -38,8 +38,6 @@ public class Login extends AppCompatActivity {
         FirebaseUser currentUser = fAuth.getCurrentUser();              //loads in current users session
 
         Button button = findViewById(R.id.btnLogin);                    //login button
-     //   googleSignInButton = findViewById(R.id.btnGoogle);                   //this is the google button
-     //   googleSignInButton.setSize(SignInButton.SIZE_STANDARD);
         TextView passRest = findViewById(R.id.loginForgotPass);
 
         button.setOnClickListener(v -> {
@@ -92,11 +90,6 @@ public class Login extends AppCompatActivity {
 
          });
 
-        //this button is to login with google
-      //  googleSignInButton.setOnClickListener(log -> {
-            //logs out the current user then returns to main activity
-      //      signIn();
-      //  });
 
         passRest.setOnClickListener(pass -> {     //button for 'Forgot Password' on login screen
             String email = mEmail.getText().toString().trim();      //email entered on login screen text box

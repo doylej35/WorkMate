@@ -12,6 +12,20 @@ public class OrderModel {
     private double OrderCost;
     private String OrderLocation;       //the clients location (address)
 
+    @Override
+    public String toString() {
+        return "OrderModel{" +
+                "OrderId=" + OrderId +
+                ", ClientEmail='" + ClientEmail + '\'' +
+                ", SupplierEmail='" + SupplierEmail + '\'' +
+                ", SupplierService='" + SupplierService + '\'' +
+                ", OrderDate='" + OrderDate + '\'' +
+                ", OrderHours=" + OrderHours +
+                ", OrderCost=" + OrderCost +
+                ", OrderLocation='" + OrderLocation + '\'' +
+                '}';
+    }
+
     public OrderModel(int orderId, String clientEmail, String supplierEmail, String supplierService,
                       String orderDate, int orderHours, double orderCost, String orderLocation) {
         OrderId = orderId;
