@@ -1,15 +1,22 @@
 package com.example.workmate;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,8 +25,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.zip.Inflater;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class SearchFragment extends Fragment {
 
@@ -33,8 +48,9 @@ public class SearchFragment extends Fragment {
     private String input;
 
     Context context = getActivity();
+    //final EditText Fname = findViewById(R.id.spinner);
 
-    public static SearchFragment newInstance(String text){
+   public static SearchFragment newInstance(String text){
          SearchFragment fragment = new SearchFragment();
          Bundle args = new Bundle();
          args.putString("ARG_TEXT",text);
@@ -42,10 +58,11 @@ public class SearchFragment extends Fragment {
          return fragment;
     }
 
-
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_search,  container, false);
+
+
         /*TextView textView = v.findViewById(R.id.search_prompt);
 
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_search, null);
@@ -72,6 +89,23 @@ public class SearchFragment extends Fragment {
         }
 
         textView.setText(text);*/
+
+
+        SearchView search = v.findViewById(R.id.search);
+        Spinner spinner = v.findViewById(R.id.spinner);
+        
+        Button button = v.findViewById(R.id.button2);
+        button.setOnClickListener(a->{
+                    if (search.toString().length() == 0  ){
+                        //no first name
+                       // search.setError("Please enter Name");
+
+                        Log.d("CREATION","Empty Search");
+                    }
+                }
+                );
+        
+
 
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity());
 
@@ -118,3 +152,5 @@ public class SearchFragment extends Fragment {
         return v;
     }
 }
+
+

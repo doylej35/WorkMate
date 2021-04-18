@@ -273,4 +273,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         search.close();
         return client;
     }
+
+
+
+
+
+
+
 }
