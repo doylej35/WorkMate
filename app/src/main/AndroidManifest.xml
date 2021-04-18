@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:allowBackup="true"
@@ -40,6 +42,12 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EditProfileActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".OKHttpGET"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".OKHttpPOST"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Login"

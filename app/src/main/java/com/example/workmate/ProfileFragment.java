@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -25,7 +24,9 @@ public class ProfileFragment extends Fragment {
 
         edit = (Button) root.findViewById(R.id.btnEditProfile);
 
+
         Intent intent = new Intent( getActivity(), EditProfileActivity.class);
+
 
         if(user != null){
             String email = user.getEmail();

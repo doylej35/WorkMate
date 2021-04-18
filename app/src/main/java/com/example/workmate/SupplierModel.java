@@ -15,12 +15,14 @@ public class SupplierModel {
     private String SupplierService;
     private String SupplierAddr;
     private int SupplierRating;
-
+    private String SupplierLatitude;
+    private String SupplierLongitude;
 
 
     //constructors
     public SupplierModel(int supplierId, String supplierFname,
-                         String supplierLname,  String supplierPhone, String supplierEmail,  String supplierAddr,String supplierService, int supplierRating) {
+                         String supplierLname,  String supplierPhone, String supplierEmail,
+                         String supplierAddr,String supplierService, int supplierRating, String supplierLatitude, String supplierLongitude) {
         SupplierId = supplierId;
         SupplierFname = supplierFname;
         SupplierLname = supplierLname;
@@ -29,6 +31,8 @@ public class SupplierModel {
         SupplierService = supplierService;
         SupplierAddr = supplierAddr;
         SupplierRating = supplierRating;
+        SupplierLatitude = supplierLatitude;
+        SupplierLongitude = supplierLongitude;
     }
 
     //public SupplierModel() {
@@ -41,11 +45,13 @@ public class SupplierModel {
                 "SupplierId=" + SupplierId +
                 ", SupplierFname='" + SupplierFname + '\'' +
                 ", SupplierLname='" + SupplierLname + '\'' +
-                ", SupplierEmail='" + SupplierEmail + '\'' +
                 ", SupplierPhone='" + SupplierPhone + '\'' +
+                ", SupplierEmail='" + SupplierEmail + '\'' +
                 ", SupplierService='" + SupplierService + '\'' +
                 ", SupplierAddr='" + SupplierAddr + '\'' +
                 ", SupplierRating='" + SupplierRating + '\'' +
+                ", SupplierLatitude='" + SupplierLatitude + '\'' +
+                ", SupplierLongitude='" + SupplierLongitude + '\'' +
                 '}';
     }
 
@@ -113,4 +119,20 @@ public class SupplierModel {
     public void setSupplierRating(int supplierRating) {
         SupplierRating = supplierRating;
     }
+
+    public String getSupplierLatitude() {return SupplierLatitude; }
+
+    public void setSupplierLatitude(String supplierLatitude) {
+        //nb this will come from the google geo stuff. NEEDS TO BE SET BEFORE ENTERING IN MYSQL
+        SupplierLatitude = supplierLatitude;
+    }
+
+    public String getSupplierLongitude() {return SupplierLongitude; }
+
+    public void setSupplierLongitude(String supplierLongitude) {
+        //nb this will come from the google geo stuff. NEEDS TO BE SET BEFORE ENTERING IN MYSQL
+        SupplierLongitude = supplierLongitude;
+    }
+
+
 }
