@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -69,6 +70,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 10;
     public static final String ANONYMOUS = "anonymous";
     private static final String MESSAGE_SENT_EVENT = "message_sent";
+    private String mSender;
     private String mRecipient;
     private String mSenderID;
     private String mRecipientID;
@@ -97,7 +99,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
-        mRecipient = "nitigya@tcd.ie";                                        //CHANGE THIS
+        mChatID = "-MYZtoa2Xt-MGz6nms5B";                                      //CHANGE THIS
 
         // Initialize Firebase Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -113,8 +115,11 @@ public class MessagesActivityTemp extends AppCompatActivity {
             }
         }
 
-        //Get recipient ID
-        checkChatID();
+        //Get sender name
+        getSender();
+
+        //Get recipient ID and then name
+        checkSenderChat();
 
         // Initialize RecyclerView.
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
@@ -137,7 +142,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
 
         DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);                   //CHANGES HERE
         FirebaseRecyclerOptions<FriendlyMessage> options =
-                new FirebaseRecyclerOptions.Builder<FriendlyMessage>().setQuery(messagesRef.orderByChild("chatID").equalTo(mChatID), parser).build();
+                new FirebaseRecyclerOptions.Builder<FriendlyMessage>().setQuery(messagesRef, parser).build();       //.orderByChild("chatID").equalTo(mChatID)
         mFirebaseAdapter = new FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>(options) {
             @Override
             public MessageViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -174,7 +179,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
                     viewHolder.messageTextView.setVisibility(TextView.GONE);
                 }
 
-                viewHolder.messengerTextView.setText(friendlyMessage.getName());
+                viewHolder.messengerTextView.setText(friendlyMessage.getSenderName());
                 if (friendlyMessage.getPhotoUrl() == null) {
                     viewHolder.messengerImageView.setImageDrawable(ContextCompat
                             .getDrawable(MessagesActivityTemp.this, R.drawable.ic_account_circle_black_36dp));
@@ -227,7 +232,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                senderChat();
+                addMessage();
             }
         });
 
@@ -285,7 +290,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
                     final Uri uri = data.getData();
                     Log.d(TAG, "Uri: " + uri.toString());
 
-                    FriendlyMessage tempMessage = new FriendlyMessage(null, mUsername, mPhotoUrl, LOADING_IMAGE_URL, mSenderEmail, mRecipientEmail, mChatID);
+                    FriendlyMessage tempMessage = new FriendlyMessage(null, mSender, mRecipient, mPhotoUrl, LOADING_IMAGE_URL, mChatID);
                     mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(tempMessage, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -313,10 +318,10 @@ public class MessagesActivityTemp extends AppCompatActivity {
                             .addOnCompleteListener(MessagesActivityTemp.this, new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
-                                    FriendlyMessage friendlyMessage = new FriendlyMessage(null, mUsername, mPhotoUrl,
-                                            task.getResult().toString(), mSenderEmail, mRecipientEmail, mChatID);
+                                    FriendlyMessage friendlyMessage = new FriendlyMessage(null, mSender, mRecipient, mPhotoUrl,
+                                            task.getResult().toString(), mChatID);
                                     mFirebaseDatabaseReference.child(MESSAGES_CHILD).child(key).setValue(friendlyMessage);
-                                    logMessageSent();
+                                    Log.i(TAG, "sent on result");
                                 }
                             });
                 } else {
@@ -326,15 +331,41 @@ public class MessagesActivityTemp extends AppCompatActivity {
         });
     }
 
-    private void logMessageSent() {
+    private void getSender(){
+        DatabaseReference userRef = mFirebaseDatabaseReference.child("Users").child(mSenderID);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if(user != null){
+                    mSender = user.username;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
-    private void checkChatID(){
-        
+    private void getRecipient(){
+        DatabaseReference userRef = mFirebaseDatabaseReference.child("Users").child(mRecipientID);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if(user != null){
+                    mRecipient = user.username;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
-/*
-    public void checkSenderChat(){
+    private void checkSenderChat(){
         DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats");
         chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -347,7 +378,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
         });
     }
 
-    public void checkChatID(){
+    private void checkChatID(){
         DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats").child(mSenderID);
         chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -356,24 +387,45 @@ public class MessagesActivityTemp extends AppCompatActivity {
                 else { checkRecipChat(); }
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
-    public void checkRecipChat(){
-        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats");
+    private void getRecipID(){
+        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats").child(mSenderID).child(mChatID);
         chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild()){  }
-                else {  }
+                Chat chat = snapshot.getValue(Chat.class);
+                if(chat != null){
+                    mRecipientID = chat.chatter;
+                    getRecipient();
+                }
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
     }
-*/
-    private void senderChat(){
+
+    private void checkRecipChat(){
+        DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats");
+        Query chatQuery =  chatsRef.orderByChild("id").equalTo(mChatID);
+        chatQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snap: snapshot.getChildren()){
+                    mRecipientID = snap.getKey();
+                    getRecipient();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+ /*   private void senderChat(){
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String senderID = currentUser.getUid();
         DatabaseReference chatsRef = mFirebaseDatabaseReference.child("chats");
@@ -432,22 +484,24 @@ public class MessagesActivityTemp extends AppCompatActivity {
             }
         });
     }
-
+*/
     private void addChat(){
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String senderID = currentUser.getUid();
-        Chat tempChat = new Chat(mRecipientEmail);
+        Chat tempChat = new Chat("change this");
         DatabaseReference chatsRef = FirebaseDatabase.getInstance().getReference("/chats" + "/" + senderID);
         chatsRef.push().setValue(tempChat);
         //go to setChatID
     }
 
-    private void addMessage(String chatID){
-        mChatID = chatID;
+    private void addMessage(){
         FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(),
-                mUsername, mPhotoUrl, null /* no image */, mSenderEmail, mRecipientEmail, mChatID);
+                mSender,mRecipient, mPhotoUrl, null /* no image */, mChatID);
         mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(friendlyMessage);
         mMessageEditText.setText("");
-        logMessageSent();
+        Log.i(TAG, mSender);
+        Log.i(TAG, mRecipient);
+        Log.i(TAG, mChatID);
     }
+
 }
