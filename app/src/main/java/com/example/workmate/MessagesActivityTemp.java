@@ -61,7 +61,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
             messengerImageView = (CircleImageView) itemView.findViewById(R.id.messengerImageView);
         }
     }
-    private static final String TAG = "ChatActivity";
+    private static final String TAG = "MessagesActivityTemp";
     public static final String MESSAGES_CHILD = "messages";
     private static final int REQUEST_INVITE = 1;
     private static final int REQUEST_IMAGE = 2;
@@ -72,7 +72,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
     private String mUsername;
     private String mSenderEmail;
     private String mRecipientEmail;
-    private String mChatID;
+    private String mChatID;                                    //SHOULD BE PASSED IN WHEN THE ACTIVITY IS OPENED
     private String mPhotoUrl;
     private SharedPreferences mSharedPreferences;
     // private GoogleSignInClient mSignInClient;
@@ -134,7 +134,7 @@ public class MessagesActivityTemp extends AppCompatActivity {
             }
         };
 
-        DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);                   //CHANGES HERE
+        DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);
         FirebaseRecyclerOptions<FriendlyMessage> options =
                 new FirebaseRecyclerOptions.Builder<FriendlyMessage>().setQuery(messagesRef.orderByChild("chatID").equalTo(mChatID), parser).build();
         mFirebaseAdapter = new FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>(options) {
