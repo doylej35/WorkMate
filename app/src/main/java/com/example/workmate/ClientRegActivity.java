@@ -102,10 +102,12 @@ public class ClientRegActivity extends AppCompatActivity {
                         boolean success = databaseHelper.addClient(clientModel);
                         Toast.makeText(ClientRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
 
-                      //  ClientModel clientModel1 = new ClientModel(0,"mary", "test2", "9379863", "testingserver@gmail.com", "address", "null", "null");
+                        //ClientModel clientModel1 = new ClientModel(0,"mary", "test2", "9379863", "testingserver@gmail.com", "address", "null", "null");
 
                         OKHttpPOST okHttpPOST = new OKHttpPOST();
                         okHttpPOST.saveClientData(clientModel);
+
+                        Log.d("TESTING", "IMPORTANT STUFF ?? " + clientModel.toString());
 
                         Log.d("FINISHED", "back to main");
                         openAct();

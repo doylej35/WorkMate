@@ -126,6 +126,8 @@ public class SearchFragment extends Fragment {
 
         suppliersRV.setAdapter(rvAdapter);
 
+        Log.d("CREATION", supplierModelArrayList.toString());
+
         return v;
     }
 }
