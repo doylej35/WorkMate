@@ -12,6 +12,10 @@ public class ClientModel {
     private String ClientPhone;
     private String ClientEmail;
     private String ClientAddr;
+    private String ClientLatitude;
+    private String ClientLongitude;
+
+
 
     //constructors
     public ClientModel(int clientId, String clientFname, String clientLname, String clientPhone, String clientEmail,  String clientAddr, String clientLatitude, String clientLongitude) {
@@ -20,7 +24,7 @@ public class ClientModel {
         ClientLname = clientLname;
         ClientPhone = clientPhone;
         ClientEmail = clientEmail;
-     //   OrderID = orderID;
+        //   OrderID = orderID;
         ClientAddr = clientAddr;
         ClientLongitude = clientLongitude;
         ClientLatitude = clientLatitude;
@@ -91,5 +95,19 @@ public class ClientModel {
 
     public void setClientAddr(String clientAddr) {
         ClientAddr = clientAddr;
+    }
+
+    public String getClientLatitude() {return ClientLatitude; }
+
+    public void setClientLatitude(String clientLatitude) {
+        //nb this needs to be taken from the google api BEFORE ENTERING IN SQL
+        ClientLatitude = clientLatitude;
+    }
+
+    public String getClientLongitude() {return ClientLongitude; }
+
+    public void setClientLongitude(String clientLongitude) {
+        //nb this needs to be taken from the google api BEFORE ENTERING IN SQL
+        ClientLongitude = clientLongitude;
     }
 }

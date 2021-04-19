@@ -77,6 +77,7 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="google">google</string>
+    <string name="new_message">New Message</string>
 
 
 </resources>

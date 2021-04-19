@@ -3,7 +3,6 @@ package com.example.workmate;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,18 +14,39 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
 public class ServiceRegActivity extends AppCompatActivity {
 
+    FirebaseAuth auth;
+    DatabaseReference reference;
+
+    EditText Fname;
+    EditText Lname;
+    EditText Email1;
+    EditText Email2;
+    EditText Addr1;
+    EditText Phone;
+    EditText Pass1;
+    EditText Pass2;
+    CheckBox Cons;
+    Button button;
     String Prof;
 
     @Override
@@ -34,20 +54,21 @@ public class ServiceRegActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_reg);
 
+        Fname = findViewById(R.id.etFirstName);
+        Lname =  findViewById(R.id.etLastName);
+        Email1 = findViewById(R.id.etEmail1);
+        Email2 =  findViewById(R.id.etEmail2);
+        Addr1 =  findViewById(R.id.etAddress1);
+        Phone =  findViewById(R.id.etPhone);
+        Pass1 = findViewById(R.id.etPassword1);
+        Pass2 =  findViewById(R.id.etPassword2);
+        Cons =  findViewById(R.id.cbTermsOfServices);
+
+        auth = FirebaseAuth.getInstance();
+
         Toolbar mToolbar = findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        final EditText Fname = findViewById(R.id.etFirstName);
-        final EditText Lname =  findViewById(R.id.etLastName);
-        final EditText Email1 = findViewById(R.id.etEmail1);
-        final EditText Email2 =  findViewById(R.id.etEmail2);
-        final EditText Addr1 =  findViewById(R.id.etAddress1);
-        final EditText Phone =  findViewById(R.id.etPhone);
-        final EditText Pass1 = findViewById(R.id.etPassword1);
-        final EditText Pass2 =  findViewById(R.id.etPassword2);
-        final CheckBox Cons =  findViewById(R.id.cbTermsOfServices);
 
         final Spinner spinner = findViewById(R.id.professions);
         String[] services = new String[]{
@@ -93,94 +114,107 @@ public class ServiceRegActivity extends AppCompatActivity {
             }
         });
 
-        Button button = findViewById(R.id.button);
+        button = findViewById(R.id.service_reg);
 
-        button.setOnClickListener(v -> {
-            if (Fname.length() == 0  ){
-                //no first name
-                Fname.setError("Please enter Name");
-            }
-            else if (Lname.length() == 0){
-                //if no last name
-                Lname.setError("Please enter Name");
-            }
-            else if (Email1.length() == 0){
-                //if no email1
-                Email1.setError("Please enter Email");
-            }
-            else if (Email2.length() == 0 ){
-                //if no email2
-                Email2.setError("Please enter Email");
-            }
-            else if (!Email1.getText().toString().equals(Email2.getText().toString())) {
-                //if email1 and 2 not equal
-                Email2.setError("Emails don't match");
-            }
-            else if (Addr1.length() == 0){
-                //empty address
-                Addr1.setError("Please enter Address");
-            }
-            else if (Phone.length() == 0){
-                //empty phone
-                Phone.setError("Please enter Phone number");
-            }
-            else if (!Cons.isChecked()) {
-                //if cond box not checked
-                Cons.setError("Must agree to terms");
-            }
-            else if (Pass1.length() == 0){
-                //no pass1
-                Pass1.setError("Please enter Password");
-            }
-            else if (Pass2.length() == 0){
-                //no pas2
-                Pass2.setError("Please enter Password");
-            }
-            else if (!Pass1.getText().toString().equals(Pass2.getText().toString())) {
-                //pass words don't match
-                Pass2.setError("Passwords don't match");
-            }
-            else{
-                //if all the data is entered correctly move to firebase functionality
-                FirebaseAuth fAuth = FirebaseAuth.getInstance();
-                String email = Email1.getText().toString().trim();
-                String password = Pass1.getText().toString().trim();
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Fname.length() == 0  ){
+                    //no first name
+                    Fname.setError("Please enter Name");
+                }
+                else if (Lname.length() == 0){
+                    //if no last name
+                    Lname.setError("Please enter Name");
+                }
+                else if (Email1.length() == 0){
+                    //if no email1
+                    Email1.setError("Please enter Email");
+                }
+                else if (Email2.length() == 0 ){
+                    //if no email2
+                    Email2.setError("Please enter Email");
+                }
+                else if (!Email1.getText().toString().equals(Email2.getText().toString())) {
+                    //if email1 and 2 not equal
+                    Email2.setError("Emails don't match");
+                }
+                else if (Addr1.length() == 0){
+                    //empty address
+                    Addr1.setError("Please enter Address");
+                }
+                else if (Phone.length() == 0){
+                    //empty phone
+                    Phone.setError("Please enter Phone number");
+                }
+                else if (!Cons.isChecked()) {
+                    //if cond box not checked
+                    Cons.setError("Must agree to terms");
+                }
+                else if (Pass1.length() == 0){
+                    //no pass1
+                    Pass1.setError("Please enter Password");
+                }
+                else if (Pass2.length() == 0){
+                    //no pas2
+                    Pass2.setError("Please enter Password");
+                }
+                else if (!Pass1.getText().toString().equals(Pass2.getText().toString())) {
+                    //pass words don't match
+                    Pass2.setError("Passwords don't match");
+                }
+                else{
+                    String username = Fname.getText().toString();
+                    String email = Email1.getText().toString();
+                    String password = Pass1.getText().toString();
 
-                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task ->{
-                    if(task.isSuccessful()) {
-                        Toast.makeText(ServiceRegActivity.this, "Worker Created",
-                                Toast.LENGTH_SHORT).show();
-
-                        //add the person to the supplier table of the database
-                        SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                Phone.getText().toString(), email,  Addr1.getText().toString(), Prof, 0, "null", "null");
-
-                        Log.d("Supplier model", supplierModel.toString());
-
-                        DatabaseHelper databaseHelper = new DatabaseHelper(ServiceRegActivity.this);
-
-                        boolean success = databaseHelper.addSupplier(supplierModel);
-                        Toast.makeText(ServiceRegActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
-                        OKHttpPOST okHttpPOST = new OKHttpPOST();
-                        okHttpPOST.saveSupplierData(supplierModel);
-
-                        openAct();
-                    }else
-                        Toast.makeText(ServiceRegActivity.this, "Error" + Objects.
-                               requireNonNull(task.getException()).getMessage(), Toast
-                                .LENGTH_SHORT).show();
-                });
+                    register(username,email,password);
+                }
             }
         });
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
     }
 
-    //add in registration functions details
-    public void openAct(){
-        Intent intent = new Intent( this, MainActivity.class);
-        startActivity(intent);
-    }
+    public void register(String username,String email, String password){
+        auth.createUserWithEmailAndPassword(email,password).
+                addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            assert firebaseUser != null;
+                            String userid = firebaseUser.getUid();
 
+                            reference = FirebaseDatabase.getInstance().getReference("users").child(userid);
+
+                            SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
+                                    Phone.getText().toString(), email, Addr1.getText().toString(), Prof,0, "null", "null");
+                            DatabaseHelper databaseHelper = new DatabaseHelper(ServiceRegActivity.this);
+                            boolean success = databaseHelper.addSupplier(supplierModel);
+
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("uid", userid);
+                            hashMap.put("username", username);
+                            hashMap.put("profileImageURL", "default");
+
+                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Intent intent = new Intent(ServiceRegActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+                        } else{
+                            Toast.makeText(ServiceRegActivity.this,
+                                    "You can't register with this email or password"
+                                    ,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
 }

@@ -22,6 +22,9 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import sdk.chat.messenger.messages.ChatLogActivity;
+import sdk.chat.messenger.messages.LatestMessagesActivity;
+
 public class MainActivity<stringTextView> extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ActionBarDrawerToggle mToggle;
@@ -111,8 +114,8 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                 break;
 
             case R.id.nav_messages: //launch messages
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
-                        new MessagesFragment()).commit();
+                Intent intent = new Intent(MainActivity.this, LatestMessagesActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.nav_settings: //launch settings

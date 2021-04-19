@@ -184,7 +184,7 @@
                 android:text="@string/toc" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/client_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_activity_register" />

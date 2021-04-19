@@ -18,7 +18,7 @@
 
     <item android:id="@+id/nav_messages"
         android:title="@string/drawer_messages"
-        android:icon="@drawable/ic_action_messsage"
+        android:icon="@drawable/ic_action_message"
         />
 
     <item android:id="@+id/nav_settings"
