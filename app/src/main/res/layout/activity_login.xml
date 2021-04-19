@@ -105,7 +105,8 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/loginPassword"
+            android:focusable="true" />
 
         <Button
             android:id="@+id/btnLogin"

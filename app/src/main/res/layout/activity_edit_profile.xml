@@ -16,7 +16,8 @@
             android:src="@drawable/backcircle1"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:contentDescription="@string/background" />
         <View
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -35,7 +36,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".ClientRegActivity"
+        tools:context=".activities.ClientRegActivity"
         tools:layout_editor_absoluteX="39dp">
 
         <LinearLayout
@@ -62,7 +63,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/edimageView"
+                android:id="@+id/ed_imageView"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
@@ -79,12 +80,13 @@
                 android:layout_marginTop="16dp"
                 android:ems="10"
                 android:hint="@string/reg_first_name"
-                android:importantForAutofill="yes"
+                android:importantForAutofill="no"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/edLName"
@@ -99,7 +101,8 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edFirstName" />
+                app:layout_constraintTop_toBottomOf="@+id/edFirstName"
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/edEmail"
@@ -132,7 +135,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edEmail2" />
+                app:layout_constraintTop_toBottomOf="@+id/edEmail2"
+                android:inputType="textPostalAddress" />
 
             <TextView
                 android:id="@+id/edService"
@@ -180,7 +184,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edPostcode" />
+                app:layout_constraintTop_toBottomOf="@+id/edPostcode"
+                android:inputType="phone" />
 
             <Button
                 android:id="@+id/edbtnEditProfile"

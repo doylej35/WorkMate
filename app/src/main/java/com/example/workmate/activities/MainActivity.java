@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,15 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.workmate.database.DatabaseHelper;
+import com.example.workmate.fragments.HomeFragment;
+import com.example.workmate.fragments.LoginFragment;
+import com.example.workmate.fragments.ProfileFragment;
+import com.example.workmate.R;
+import com.example.workmate.fragments.SearchFragment;
+import com.example.workmate.fragments.SettingsFragment;
+import com.example.workmate.models.SupplierModel;
+import com.example.workmate.models.RVAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -111,8 +120,8 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
                 break;
 
             case R.id.nav_messages: //launch messages
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
-                        new MessagesFragment()).commit();
+                Intent intent = new Intent(MainActivity.this, LatestMessagesActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.nav_settings: //launch settings

@@ -4,10 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <uses-feature android:name="android.hardware.type.watch" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,47 +13,60 @@
         android:icon="@drawable/workmate_logo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/workmate_logo_circle"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.WorkMate">
-
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
-
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
-        <activity
-            android:name=".ServiceRegActivity"
-            android:parentActivityName=".Login" />
-        <activity
-            android:name=".ClientRegActivity"
-            android:parentActivityName=".Login" />
-        <activity
-            android:name=".EditProfileActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".OKHttpGET"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".OKHttpPOST"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".Login"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+        android:supportsRtl="true">
+        <activity android:name=".activities.SplashActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.EditProfileActivity" />
+
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".activities.ServiceRegActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate" />
+        <activity
+            android:name=".activities.ClientRegActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate" />
+        <activity
+            android:name=".database.OKHttpGET"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate" />
+        <activity
+            android:name=".database.OKHttpPOST"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate" />
+        <activity
+            android:name=".Login"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate" />
+        <activity
+            android:name=".activities.LatestMessagesActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMateMessaging" />
+        <activity
+            android:name=".messages.ChatLogActivity"
+            android:theme="@style/Theme.WorkMateMessaging"
+            android:parentActivityName=".activities.LatestMessagesActivity"/>
+        <activity
+            android:name=".messages.NewMessageActivity"
+            android:parentActivityName=".activities.LatestMessagesActivity"
+            android:theme="@style/Theme.WorkMateMessaging" />
+
     </application>
 
 </manifest>

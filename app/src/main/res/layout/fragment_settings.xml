@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
 
     <LinearLayout
@@ -29,14 +29,14 @@
             android:id="@+id/setting_PassReset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reset Password"
+            android:text="@string/reset_password"
             android:padding="16dp"/>
 
         <Button
             android:id="@+id/setting_editUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit Profile"
+            android:text="@string/edit_profile"
             android:padding="16dp"/>
 
         <Button
@@ -49,4 +49,3 @@
     </LinearLayout>
 
 </ScrollView>
-

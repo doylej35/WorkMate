@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import com.example.workmate.models.ClientModel;
+import com.example.workmate.models.OrderModel;
+import com.example.workmate.models.RatingsModel;
+import com.example.workmate.models.SupplierModel;
 
 import java.util.ArrayList;
 import java.util.List;

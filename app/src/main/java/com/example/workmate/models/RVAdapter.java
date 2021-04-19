@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.models;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentActivity;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.workmate.R;
 
 import java.util.ArrayList;
 

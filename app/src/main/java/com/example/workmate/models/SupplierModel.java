@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.models;
 
 //this defines a supplier class with its data, construtors, a print function, and getters and setters
 //most of the warnings are about functions not being used.

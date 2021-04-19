@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.workmate.database.DatabaseHelper;
+import com.example.workmate.Login;
+import com.example.workmate.database.OKHttpGET;
+import com.example.workmate.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

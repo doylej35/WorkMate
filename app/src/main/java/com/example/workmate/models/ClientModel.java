@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.models;
 
 
 //this class defines the data type client, lists its data, and provides constructors, a print function, and getters and setters
@@ -24,7 +24,7 @@ public class ClientModel {
         ClientLname = clientLname;
         ClientPhone = clientPhone;
         ClientEmail = clientEmail;
-     //   OrderID = orderID;
+        //   OrderID = orderID;
         ClientAddr = clientAddr;
         ClientLongitude = clientLongitude;
         ClientLatitude = clientLatitude;
