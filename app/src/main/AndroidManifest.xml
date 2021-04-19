@@ -53,19 +53,21 @@
             android:name=".MainActivity"
             android:theme="@style/Theme.WorkMate" />
         <activity
-            android:name="sdk.chat.messenger.messages.LatestMessagesActivity"
+            android:name=".messages.LatestMessagesActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.WorkMateMessaging" />
         <activity
-            android:name="sdk.chat.messenger.messages.ChatLogActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".messages.ChatLogActivity"
+            android:theme="@style/Theme.WorkMateMessaging" />
         <activity
-            android:name="sdk.chat.messenger.NewMessageActivity"
-            android:parentActivityName="sdk.chat.messenger.messages.LatestMessagesActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".messages.NewMessageActivity"
+            android:parentActivityName=".messages.LatestMessagesActivity"
+            android:theme="@style/Theme.WorkMateMessaging" />
         <activity
-            android:name="sdk.chat.messenger.registerlogin.RegisterActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".registerlogin.RegisterActivity"
+            android:theme="@style/Theme.WorkMateMessaging" />
     </application>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

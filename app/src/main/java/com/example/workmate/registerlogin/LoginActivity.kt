@@ -1,4 +1,4 @@
-package sdk.chat.messenger.registerlogin
+package com.example.workmate.registerlogin
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import com.example.workmate.R
+import com.example.workmate.messages.LatestMessagesActivity
 import kotlinx.android.synthetic.main.activity_login1.*
-import sdk.chat.messenger.messages.LatestMessagesActivity
 
 class LoginActivity: AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package sdk.chat.messenger.registerlogin
+package com.example.workmate.registerlogin
 
 import android.app.Activity
 import android.content.Intent
@@ -13,9 +13,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.workmate.R
+import com.example.workmate.messages.LatestMessagesActivity
+import com.example.workmate.models.User
 import kotlinx.android.synthetic.main.activity_main1.*
-import sdk.chat.messenger.messages.LatestMessagesActivity
-import sdk.chat.messenger.models.User
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {

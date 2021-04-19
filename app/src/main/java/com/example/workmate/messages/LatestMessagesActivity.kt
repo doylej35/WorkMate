@@ -1,4 +1,4 @@
-package sdk.chat.messenger.messages
+package com.example.workmate.messages
 
 import LatestMessageRow
 import android.content.Intent
@@ -11,14 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.workmate.MainActivity
 import com.example.workmate.R
+import com.example.workmate.models.ChatMessage
+import com.example.workmate.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_latest_messages.*
-import sdk.chat.messenger.NewMessageActivity
-import sdk.chat.messenger.models.ChatMessage
-import sdk.chat.messenger.models.User
 import java.util.*
 import kotlin.collections.HashMap
 

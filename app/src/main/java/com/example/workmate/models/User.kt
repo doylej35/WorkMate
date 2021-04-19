@@ -1,5 +1,4 @@
-package sdk.chat.messenger.models
-
+package com.example.workmate.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

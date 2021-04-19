@@ -2,20 +2,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="Theme.WorkMate1" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
+    <style name="Theme.WorkMateMessaging" parent="Theme.AppCompat.DayNight">
 
         <!-- Primary brand color. -->
         <item name="colorPrimary">#68D9F9</item>
-
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-
+        <item name="colorPrimaryVariant">@color/cardview_dark_background</item>
         <item name="colorOnPrimary">@color/white</item>
-
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
-
         <item name="colorSecondaryVariant">@color/teal_700</item>
-
         <item name="colorOnSecondary">@color/black</item>
 
         <!-- Status bar color. -->
@@ -24,6 +19,5 @@
         <!-- Customize your theme here. -->
 
     </style>
-
 
 </resources>

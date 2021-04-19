@@ -1,4 +1,4 @@
-package sdk.chat.messenger
+package com.example.workmate.messages
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmate.R
+import com.example.workmate.models.User
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -17,9 +18,6 @@ import com.xwray.groupie.Item
 
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.android.synthetic.main.user_row_new_message.view.*
-import sdk.chat.messenger.messages.ChatLogActivity
-import sdk.chat.messenger.models.User
-
 
 class NewMessageActivity : AppCompatActivity() {
 

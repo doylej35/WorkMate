@@ -1,4 +1,4 @@
-package sdk.chat.messenger.messages
+package com.example.workmate.messages
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,10 +15,9 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_log.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
-import sdk.chat.messenger.NewMessageActivity
 import com.example.workmate.R
-import sdk.chat.messenger.models.ChatMessage
-import sdk.chat.messenger.models.User
+import com.example.workmate.models.ChatMessage
+import com.example.workmate.models.User
 
 class ChatLogActivity : AppCompatActivity() {
 

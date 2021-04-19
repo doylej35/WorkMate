@@ -8,8 +8,8 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.latest_message_row.view.*
 import com.example.workmate.R
-import sdk.chat.messenger.models.ChatMessage
-import sdk.chat.messenger.models.User
+import com.example.workmate.models.ChatMessage
+import com.example.workmate.models.User
 
 class LatestMessageRow(val chatMessage: ChatMessage): Item<ViewHolder>() {
     var chatPartnerUser: User?= null
