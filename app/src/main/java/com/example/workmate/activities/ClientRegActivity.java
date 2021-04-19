@@ -1,7 +1,13 @@
 package com.example.workmate.activities;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -11,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.example.workmate.database.DatabaseHelper;
 import com.example.workmate.R;
@@ -138,8 +145,29 @@ public class ClientRegActivity extends AppCompatActivity {
 
                             reference = FirebaseDatabase.getInstance().getReference("users").child(userid);
 
+                            int REQUEST_LOCATION = 1;
+
+                            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+                            if (ActivityCompat.checkSelfPermission(ClientRegActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ClientRegActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(ClientRegActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                                return;
+                            }
+
+                            ActivityCompat.requestPermissions(ClientRegActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+                            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                            //if (locationGPS != null) {
+                            double lat = locationGPS.getLatitude();
+                            double longi = locationGPS.getLongitude();
+                            String latitude = String.format("%.1f",lat);
+                            String longitude = String.format("%.1f",longi); //2 decimal places
+                            Log.d("LOCATION", latitude + " " + longitude);
+                            //Toast.makeText(ClientRegActivity.this, "Location: " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
+
                             ClientModel clientModel = new ClientModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                    Phone.getText().toString(), email,  Addr1.getText().toString(), "a", "a");
+                                    Phone.getText().toString(), email,  Addr1.getText().toString(), latitude, longitude);
                             DatabaseHelper databaseHelper = new DatabaseHelper(ClientRegActivity.this);
                             boolean success = databaseHelper.addClient(clientModel, true);
 

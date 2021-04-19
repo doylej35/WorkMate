@@ -35,8 +35,9 @@ public class SupplierModel {
         SupplierLongitude = supplierLongitude;
     }
 
-    //public SupplierModel() {
-    //}
+    public SupplierModel() {
+
+    }
 
     //toString for printing data
     @Override

@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.workmate.database.DatabaseHelper;
 import com.example.workmate.R;
 import com.example.workmate.activities.MainActivity;
+import com.example.workmate.models.ClientModel;
 import com.example.workmate.models.RVAdapter;
 import com.example.workmate.models.SupplierModel;
 
@@ -35,6 +36,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class SearchFragment extends Fragment {
@@ -51,6 +53,9 @@ public class SearchFragment extends Fragment {
     private String searchInput;
     private String spinnerInput;
 
+    private String inputLat;
+    private String inputLon;
+
     public static SearchFragment newInstance(String text){
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
@@ -63,62 +68,165 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_search,  container, false);
 
-        SearchView search = v.findViewById(R.id.search);
-        Spinner spinner = v.findViewById(R.id.spinner);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        Button button = v.findViewById(R.id.button2);
+        if (user == null){
+            Toast.makeText(getActivity(), "Please Login to View Personalised Search", Toast.LENGTH_LONG).show();
+        }else {
 
-        DatabaseHelper dbHelper = new DatabaseHelper(getActivity());
+            SearchView search = v.findViewById(R.id.search);
+            Spinner spinner = v.findViewById(R.id.spinner);
 
-        if (getArguments() != null) {
-            text = getArguments().getString("ARG_TEXT");
+            Button button = v.findViewById(R.id.button2);
 
-            Log.d("CREATION","TEXT = " + text);
+            DatabaseHelper dbHelper = new DatabaseHelper(getActivity());
 
-            switch (text) {
-                case ("You are searching for: General"):
-                    supplierModelArrayList = dbHelper.readSuppliers();
-                    break;
-                case ("You are searching for: Electricians"):
-                    supplierModelArrayList = dbHelper.searchService("electrician");
-                    break;
-                case ("You are searching for: Mechanics"):
-                    supplierModelArrayList = dbHelper.searchService("mechanic");
-                    break;
-                case ("You are searching for: Plumbers"):
-                    supplierModelArrayList = dbHelper.searchService("plumber");
-                    break;
-                case ("You are searching for: Gardeners"):
-                    supplierModelArrayList = dbHelper.searchService("gardener");
-                    break;
-            }
-        }else{
-            supplierModelArrayList = dbHelper.readSuppliers();
-        }
+            searchInput = search.getQuery().toString();
+            spinnerInput = spinner.getSelectedItem().toString();
 
-        Toast.makeText(getActivity(),text, Toast.LENGTH_SHORT).show();
+            List<Double> distance = new ArrayList<>();
+            ArrayList<SupplierModel> sortedList = new ArrayList<>();
+            String email = user.getEmail();
+            ClientModel client = dbHelper.searchClient(email);
 
-        Toast.makeText(getActivity(),text, Toast.LENGTH_SHORT).show();
+            if (getArguments() != null) {
+                text = getArguments().getString("ARG_TEXT");
 
-        button.setOnClickListener(task -> {
-            if (search.toString().equals("")){
+                Log.d("CREATION", "TEXT = " + text);
+
+
+                switch (text) {
+                    case ("You are searching for: General"):
+                        supplierModelArrayList = dbHelper.readSuppliers();
+                        break;
+                    case ("You are searching for: Electricians"):
+                        supplierModelArrayList = dbHelper.searchService("electrician");
+                        break;
+                    case ("You are searching for: Mechanics"):
+                        supplierModelArrayList = dbHelper.searchService("mechanic");
+                        break;
+                    case ("You are searching for: Plumbers"):
+                        supplierModelArrayList = dbHelper.searchService("plumber");
+                        break;
+                    case ("You are searching for: Gardeners"):
+                        supplierModelArrayList = dbHelper.searchService("gardener");
+                        break;
+                }
+
+            } else {
                 supplierModelArrayList = dbHelper.readSuppliers();
             }
-            else{
-                searchInput = search.getQuery().toString();
-                spinnerInput = spinner.getSelectedItem().toString();
-                supplierModelArrayList = dbHelper.searchServiceFilter(searchInput, spinnerInput);
-                rvAdapter = new RVAdapter(supplierModelArrayList, getActivity());
-                suppliersRV = v.findViewById(R.id.idRVSuppliers);
 
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
-                suppliersRV.setLayoutManager(linearLayoutManager);
+            rvAdapter = new RVAdapter(supplierModelArrayList, getActivity());
+            suppliersRV = v.findViewById(R.id.idRVSuppliers);
 
-                suppliersRV.setAdapter(rvAdapter);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+            suppliersRV.setLayoutManager(linearLayoutManager);
+
+            suppliersRV.setAdapter(rvAdapter);
+
+            Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+
+            if(dbHelper.searchClient(email) == null){
+                Log.d("CLIENT TEST", "SUPPLIER PRESENT, DISPLAY NON-PERSONALIZED SEARCH");
+
+                button.setOnClickListener(task -> {
+
+                    searchInput = search.getQuery().toString();
+                    spinnerInput = spinner.getSelectedItem().toString();
+
+                    if (searchInput.equals("")) {
+                        supplierModelArrayList = dbHelper.readSuppliers();
+
+                        rvAdapter = new RVAdapter(supplierModelArrayList, getActivity());
+                        suppliersRV = v.findViewById(R.id.idRVSuppliers);
+
+                        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+                        suppliersRV.setLayoutManager(linearLayoutManager);
+
+                        suppliersRV.setAdapter(rvAdapter);
+
+                        Toast.makeText(getActivity(), "SUPPLIER NOT SORTED", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        supplierModelArrayList = dbHelper.searchServiceFilter(searchInput, spinnerInput);
+
+                        rvAdapter = new RVAdapter(supplierModelArrayList, getActivity());
+                        suppliersRV = v.findViewById(R.id.idRVSuppliers);
+
+                        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+                        suppliersRV.setLayoutManager(linearLayoutManager);
+
+                        suppliersRV.setAdapter(rvAdapter);
+                        Toast.makeText(getActivity(), "SUPPLIER SORTED", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }else{
+
+                //searchInput = search.getQuery().toString();
+                //spinnerInput = spinner.getSelectedItem().toString();
+
+                button.setOnClickListener(task -> {
+
+                    searchInput = search.getQuery().toString();
+                    spinnerInput = spinner.getSelectedItem().toString();
+
+                    if (searchInput.equals("")) {
+                        supplierModelArrayList = dbHelper.readSuppliers();
+
+                        rvAdapter = new RVAdapter(supplierModelArrayList, getActivity());
+                        suppliersRV = v.findViewById(R.id.idRVSuppliers);
+
+                        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+                        suppliersRV.setLayoutManager(linearLayoutManager);
+
+                        suppliersRV.setAdapter(rvAdapter);
+
+                        for(int i = 0; i < supplierModelArrayList.size(); i++){
+                            String La = supplierModelArrayList.get(i).getSupplierLatitude();
+                            String Lo = supplierModelArrayList.get(i).getSupplierLongitude();
+                            String na = supplierModelArrayList.get(i).getSupplierFname();
+
+                            Log.d("PERSON ATTRS", i + ". " + na + " " + La + " " + Lo);
+                        }
+
+                        Toast.makeText(getActivity(), "CLIENT NOT SORTED", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        String inputLat = client.getClientLatitude();
+                        String inputLon = client.getClientLongitude();
+
+                        List<Double> dist = new ArrayList<>();
+                        ArrayList<SupplierModel> sortList = new ArrayList<>();
+
+                        supplierModelArrayList = dbHelper.searchServiceFilter(searchInput, spinnerInput);
+
+                        Log.d("NULL STUFF", inputLat + " " + inputLon);
+
+                        dist = dbHelper.distance(inputLat, inputLon, supplierModelArrayList);
+                        sortList = dbHelper.sortF(supplierModelArrayList, dist);
+
+                        Log.d("SORTING", dist.toString() + " " + sortList.toString());
+
+                        rvAdapter = new RVAdapter(sortList, getActivity());
+                        suppliersRV = v.findViewById(R.id.idRVSuppliers);
+
+                        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+                        suppliersRV.setLayoutManager(linearLayoutManager);
+
+                        suppliersRV.setAdapter(rvAdapter);
+
+                        Toast.makeText(getActivity(), "CLIENT SORTED", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-        });
+        }
+        return v;
+    }
+}
 
-        //TESTING Sort Function
+  /*//TESTING Sort Function
         List<Integer> list = new ArrayList<Integer>();
         list.add(20);
         list.add(10);
@@ -152,19 +260,5 @@ public class SearchFragment extends Fragment {
                 Log.d("TESTING", "NO ERRORS DETECTED IN TESTING: Name1 ->" + name1 + " Name2 -> " + name2 + " Name1 After ->" +name1after + " Name2 After ->" + name2after);
             }
             Log.d("FINISHED TESTING", NewList.toString());
-        }
-
-
-        rvAdapter = new RVAdapter(NewList, getActivity());
-        suppliersRV = v.findViewById(R.id.idRVSuppliers);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
-        suppliersRV.setLayoutManager(linearLayoutManager);
-
-        suppliersRV.setAdapter(rvAdapter);
-
-        return v;
-    }
-}
-
+        }*/
 

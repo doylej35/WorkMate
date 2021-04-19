@@ -1,8 +1,14 @@
 package com.example.workmate.activities;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.example.workmate.database.DatabaseHelper;
 import com.example.workmate.R;
@@ -126,6 +133,13 @@ public class ServiceRegActivity extends AppCompatActivity {
                     //no first name
                     Fname.setError("Please enter Name");
                 }
+                else if (spinner.getSelectedItem().toString().equals("Select a service...")) {
+                    //Service Empty
+                    TextView errorText = (TextView)spinner.getSelectedView();
+                    errorText.setError("Choose a Service");
+                    errorText.setTextColor(Color.RED);
+                    errorText.setText("Choose a Service");
+                }
                 else if (Lname.length() == 0){
                     //if no last name
                     Lname.setError("Please enter Name");
@@ -192,8 +206,29 @@ public class ServiceRegActivity extends AppCompatActivity {
 
                             reference = FirebaseDatabase.getInstance().getReference("users").child(userid);
 
+                            int REQUEST_LOCATION = 1;
+
+                            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+                            if (ActivityCompat.checkSelfPermission(ServiceRegActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ServiceRegActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(ServiceRegActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                                return;
+                            }
+
+                            ActivityCompat.requestPermissions(ServiceRegActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+                            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                            //if (locationGPS != null) {
+                            double lat = locationGPS.getLatitude();
+                            double longi = locationGPS.getLongitude();
+                            String latitude = String.format("%.1f",lat);
+                            String longitude = String.format("%.1f",longi); //2 decimal places
+                            Log.d("LOCATION", latitude + " " + longitude);
+                            Toast.makeText(ServiceRegActivity.this, "Location: " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
+
                             SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                    Phone.getText().toString(), email, Addr1.getText().toString(), Prof,0, "null", "null");
+                                    Phone.getText().toString(), email, Addr1.getText().toString(), Prof,0, latitude, longitude);
                             DatabaseHelper databaseHelper = new DatabaseHelper(ServiceRegActivity.this);
                             boolean success = databaseHelper.addSupplier(supplierModel, true);
 

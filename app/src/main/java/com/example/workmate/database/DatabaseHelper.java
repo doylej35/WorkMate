@@ -448,7 +448,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_CLIENT_PHONE, phone);
 
         db.update(TABLE_CLIENT, contentValues, "CLIENT_EMAIL=?", new String[]{user});
-
     }
 
     public void updateSupplier(String user, String fname, String lname, String addr, String phone){
@@ -494,10 +493,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<SupplierModel> sortF(ArrayList<SupplierModel> Input, List<Integer> distance){
+    public ArrayList<SupplierModel> sortF(ArrayList<SupplierModel> Input, List<Double> distance){
         ArrayList<SupplierModel> sorted = new ArrayList<>();
 
-        int min = 9999;
+        double min = 9999;
         int min_index = 999;
 
         for(int i = 0; i < Input.size(); i++ ) {
@@ -510,9 +509,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             sorted.add(Input.get(min_index));
             Log.d("SORTING",sorted.toString());
-            distance.set(min_index,99999);      //set distance very high
+            distance.set(min_index,999.99);      //set distance very high
             min = 999;
         }
         return sorted;
+    }
+
+    //Takes in Client co-ordinates and Supplier List and computes distance from client to each supplier
+    //returns array of distance at each index in supplier list
+    public static List<Double> distance(String inLat, String inLon, ArrayList<SupplierModel> list) {
+        List<Double> distance = new ArrayList<>();
+        Log.d("DISTANCE", "IN DISTANCE FUNCTION" + inLat + inLon);
+        double fromLat = Double.parseDouble(inLat);
+        Log.d("DISTANCE LAT", String.valueOf(fromLat));
+        double fromLon = Double.parseDouble(inLon);
+        Log.d("DISTANCE LON", String.valueOf(fromLon));
+        for(int i = 0; i < list.size(); i ++) {
+            String Lat = list.get(i).getSupplierLatitude();
+            String Lon = list.get(i).getSupplierLongitude();
+
+            double toLat = Double.parseDouble(Lat);
+            double toLon = Double.parseDouble(Lon);
+
+            double radius = 6378137;   // approximate Earth radius, *in meters*
+            double deltaLat = toLat - fromLat;
+            double deltaLon = toLon - fromLon;
+            double angle = 2 * Math.asin(Math.sqrt(
+                    Math.pow(Math.sin(deltaLat / 2), 2) +
+                            Math.cos(fromLat) * Math.cos(toLat) *
+                                    Math.pow(Math.sin(deltaLon / 2), 2)));
+            double dist = radius * angle;
+            distance.add(dist);
+        }
+        return distance;
     }
 }
