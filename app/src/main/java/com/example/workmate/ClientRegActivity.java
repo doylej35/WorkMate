@@ -1,18 +1,34 @@
 package com.example.workmate;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import android.location.LocationManager;
+import android.location.Location;
+
+import android.net.wifi.WifiManager;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
+//import com.maxmind.geoip.Location;
+//import com.maxmind.geoip.LookupService;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.util.Objects;
 
 public class ClientRegActivity extends AppCompatActivity {
@@ -33,14 +49,57 @@ public class ClientRegActivity extends AppCompatActivity {
         final EditText Email1 = findViewById(R.id.etEmail1);
         final EditText Email2 = findViewById(R.id.etEmail2);
         final EditText Addr1 = findViewById(R.id.etAddress1);
-        final EditText Phone =  findViewById(R.id.etPhone);
+        final EditText Phone = findViewById(R.id.etPhone);
         final EditText Pass1 = findViewById(R.id.etPassword1);
         final EditText Pass2 = findViewById(R.id.etPassword2);
 
-
-
         Button button =  findViewById(R.id.button);                     //register button
         final CheckBox Cons =  findViewById(R.id.cbTermsOfServices);
+
+
+        /*String current = null;
+        try {
+            current = new File( "...../assets/GeoLite" ).getCanonicalPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("PWD","Current dir: "+current);
+
+        LookupService cl = null;
+        try {
+            cl = new LookupService("...../assets/GeoLite/GeoLiteCity.tar",
+                    LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE);
+            //Location location = cl.getLocation("some ip address");
+            Log.d("LOCATION", cl.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        int REQUEST_LOCATION = 1;
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+            return;
+        }
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        //if (locationGPS != null) {
+        double lat = locationGPS.getLatitude();
+        double longi = locationGPS.getLongitude();
+        Toast.makeText(ClientRegActivity.this, "Location: " + lat + " " + longi, Toast.LENGTH_LONG).show();
+        Log.d("LOCATION", lat + " " + longi);
+        //}
 
         button.setOnClickListener(v -> {        //if register button pressed
             if (Fname.length() == 0  ){         //if nothing input ...
@@ -94,7 +153,7 @@ public class ClientRegActivity extends AppCompatActivity {
                         Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
 
                         //add the person to the client table of the database
-                        ClientModel clientModel = new ClientModel(0, fname, lname, phone, email, addr1, "null", "null");
+                        ClientModel clientModel = new ClientModel(0, fname, lname, phone, email, addr1, String.valueOf(lat), String.valueOf(longi));
 
                         DatabaseHelper databaseHelper = new DatabaseHelper(ClientRegActivity.this);
 
