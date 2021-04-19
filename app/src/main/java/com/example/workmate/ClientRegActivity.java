@@ -97,8 +97,10 @@ public class ClientRegActivity extends AppCompatActivity {
         //if (locationGPS != null) {
         double lat = locationGPS.getLatitude();
         double longi = locationGPS.getLongitude();
-        Toast.makeText(ClientRegActivity.this, "Location: " + lat + " " + longi, Toast.LENGTH_LONG).show();
-        Log.d("LOCATION", lat + " " + longi);
+        String latitude = String.format("%.1f",lat);
+        String longitude = String.format("%.1f",longi); //2 decimal places
+        Log.d("LOCATION", latitude + " " + longitude);
+        Toast.makeText(ClientRegActivity.this, "Location: " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
         //}
 
         button.setOnClickListener(v -> {        //if register button pressed
@@ -157,8 +159,8 @@ public class ClientRegActivity extends AppCompatActivity {
                         clientModel.setClientPhone(phone);
                         clientModel.setClientEmail(email);
                         clientModel.setClientAddr(addr1);
-                        clientModel.setClientLatitude("null");
-                        clientModel.setClientLongitude("null");
+                        clientModel.setClientLatitude(latitude);
+                        clientModel.setClientLongitude(longitude);
 
                 //attempt to create a new user
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
@@ -167,7 +169,7 @@ public class ClientRegActivity extends AppCompatActivity {
                         Toast.makeText(ClientRegActivity.this, "User Created", Toast.LENGTH_SHORT).show();
 
                         //add the person to the client table of the database
-                        ClientModel clientModel = new ClientModel(0, fname, lname, phone, email, addr1, String.valueOf(lat), String.valueOf(longi));
+                        //ClientModel clientModel = new ClientModel(0, fname, lname, phone, email, addr1, String.valueOf(lat), String.valueOf(longi));
 
                         DatabaseHelper databaseHelper = new DatabaseHelper(ClientRegActivity.this);
 

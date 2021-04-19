@@ -1,7 +1,12 @@
 package com.example.workmate;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -92,6 +98,33 @@ public class ServiceRegActivity extends AppCompatActivity {
             }
         });
 
+        int REQUEST_LOCATION = 1;
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+            return;
+        }
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        //if (locationGPS != null) {
+        double lat = locationGPS.getLatitude();
+        double longi = locationGPS.getLongitude();
+        String latitude = String.format("%.1f",lat);
+        String longitude = String.format("%.1f",longi); //2 decimal places
+        Log.d("LOCATION", latitude + " " + longitude);
+        Toast.makeText(ServiceRegActivity.this, "Location: " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
+
         Button button = findViewById(R.id.button);
 
         button.setOnClickListener(v -> {
@@ -160,7 +193,7 @@ public class ServiceRegActivity extends AppCompatActivity {
 
                 //add the person to the supplier table of the database
                 SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                        Phone.getText().toString(), email,  Addr1.getText().toString(), Prof, 0, "null", "null");
+                        Phone.getText().toString(), email,  Addr1.getText().toString(), Prof, 0, latitude, longitude);
 
                 Log.d("Supplier model", supplierModel.toString());
 
