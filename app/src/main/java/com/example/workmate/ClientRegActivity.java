@@ -145,9 +145,9 @@ public class ClientRegActivity extends AppCompatActivity {
                             boolean success = databaseHelper.addClient(clientModel);
 
                             HashMap<String, String> hashMap = new HashMap<>();
-                            hashMap.put("iud", userid);
+                            hashMap.put("uid", userid);
                             hashMap.put("username", username);
-                            hashMap.put("profileImageURL", "default");
+                            hashMap.put("profileImageUrl", "https://firebasestorage.googleapis.com/v0/b/messenger-workmate.appspot.com/o/images%2Fc39e4dd9-1ade-458b-805b-9fd9ba7c0c26?alt=media&token=f77121f1-91e5-431d-b538-6db3929e7ebf");
 
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

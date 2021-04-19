@@ -18,14 +18,13 @@ import com.google.firebase.database.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_latest_messages.*
-import java.util.*
 import kotlin.collections.HashMap
 
 class LatestMessagesActivity : AppCompatActivity() {
 
     companion object{
         var currentUser: User? = null
-        val TAG="LatestMessages"
+        const val TAG="LatestMessages"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
