@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.workmate.database.DatabaseHelper;
+import com.example.workmate.R;
+import com.example.workmate.models.SupplierModel;
+import com.example.workmate.models.ClientModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

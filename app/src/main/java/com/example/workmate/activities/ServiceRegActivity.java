@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,6 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.workmate.database.DatabaseHelper;
+import com.example.workmate.R;
+import com.example.workmate.models.SupplierModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

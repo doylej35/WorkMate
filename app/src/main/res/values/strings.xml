@@ -60,7 +60,6 @@
 
     <!--<string name="forgot_password">Forgot Password</string>-->
     <string name="Avatar">Avatar</string>
-    <string name="edit_profile">Edit Profile</string>
     <string name="forgotten_password">Forgotten your password?</string>
     <string name="drawer_search">Search</string>
     <string name="forgot_password">forgot_password</string>
@@ -78,6 +77,13 @@
     <string name="hello_world">Hello Square World!</string>
     <string name="google">google</string>
     <string name="new_message">New Message</string>
-
-
+    <string name="background">background</string>
+    <string name="message_from">This is my message that will wrap into multiple lines and keep on going</string>
+    <string name="latest_message">Latest Message</string>
+    <string name="username">username</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="send">Send</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="edit_profile">Edit Profile</string>
+    
 </resources>

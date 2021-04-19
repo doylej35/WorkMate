@@ -1,4 +1,4 @@
-package com.example.workmate.messages
+package com.example.workmate.activities
 
 import LatestMessageRow
 import android.content.Intent
@@ -9,8 +9,9 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.workmate.MainActivity
 import com.example.workmate.R
+import com.example.workmate.messages.ChatLogActivity
+import com.example.workmate.messages.NewMessageActivity
 import com.example.workmate.models.ChatMessage
 import com.example.workmate.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -105,7 +106,7 @@ class LatestMessagesActivity : AppCompatActivity() {
         val ref= FirebaseDatabase.getInstance().getReference("/users/$uid")
         ref.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                currentUser= p0.getValue(User::class.java)
+                currentUser = p0.getValue(User::class.java)
                 Log.d("LatestMessages", "Current User ${currentUser?.username}")
             }
             override fun onCancelled(p0: DatabaseError) {

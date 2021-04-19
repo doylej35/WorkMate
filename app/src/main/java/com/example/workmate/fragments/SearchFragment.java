@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.workmate.database.DatabaseHelper;
+import com.example.workmate.R;
+import com.example.workmate.activities.MainActivity;
+import com.example.workmate.models.RVAdapter;
+import com.example.workmate.models.SupplierModel;
 
 import java.util.ArrayList;
 

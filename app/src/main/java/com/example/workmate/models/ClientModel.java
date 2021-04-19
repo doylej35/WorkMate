@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.models;
 
 
 //this class defines the data type client, lists its data, and provides constructors, a print function, and getters and setters

@@ -1,10 +1,9 @@
-package com.example.workmate.Activities
+package com.example.workmate.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.example.workmate.MainActivity
 import com.example.workmate.R
 
 @Suppress("DEPRECATION")

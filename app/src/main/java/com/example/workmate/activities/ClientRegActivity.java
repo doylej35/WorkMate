@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.workmate.ClientModel;
-import com.example.workmate.DatabaseHelper;
-import com.example.workmate.MainActivity;
+import com.example.workmate.database.DatabaseHelper;
 import com.example.workmate.R;
+import com.example.workmate.models.ClientModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

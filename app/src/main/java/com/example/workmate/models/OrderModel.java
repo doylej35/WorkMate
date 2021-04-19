@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.models;
 
 
 public class OrderModel {

@@ -1,4 +1,4 @@
-package com.example.workmate;
+package com.example.workmate.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,12 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.workmate.database.DatabaseHelper;
+import com.example.workmate.Login;
+import com.example.workmate.R;
+import com.example.workmate.models.SupplierModel;
+import com.example.workmate.models.ClientModel;
+import com.example.workmate.activities.EditProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

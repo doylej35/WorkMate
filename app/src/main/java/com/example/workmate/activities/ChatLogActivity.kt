@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_chat_log.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
 import com.example.workmate.R
+import com.example.workmate.activities.LatestMessagesActivity
 import com.example.workmate.models.ChatMessage
 import com.example.workmate.models.User
 

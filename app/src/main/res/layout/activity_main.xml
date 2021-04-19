@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,7 +16,8 @@
             android:src="@drawable/backcircle1"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:contentDescription="@string/background" />
         <View
             android:layout_weight="1"
             android:layout_width="match_parent"

@@ -8,7 +8,7 @@
     android:fadingEdge="horizontal|vertical"
     android:fadingEdgeLength="100dp"
     android:requiresFadingEdge="horizontal|vertical"
-    tools:context=".Activities.SplashActivity">
+    tools:context=".activities.SplashActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -22,6 +22,7 @@
         android:padding="1dp"
         android:scaleType="centerCrop"
         android:cropToPadding="true"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:contentDescription="@string/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
