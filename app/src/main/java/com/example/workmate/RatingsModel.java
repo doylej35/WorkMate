@@ -5,10 +5,11 @@ public class RatingsModel {
     private int RatingId;               //id reference number
     private String ClientEmail;        //person who left the review
     private String SupplierEmail;       //person the review is for
-    private int RatingNumber;           //number of stars
+    private float RatingNumber;           //number of stars
     private String RatingComment;       //the comment they leave for the rating
 
-    public RatingsModel(int RatingId, String clientEmail, String supplierEmail, int ratingNumber, String ratingComment) {
+    public RatingsModel(int ratingId, String clientEmail, String supplierEmail, float ratingNumber, String ratingComment) {
+        RatingId = ratingId;
         ClientEmail = clientEmail;
         SupplierEmail = supplierEmail;
         RatingNumber = ratingNumber;
@@ -50,11 +51,11 @@ public class RatingsModel {
         SupplierEmail = supplierEmail;
     }
 
-    public int getRatingNumber() {
+    public float getRatingNumber() {
         return RatingNumber;
     }
 
-    public void setRatingNumber(int ratingNumber) {
+    public void setRatingNumber(float ratingNumber) {
         RatingNumber = ratingNumber;
     }
 

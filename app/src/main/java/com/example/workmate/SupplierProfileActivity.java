@@ -13,7 +13,7 @@ public class SupplierProfileActivity extends AppCompatActivity {
     public final static String EMAIL ="com.example.message_key";
     private DatabaseHelper databaseHelper;
     String address1, phone, service ,fname, lname;
-    Button button;
+    Button RateUser, Viewrating;
 
 
     @Override
@@ -58,20 +58,21 @@ public class SupplierProfileActivity extends AppCompatActivity {
         textView = findViewById(R.id.SUPService);
         textView.setText(service);
 
-        /*mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SearchFragment fragment = SearchFragment.newInstance("You are searching for: General");
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
-                        fragment).commit();
-            }
-        });*/
+        RateUser = findViewById(R.id.SUPRating);
+        Viewrating = findViewById(R.id.SUPSeeRating);
 
-    }
+        Viewrating.setOnClickListener( v -> {
 
+            Intent intent1 = new Intent( this, ReviewView.class);
+            intent1.putExtra(EMAIL, email);
+            startActivity(intent1);  //changes page to main activity
+        });
 
-    public void openAct(){
-        Intent intent = new Intent( this, MainActivity.class);
-        startActivity(intent);  //changes page to main activity
+        RateUser.setOnClickListener( v -> {
+
+            Intent intent1 = new Intent( this, RateService.class);
+            intent1.putExtra(EMAIL, email);
+            startActivity(intent1);  //changes page to main activity
+        });
     }
 }

@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkMate">
 
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -24,6 +25,9 @@
         <activity
             android:name=".ServiceRegActivity"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ReviewView"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".RateService"
             android:parentActivityName=".MainActivity" />
