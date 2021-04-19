@@ -12,7 +12,14 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/workmate_logo_circle"
         android:supportsRtl="true">
+        <activity android:name=".Activities.SplashActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".EditProfileActivity" />
 
         <meta-data
@@ -25,53 +32,40 @@
         <activity
             android:name=".ServiceRegActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.WorkMate"/>
-
+            android:theme="@style/Theme.WorkMate" />
         <activity
             android:name=".ClientRegActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.WorkMate"/>
-
+            android:theme="@style/Theme.WorkMate" />
         <activity
             android:name=".OKHttpGET"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.WorkMate"/>
-
+            android:theme="@style/Theme.WorkMate" />
         <activity
             android:name=".OKHttpPOST"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.WorkMate"/>
-
+            android:theme="@style/Theme.WorkMate" />
         <activity
             android:name=".Login"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.WorkMate"/>
-
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.WorkMate">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name="sdk.chat.messenger.messages.LatestMessagesActivity"
+            android:theme="@style/Theme.WorkMate" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.WorkMate" />
+        <activity
+            android:name="sdk.chat.messenger.messages.LatestMessagesActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat" />
-
-        <activity android:name="sdk.chat.messenger.messages.ChatLogActivity"
-            android:theme="@style/Theme.AppCompat"/>
-
+        <activity
+            android:name="sdk.chat.messenger.messages.ChatLogActivity"
+            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name="sdk.chat.messenger.NewMessageActivity"
             android:parentActivityName="sdk.chat.messenger.messages.LatestMessagesActivity"
-            android:theme="@style/Theme.AppCompat"/>
-
-        <activity android:name="sdk.chat.messenger.registerlogin.RegisterActivity"
-            android:theme="@style/Theme.AppCompat"/>
-
-
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name="sdk.chat.messenger.registerlogin.RegisterActivity"
+            android:theme="@style/Theme.AppCompat" />
     </application>
 
 </manifest>
