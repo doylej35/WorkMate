@@ -99,6 +99,14 @@ public class ServiceRegActivity extends AppCompatActivity {
                 //no first name
                 Fname.setError("Please enter Name");
             }
+            else if (spinner.getSelectedItem().toString().equals("Select a service...")) {
+                //Service Empty
+                TextView errorText = (TextView)spinner.getSelectedView();
+                errorText.setError("Choose a Service");
+                errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                errorText.setText("Choose a Service");//changes the selected item text to this
+                //spinner.setError("Passwords don't match");
+            }
             else if (Lname.length() == 0){
                 //if no last name
                 Lname.setError("Please enter Name");
@@ -169,9 +177,7 @@ public class ServiceRegActivity extends AppCompatActivity {
 
             }
         });
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     //add in registration functions details

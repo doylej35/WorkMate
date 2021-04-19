@@ -2,6 +2,7 @@ package com.example.workmate;
 
 import android.content.Context;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -89,25 +92,16 @@ public class SearchFragment extends Fragment {
 
         Toast.makeText(getActivity(),text, Toast.LENGTH_SHORT).show();
 
-        Log.d("CREATION","TEXT = " + text);
-
         Toast.makeText(getActivity(),text, Toast.LENGTH_SHORT).show();
-
-        Log.d("CREATION","TEXT = " + text);
 
         button.setOnClickListener(task -> {
             if (search.toString().equals("")){
                 supplierModelArrayList = dbHelper.readSuppliers();
-                //search.setError("Please enter Name");
-                Log.d("CREATION","Empty Search");
             }
             else{
                 searchInput = search.getQuery().toString();
                 spinnerInput = spinner.getSelectedItem().toString();
-
-                Log.d("CREATION",searchInput + " " + spinnerInput);
                 supplierModelArrayList = dbHelper.searchServiceFilter(searchInput, spinnerInput);
-                Log.d("CREATION",supplierModelArrayList.toString());
                 rvAdapter = new RVAdapter(supplierModelArrayList, getActivity());
                 suppliersRV = v.findViewById(R.id.idRVSuppliers);
 
@@ -118,7 +112,44 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        rvAdapter = new RVAdapter(supplierModelArrayList, getActivity());
+        //TESTING Sort Function
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(20);
+        list.add(10);
+        ArrayList<SupplierModel> NewList = new ArrayList<>();
+        //Log.d("ENTER TEST", list.toString() + supplierModelArrayList.toString());
+        if(list.size() == supplierModelArrayList.size()) {
+
+            String name1 = supplierModelArrayList.get(0).getSupplierFname();
+            String name2 = supplierModelArrayList.get(1).getSupplierFname();
+            int dist1 = list.get(0);
+            int dist2 = list.get(1);
+
+            NewList = dbHelper.sortF(supplierModelArrayList, list);
+
+            String name1after = NewList.get(0).getSupplierFname();
+            String name2after = NewList.get(1).getSupplierFname();
+
+            if(dist1 > dist2 && name1.equals(name1after)){  //elements were not sorted properly by nearest distance
+                Log.d("TESTING", "Error in Test1: Name1 ->" + name1 + " Name2 -> " + name2 + " Name1 After ->" +name1after + " Name2 After ->" + name2after);
+            }
+            else if(dist1 > dist2 && name2.equals(name2after)){
+                Log.d("TESTING", "Error in Test2: Name1 ->" + name1 + " Name2 -> " + name2 + " Name1 After ->" +name1after + " Name2 After ->" + name2after);
+            }
+            else if(dist1 < dist2 && name1.equals(name2after)){
+                Log.d("TESTING", "Error in Test3: Name1 ->" + name1 + " Name2 -> " + name2 + " Name1 After ->" +name1after + " Name2 After ->" + name2after);
+            }
+            else if(dist1 < dist2 && name2.equals(name1after)){
+                Log.d("TESTING", "Error in Test4: Name1 ->" + name1 + " Name2 -> " + name2 + " Name1 After ->" +name1after + " Name2 After ->" + name2after);
+            }
+            else{
+                Log.d("TESTING", "NO ERRORS DETECTED IN TESTING: Name1 ->" + name1 + " Name2 -> " + name2 + " Name1 After ->" +name1after + " Name2 After ->" + name2after);
+            }
+            Log.d("FINISHED TESTING", NewList.toString());
+        }
+
+
+        rvAdapter = new RVAdapter(NewList, getActivity());
         suppliersRV = v.findViewById(R.id.idRVSuppliers);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
