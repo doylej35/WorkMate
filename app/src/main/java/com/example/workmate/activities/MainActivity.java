@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.workmate.Calendar;
 import com.example.workmate.database.DatabaseHelper;
 import com.example.workmate.fragments.HomeFragment;
 import com.example.workmate.fragments.LoginFragment;
@@ -43,7 +44,7 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
     private Menu menu;
     int option = 0;
 
-    @Override
+    @Override //Hello there Joey
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -127,6 +128,11 @@ public class MainActivity<stringTextView> extends AppCompatActivity implements N
             case R.id.nav_settings: //launch settings
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
                         new SettingsFragment()).commit();
+                break;
+
+            case R.id.nav_calender: //launch login
+                Intent i = new Intent(this, Calendar.class);
+                startActivity(i);
                 break;
 
             case R.id.nav_login: //launch login

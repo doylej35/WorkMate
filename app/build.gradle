@@ -68,6 +68,7 @@ dependencies {
     // define any required OkHttp artifacts without version
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -99,5 +100,6 @@ dependencies {
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

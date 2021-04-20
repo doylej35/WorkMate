@@ -42,7 +42,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class ServiceRegActivity extends AppCompatActivity {
+public class ServiceRegActivity extends AppCompatActivity{
+
+    public String latitude = "0.0";
+    public String longitude = "0.0";
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -219,13 +222,14 @@ public class ServiceRegActivity extends AppCompatActivity {
 
                             Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                            //if (locationGPS != null) {
-                            double lat = locationGPS.getLatitude();
-                            double longi = locationGPS.getLongitude();
-                            String latitude = String.format("%.1f",lat);
-                            String longitude = String.format("%.1f",longi); //2 decimal places
+                            if (locationGPS != null) {
+                                double lat = locationGPS.getLatitude();
+                                double longi = locationGPS.getLongitude();
+                                latitude = String.format("%.1f", lat);
+                                longitude = String.format("%.1f", longi); //2 decimal places
+                                //Toast.makeText(ClientRegActivity.this, "Location: " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
+                            }
                             Log.d("LOCATION", latitude + " " + longitude);
-                            Toast.makeText(ServiceRegActivity.this, "Location: " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
 
                             SupplierModel supplierModel = new SupplierModel(-1, Fname.getText().toString(), Lname.getText().toString(),
                                     Phone.getText().toString(), email, Addr1.getText().toString(), Prof,0, latitude, longitude);

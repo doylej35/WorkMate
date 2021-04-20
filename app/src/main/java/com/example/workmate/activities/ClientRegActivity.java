@@ -35,6 +35,9 @@ import java.util.Objects;
 
 public class ClientRegActivity extends AppCompatActivity {
 
+    public String latitude = "0.0";
+    public String longitude = "0.0";
+
     FirebaseAuth auth;
     DatabaseReference reference;
 
@@ -139,11 +142,14 @@ public class ClientRegActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            Log.d("BLA BLA", "TASK SUCCESSFUL");
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             assert firebaseUser != null;
                             String userid = firebaseUser.getUid();
 
                             reference = FirebaseDatabase.getInstance().getReference("users").child(userid);
+
+                            Log.d("BLA BLA", "JUST ABOVE LOCATION");
 
                             int REQUEST_LOCATION = 1;
 
@@ -157,17 +163,16 @@ public class ClientRegActivity extends AppCompatActivity {
                             ActivityCompat.requestPermissions(ClientRegActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
                             Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-                            //if (locationGPS != null) {
-                            double lat = locationGPS.getLatitude();
-                            double longi = locationGPS.getLongitude();
-                            String latitude = String.format("%.1f",lat);
-                            String longitude = String.format("%.1f",longi); //2 decimal places
+                            if (locationGPS != null) {
+                                double lat = locationGPS.getLatitude();
+                                double longi = locationGPS.getLongitude();
+                                latitude = String.format("%.1f", lat);
+                                longitude = String.format("%.1f", longi); //2 decimal places
+                                //Toast.makeText(ClientRegActivity.this, "Location: " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
+                            }
                             Log.d("LOCATION", latitude + " " + longitude);
-                            //Toast.makeText(ClientRegActivity.this, "Location: " + latitude + " " + longitude, Toast.LENGTH_LONG).show();
-
                             ClientModel clientModel = new ClientModel(-1, Fname.getText().toString(), Lname.getText().toString(),
-                                    Phone.getText().toString(), email,  Addr1.getText().toString(), latitude, longitude);
+                                    Phone.getText().toString(), email,  Addr1.getText().toString(), latitude, longitude);//atitude, longitude);
                             DatabaseHelper databaseHelper = new DatabaseHelper(ClientRegActivity.this);
                             boolean success = databaseHelper.addClient(clientModel, true);
 

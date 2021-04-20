@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_RATING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_CLIENT_EMAIL + " TEXT, " +
             COLUMN_SUPPLIER_EMAIL + " TEXT, " +
-            COLUMN_RATING_NUMBER + " INTEGER, " +
+            COLUMN_RATING_NUMBER + " FLOAT, " +
             COLUMN_RATING_COMMENT + " TEXT)";
 
     //create table for order
@@ -151,7 +151,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //adding order inputs
         ContentValues cvRating = new ContentValues();
-        cvRating.put(COLUMN_RATING_ID, ratingsModel.getRatingId());
+        //cvRating.put(COLUMN_RATING_ID, ratingsModel.getRatingId());
         cvRating.put(COLUMN_CLIENT_EMAIL, ratingsModel.getClientEmail());
         cvRating.put(COLUMN_SUPPLIER_EMAIL, ratingsModel.getSupplierEmail());
         cvRating.put(COLUMN_RATING_NUMBER, ratingsModel.getRatingNumber());
@@ -341,6 +341,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public ArrayList<RatingsModel> searchRating(String input){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorRatings = db.rawQuery("SELECT * FROM " + TABLE_RATING + " WHERE " + COLUMN_SUPPLIER_EMAIL + " LIKE " + "'" + input + "'",null);
+        ArrayList<RatingsModel> RatingsModelArrayList = new ArrayList<>();
+
+        //shows all of the stored data about the suppliers (I hope) will be edited later
+        if(cursorRatings.moveToFirst()){
+            do {
+                RatingsModelArrayList.add(new RatingsModel(cursorRatings.getInt(0),
+                        cursorRatings.getString(1),
+                        cursorRatings.getString(2),
+                        cursorRatings.getFloat(3),
+                        cursorRatings.getString(4)));
+            }while(cursorRatings.moveToNext());
+        }
+
+        cursorRatings.close();
+        return RatingsModelArrayList;
+    }
+
+
     public OrderModel searchOrder(int input) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -376,7 +397,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(search.moveToFirst()) {
             do {
                 rating = new RatingsModel(search.getInt(0), search.getString(1), search.getString(2),
-                        search.getInt(3), search.getString(4));
+                        search.getFloat(3), search.getString(4));
             } while (search.moveToNext());
         }else {
             Log.d("CREATION", "Rating not found");
@@ -543,4 +564,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return distance;
     }
+
 }

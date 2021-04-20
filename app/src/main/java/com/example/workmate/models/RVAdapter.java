@@ -1,6 +1,7 @@
 package com.example.workmate.models;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workmate.R;
+import com.example.workmate.SupplierProfileActivity;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     private final Context context;
     // variable for our array list and context
     private ArrayList<SupplierModel> supplierModelArrayList;
+
+    public final static String EMAIL ="com.example.message_key";
 
     // constructor
     public RVAdapter(ArrayList<SupplierModel> supplierModelArrayList, Context context) {
@@ -48,6 +52,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         holder.LNameTV.setText(modal.getSupplierLname());
         holder.AddressTV.setText(modal.getSupplierAddr());
         holder.PhoneTV.setText(modal.getSupplierPhone());
+        holder.ServiceTV.setText(modal.getSupplierService());
+        String email = modal.getSupplierEmail();
+
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +63,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
                 Toast.makeText(context, "Clicked User : " + supplierModelArrayList.get(position).getSupplierFname() + " " +
                         supplierModelArrayList.get(position).getSupplierLname(), Toast.LENGTH_SHORT).show();
                 Log.d("CREATION", "Click!");
+
+                Intent intent = new Intent(v.getContext(), SupplierProfileActivity.class);
+                intent.putExtra(EMAIL, email);
+                context.startActivity(intent);
             }
         });
     }
@@ -68,7 +80,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         // creating variables for our text views.
-        private TextView NameTV, LNameTV, AddressTV, PhoneTV;
+
+        private TextView NameTV, LNameTV, AddressTV, PhoneTV, ServiceTV;
+
         public LinearLayout lv;
 
         public ViewHolder(@NonNull View itemView) {
@@ -78,7 +92,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             LNameTV = itemView.findViewById(R.id.idTVLName);
             AddressTV = itemView.findViewById(R.id.idTVAddress);
             PhoneTV = itemView.findViewById(R.id.idTVPhone);
-
+            ServiceTV = itemView.findViewById(R.id.idTVService);
         }
     }
 }
+

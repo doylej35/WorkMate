@@ -1,6 +1,6 @@
 package com.example.workmate.models;
 
-//this defines a supplier class with its data, construtors, a print function, and getters and setters
+//this defines a supplier class with its data, constructors, a print function, and getters and setters
 //most of the warnings are about functions not being used.
 //*****need to figure out + fix the override warning*****
 //**fix the constructor to accept null values

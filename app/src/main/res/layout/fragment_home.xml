@@ -10,10 +10,11 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="sans-serif"
         android:text="@string/home_welcome"
-        android:textSize="30sp"
+        android:textColor="#ffffff"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,16 +24,19 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-thin"
+        android:layout_marginTop="84dp"
+        android:fontFamily="sans-serif"
         android:text="@string/home_prompt"
-        android:textSize="24sp"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/SearchMech"
         style="@style/Widget.AppCompat.Button"
+        android:background="@android:color/white"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -40,9 +44,10 @@
         android:layout_marginEnd="16dp"
         android:onClick="openSearch"
         android:text="@string/search_mech"
-        android:textColor="@color/black"
+        android:fontFamily="sans-serif"
         android:textColorHighlight="@color/black"
         android:textColorLink="#8F2828"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -50,6 +55,7 @@
     <Button
         android:id="@+id/SearchElec"
         style="@style/Widget.AppCompat.Button"
+        android:background="@android:color/white"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -57,6 +63,8 @@
         android:layout_marginEnd="16dp"
         android:onClick="openSearch"
         android:text="@string/search_elec"
+        android:fontFamily="sans-serif"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SearchMech" />
@@ -64,6 +72,7 @@
     <Button
         android:id="@+id/SearchPlum"
         style="@style/Widget.AppCompat.Button"
+        android:background="@android:color/white"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -71,6 +80,8 @@
         android:layout_marginEnd="16dp"
         android:onClick="openSearch"
         android:text="@string/search_plum"
+        android:fontFamily="sans-serif"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SearchElec" />
@@ -78,6 +89,7 @@
     <Button
         android:id="@+id/SearchGard"
         style="@style/Widget.AppCompat.Button"
+        android:background="@android:color/white"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -85,6 +97,8 @@
         android:layout_marginEnd="16dp"
         android:onClick="openSearch"
         android:text="@string/search_gard"
+        android:fontFamily="sans-serif"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SearchPlum" />

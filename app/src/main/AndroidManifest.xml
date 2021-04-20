@@ -4,8 +4,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -22,14 +25,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.EditProfileActivity" />
 
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".activities.EditProfileActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate"/>
 
         <activity
             android:name=".activities.ServiceRegActivity"
@@ -39,6 +46,22 @@
             android:name=".activities.ClientRegActivity"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/Theme.WorkMate" />
+        <activity
+            android:name=".ReviewView"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate"/>
+        <activity
+            android:name=".RateService"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate"/>
+        <activity
+            android:name=".SupplierProfileActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate"/>
+        <activity
+            android:name=".Calendar"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.WorkMate"/>
         <activity
             android:name=".database.OKHttpGET"
             android:parentActivityName=".activities.MainActivity"
