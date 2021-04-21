@@ -8,4 +8,4 @@
 3. Useful functionality such as geo-location, reviewal systems and messaging
 4. To finish it before the end of term lol
 
-![WorkMate Logo](https://github.com/doylej35/WorkMate/blob/search/app/src/main/assets/readmepics/WorkMateLogo.jpg?raw=true)
+![WorkMate Logo](https://github.com/doylej35/WorkMate/blob/master/app/src/main/assets/readmepics/WorkMateLogo.jpg?raw=true)
