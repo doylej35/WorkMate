@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,10 +43,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class ServiceRegActivity extends AppCompatActivity{
+public class ServiceRegActivity extends AppCompatActivity implements LocationListener {
 
     public String latitude = "0.0";
     public String longitude = "0.0";
+    public double lati = 0.0;
+    public double longit = 0.0;
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -258,5 +261,14 @@ public class ServiceRegActivity extends AppCompatActivity{
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        lati = location.getLatitude();
+        longit = location.getLongitude();
+
+        latitude = String.format("%.1f", lati);
+        longitude = String.format("%.1f", longit); //2 decimal places
     }
 }
